@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link"
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -40,12 +41,14 @@ export default function NavigationBar() {
         <div className="flex items-center justify-between flex-wrap gap-4">
           {/* Left - Logo/Brand */}
           <div className="flex items-center justify-start">
-            <a
-              href="/"
+            <Link
+              href={{
+                pathname: '/',
+              }}
               className="text-xl font-bold hover:text-primary transition-colors whitespace-nowrap"
             >
               Davis Ernst
-            </a>
+            </Link>
           </div>
 
           {/* Center - Desktop Navigation */}
