@@ -27,7 +27,7 @@ export default function NavigationBar() {
       <nav
         className="sticky top-0 w-full mx-auto
                       bg-background/50 backdrop-blur-md
-                      shadow-lg border-x-2 border-b-2 border-border/50
+                      shadow-lg border-b-2 border-border/50
                       px-6 py-4"
       >
         {" "}
