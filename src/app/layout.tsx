@@ -3,6 +3,7 @@ import { Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuroraBackground } from "@/components/ui/aurora-background";
+import NavigationBar from "@/components/NavigationBar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,6 +28,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <div id="/"></div>
+          <header className="sticky top-0 z-50">
+            <NavigationBar />
+          </header>
+
           <AuroraBackground className="h-auto min-h-screen">
             {children}
           </AuroraBackground>
