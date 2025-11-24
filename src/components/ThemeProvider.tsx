@@ -3,6 +3,10 @@
 import * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
+/**
+ * @param  - [TODO:description]
+ * @returns [TODO:return]
+ */
 export function ThemeProvider({
   children,
   ...props

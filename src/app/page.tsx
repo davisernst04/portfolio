@@ -1,12 +1,14 @@
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card"
-import { Github, Linkedin, Mail } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card";
+import { Github, Linkedin, Mail } from "lucide-react";
 
+/**
+ * @returns [TODO:return]
+ */
 export default function Home() {
   return (
     <div className="flex flex-col text-foreground">
-
       <main className="flex-grow">
         {/* Hero Section */}
         <section className="px-4 max-w-6xl mx-auto py-4 lg:py-10">
@@ -46,23 +48,51 @@ export default function Home() {
           </h1>
           <Card>
             <CardContent className="text-xl">
-              <p> I am a student at the University of Saskatchewan studying computer science. A career in software development is something that I am ambitous about. I enjoy learning about operating systems and low level programming as much as I also enjoy learning about app development. But beyond the actual code I am writing, the thing I enjoy most about this field of study is the required process of solving a problem. Any chance to peel back a layer of abstraction is something to look forward to. I hope I can lead a prosperous career and one that will genuinely help people along the way.</p>
-              <br />
               <p>
-                Outside of my career aspirations, I am a huge sports guy. I grew up playing all kinds of sports, from hockey to soccer, to basketball. Soccer is my favourite sport and I love playing soccer as much as I love just about anything. I also love to watch soccer and read about it too, so everything and anything soccer related I am 1000% in. Unfortunately, I have not been able to play for a while because of a ruptured achilles tendon I suffered when playing over the summer. I seriously look forward to being able to play again. In the mean time, I try to stay active in thegym. Exercise is something very important to me. I think the reason I am so into sports is the authenticty it generates. There is nothing more real than the art of competition and the stories that are crafted. Competition is where you will find the most authentic human expression.
+                {" "}
+                I am a student at the University of Saskatchewan studying
+                computer science. A career in software development is something
+                that I am ambitous about. I enjoy learning about operating
+                systems and low level programming as much as I also enjoy
+                learning about app development. But beyond the actual code I am
+                writing, the thing I enjoy most about this field of study is the
+                required process of solving a problem. Any chance to peel back a
+                layer of abstraction is something to look forward to. I hope I
+                can lead a prosperous career and one that will genuinely help
+                people along the way.
               </p>
               <br />
               <p>
-                I also really love watching movies. This was never really the case before I ruptured my achilles tendon but following surgery, I had a bunch of free time before school started back up again in the fall. I needed to be stationarywith my leg elevated for 22 hours of the day, which was awful but it gave the chance to watch all of the movies Ihave wanted to see. And there is still so much that I really want to see. Some of my favourite movies include WALL-E (2008), Heat (1995), and La la Land (2016).
+                Outside of my career aspirations, I am a huge sports guy. I grew
+                up playing all kinds of sports, from hockey to soccer, to
+                basketball. Soccer is my favourite sport and I love playing
+                soccer as much as I love just about anything. I also love to
+                watch soccer and read about it too, so everything and anything
+                soccer related I am 1000% in. Unfortunately, I have not been
+                able to play for a while because of a ruptured achilles tendon I
+                suffered when playing over the summer. I seriously look forward
+                to being able to play again. In the mean time, I try to stay
+                active in thegym. Exercise is something very important to me. I
+                think the reason I am so into sports is the authenticty it
+                generates. There is nothing more real than the art of
+                competition and the stories that are crafted. Competition is
+                where you will find the most authentic human expression.
               </p>
               <br />
               <p>
-                If you read through all of that, thank you!
+                I also really love watching movies. This was never really the
+                case before I ruptured my achilles tendon but following surgery,
+                I had a bunch of free time before school started back up again
+                in the fall. I needed to be stationarywith my leg elevated for
+                22 hours of the day, which was awful but it gave the chance to
+                watch all of the movies Ihave wanted to see. And there is still
+                so much that I really want to see. Some of my favourite movies
+                include WALL-E (2008), Heat (1995), and La la Land (2016).
               </p>
+              <br />
+              <p>If you read through all of that, thank you!</p>
             </CardContent>
           </Card>
-
-
         </section>
         <section id="projects" className="px-4 max-w-6xl mx-auto ">
           <hr className="max-w-6xl mx-auto my-20 border-border" />
@@ -77,19 +107,15 @@ export default function Home() {
           </h1>
           <Card>
             <CardContent className="text-lg">
-              <p>  </p>
+              <p> </p>
               <br />
-              <p>
-              </p>
+              <p></p>
               <br />
-              <p>
-              </p>
+              <p></p>
               <br />
-              <p>
-              </p>
+              <p></p>
               <br />
-              <p>
-              </p>
+              <p></p>
             </CardContent>
           </Card>
         </section>
@@ -137,4 +163,3 @@ export default function Home() {
     </div>
   );
 }
-
