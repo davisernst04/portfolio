@@ -3,7 +3,7 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useOutsideClick } from "@/hooks/use-outside-click";
-import { Github, Globe, Code2, Cpu, FileJson } from "lucide-react"; // Example icons
+import { Github, Globe, X } from "lucide-react";
 import {
   SiTypescript,
   SiReact,
@@ -14,6 +14,7 @@ import {
   SiGooglecloud,
 } from "react-icons/si";
 import { RiNextjsFill } from "react-icons/ri";
+
 export default function ExpandableCardDemo() {
   const [active, setActive] = useState<(typeof cards)[number] | boolean | null>(
     null,
@@ -52,55 +53,63 @@ export default function ExpandableCardDemo() {
           />
         )}
       </AnimatePresence>
+
       <AnimatePresence>
         {active && typeof active === "object" ? (
-          <div className="fixed inset-0 grid place-items-center z-[100] px-4">
-            <motion.button
-              key={`button-${active.title}-${id}`}
-              layout
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0, transition: { duration: 0.05 } }}
-              className="flex absolute top-2 right-2 md:top-4 md:right-4 items-center justify-center rounded-full h-8 w-8 shadow-lg z-50"
-              onClick={() => setActive(null)}
-            >
-              <CloseIcon />
-            </motion.button>
-
+          // WRAPPER: Fixed full screen, flex center for desktop, full coverage for mobile
+          <div className="fixed inset-0 grid place-items-center z-[100] sm:px-4 sm:py-8">
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[600px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-card  md:rounded-3xl overflow-hidden shadow-2xl"
+              // CARD:
+              // Mobile: Full width/height, no radius
+              // Desktop: Max widths, rounded corners, fit height
+              className="w-full h-full sm:h-fit sm:max-h-[90vh] sm:max-w-2xl flex flex-col bg-card sm:rounded-3xl overflow-hidden shadow-2xl relative"
             >
-              <motion.div layoutId={`image-${active.title}-${id}`}>
-                {/* Image Height Logic: h-60 on mobile, h-80 on larger */}
+              {/* CLOSE BUTTON (Mobile & Desktop) */}
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setActive(null)}
+                className="absolute top-4 right-4 z-50 p-2 rounded-full bg-black/50 text-white backdrop-blur-md hover:bg-black/70 transition-colors"
+              >
+                <X size={20} />
+              </motion.button>
+
+              {/* IMAGE SECTION */}
+              <motion.div
+                layoutId={`image-${active.title}-${id}`}
+                className="relative"
+              >
                 <img
                   src={active.src}
                   alt={active.title}
-                  className="w-full h-60 md:h-80 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
+                  className="w-full h-64 sm:h-80 object-cover object-top sm:rounded-tr-lg sm:rounded-tl-lg"
                 />
               </motion.div>
 
-              <div className="flex flex-col flex-1 overflow-y-auto">
-                <div className="flex flex-col gap-4 p-4 md:p-6">
-                  <div className="flex justify-between items-start">
+              {/* SCROLLABLE CONTENT AREA */}
+              <div className="flex flex-col flex-1 overflow-y-auto bg-card">
+                <div className="flex flex-col gap-4 p-5 sm:p-8">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
                     <div>
                       <motion.h3
                         layoutId={`title-${active.title}-${id}`}
-                        className="font-bold text-lg md:text-2xl"
+                        className="font-bold text-2xl sm:text-3xl"
                       >
                         {active.title}
                       </motion.h3>
                       <motion.p
                         layoutId={`description-${active.description}-${id}`}
-                        className=" text-sm md:text-base mt-1"
+                        className="text-muted-foreground text-base mt-1"
                       >
                         {active.description}
                       </motion.p>
                     </div>
 
-                    <div className="flex flex-wrap gap-3 mt-2">
-                      {/* 1. Github Button (Always visible) */}
+                    <div className="flex flex-wrap gap-3">
+                      {/* 1. Github Button */}
                       <motion.a
                         layout
                         initial={{ opacity: 0 }}
@@ -108,12 +117,13 @@ export default function ExpandableCardDemo() {
                         exit={{ opacity: 0 }}
                         href={active.githubLink}
                         target="_blank"
-                        className="flex items-center gap-2 px-4 py-2 text-sm rounded-full font-bold transition-colors"
+                        className="flex items-center gap-2 px-4 py-2.5 text-sm rounded-full font-bold border border-border bg-secondary/50 hover:bg-secondary transition-colors"
                       >
-                        <Github size={16} />
+                        <Github size={18} />
+                        <span className="hidden sm:inline">GitHub</span>
                       </motion.a>
 
-                      {/* 2. Visit Button (Conditional) */}
+                      {/* 2. Visit Button */}
                       {active.ctaLink && (
                         <motion.a
                           layout
@@ -122,10 +132,10 @@ export default function ExpandableCardDemo() {
                           exit={{ opacity: 0 }}
                           href={active.ctaLink}
                           target="_blank"
-                          className="flex items-center gap-2 px-4 py-2 text-sm rounded-full font-bold bg-green-500 text-white hover:bg-green-600 transition-colors"
+                          className="flex items-center gap-2 px-4 py-2.5 text-sm rounded-full font-bold bg-green-600 text-white hover:bg-green-700 transition-colors"
                         >
-                          <Globe size={16} />
-                          Visit Live
+                          <Globe size={18} />
+                          Visit
                         </motion.a>
                       )}
                     </div>
@@ -133,15 +143,15 @@ export default function ExpandableCardDemo() {
 
                   {/* --- TECH STACK ICONS --- */}
                   {active.technologies && active.technologies.length > 0 && (
-                    <div className="flex gap-2 items-center">
-                      <span className="text-xs font-semibold uppercase tracking-wider">
-                        Technology Used:
+                    <div className="flex flex-wrap gap-2 items-center my-2">
+                      <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground mr-2">
+                        Tech Stack:
                       </span>
                       {active.technologies.map((tech, idx) => (
                         <div
                           key={idx}
-                          className="p-1.5 rounded-md"
-                          title={tech.name} // Tooltip on hover
+                          className="p-2 rounded-md bg-secondary/30 border border-border/50"
+                          title={tech.name}
                         >
                           {tech.icon}
                         </div>
@@ -149,16 +159,12 @@ export default function ExpandableCardDemo() {
                     </div>
                   )}
 
-                  {/* --- ACTION BUTTONS --- */}
-                </div>
-
-                <div className="pt-0 relative px-4 md:px-6 pb-6">
                   <motion.div
                     layout
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-sm md:text-base flex flex-col gap-4"
+                    className="text-base leading-relaxed text-foreground/90 pb-10 sm:pb-0"
                   >
                     {typeof active.content === "function"
                       ? active.content()
@@ -172,32 +178,35 @@ export default function ExpandableCardDemo() {
       </AnimatePresence>
 
       {/* --- GRID CONTAINER --- */}
-      <ul className="max-w-7xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
+      <ul className="max-w-7xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4 md:p-8">
         {cards.map((card, index) => (
           <motion.div
             layoutId={`card-${card.title}-${id}`}
             key={card.title}
             onClick={() => setActive(card)}
-            className="p-4 flex bg-card flex-col  rounded-xl cursor-pointer border shadow-sm hover:shadow-md transition-shadow group"
+            className="group p-4 flex flex-col bg-card rounded-xl cursor-pointer border border-border/50 shadow-sm hover:shadow-lg transition-all active:scale-95"
           >
-            <div className="flex gap-4 flex-col w-full">
-              <motion.div layoutId={`image-${card.title}-${id}`}>
+            <div className="flex gap-4 flex-col w-full h-full">
+              <motion.div
+                layoutId={`image-${card.title}-${id}`}
+                className="w-full h-48 overflow-hidden rounded-lg"
+              >
                 <img
                   src={card.src}
                   alt={card.title}
-                  className="w-full rounded-lg object-cover object-top h-48 sm:h-60 md:h-48"
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                 />
               </motion.div>
-              <div className="flex justify-center items-center flex-col">
+              <div className="flex flex-col flex-1 justify-start">
                 <motion.h3
                   layoutId={`title-${card.title}-${id}`}
-                  className="font-medium   text-center md:text-left text-base"
+                  className="font-semibold text-lg"
                 >
                   {card.title}
                 </motion.h3>
                 <motion.p
                   layoutId={`description-${card.description}-${id}`}
-                  className="text-center md:text-left text-base"
+                  className="text-muted-foreground text-sm mt-1"
                 >
                   {card.description}
                 </motion.p>
@@ -210,32 +219,7 @@ export default function ExpandableCardDemo() {
   );
 }
 
-export const CloseIcon = () => {
-  return (
-    <motion.svg
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.05 } }}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="h-4 w-4 text-black"
-    >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M18 6l-12 12" />
-      <path d="M6 6l12 12" />
-    </motion.svg>
-  );
-};
-
-// --- DATA STRUCTURE ---
-
+// --- DATA STRUCTURE (Unchanged) ---
 const cards = [
   {
     title: "Gameboy Emulator",
@@ -247,9 +231,9 @@ const cards = [
     technologies: [
       {
         name: "TypeScript",
-        icon: <SiTypescript className="text-blue-600" size={16} />,
+        icon: <SiTypescript className="text-blue-600" size={18} />,
       },
-      { name: "React", icon: <SiReact className="text-cyan-400" size={16} /> },
+      { name: "React", icon: <SiReact className="text-cyan-400" size={18} /> },
     ],
 
     content: () => {
@@ -274,7 +258,7 @@ const cards = [
     githubLink: "https://github.com/yourusername/scraper",
     ctaLink: null,
 
-    technologies: [{ name: "Python", icon: <SiPython size={16} /> }],
+    technologies: [{ name: "Python", icon: <SiPython size={18} /> }],
 
     content: () => {
       return (
@@ -296,30 +280,30 @@ const cards = [
     ctaLink: null,
 
     technologies: [
-      { name: "Python", icon: <SiPython size={16} /> },
+      { name: "Python", icon: <SiPython size={18} /> },
       {
         name: "Django",
-        icon: <SiDjango size={16} />,
+        icon: <SiDjango size={18} />,
       },
       {
         name: "Next.js",
-        icon: <RiNextjsFill size={16} />,
+        icon: <RiNextjsFill size={18} />,
       },
       {
         name: "Postgresql",
-        icon: <SiPostgresql size={16} />,
+        icon: <SiPostgresql size={18} />,
       },
       {
         name: "Tailwindcss",
-        icon: <SiTailwindcss size={16} />,
+        icon: <SiTailwindcss size={18} />,
       },
       {
         name: "Typescript",
-        icon: <SiTypescript size={16} />,
+        icon: <SiTypescript size={18} />,
       },
       {
         name: "Google Cloud",
-        icon: <SiGooglecloud size={16} />,
+        icon: <SiGooglecloud size={18} />,
       },
     ],
 
@@ -341,12 +325,12 @@ const cards = [
   },
   {
     title: "Basketball Coaching Platform",
-    description: "Individual Project for Basketball Club",
+    description: "Individual Project",
     src: "BasketballTraining.jpg",
     githubLink: "https://github.com/yourusername/scraper",
     ctaLink: null,
 
-    technologies: [{ name: "Python", icon: <SiPython size={16} /> }],
+    technologies: [{ name: "Python", icon: <SiPython size={18} /> }],
 
     content: () => {
       return (
@@ -374,19 +358,19 @@ const cards = [
     technologies: [
       {
         name: "Next.js",
-        icon: <RiNextjsFill size={16} />,
+        icon: <RiNextjsFill size={18} />,
       },
       {
         name: "Typescript",
-        icon: <SiTypescript size={16} />,
+        icon: <SiTypescript size={18} />,
       },
       {
         name: "Tailwindcss",
-        icon: <SiTailwindcss size={16} />,
+        icon: <SiTailwindcss size={18} />,
       },
       {
         name: "Postgresql",
-        icon: <SiPostgresql size={16} />,
+        icon: <SiPostgresql size={18} />,
       },
     ],
 

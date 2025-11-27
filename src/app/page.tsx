@@ -27,13 +27,13 @@ export default function Home() {
             <div className="lg:col-span-6">
               <div className="relative">
                 {/* Decorative background */}
-                <div className="z-0 relative">
+                <div className="z-0 relative ">
                   <AspectRatio ratio={1 / 1}>
                     <Image
                       src="/profile_pic.JPEG"
                       alt="Portrait of Davis Ernst"
                       fill
-                      className="object-cover rounded-full shadow-2xl border-border border-2"
+                      className="object-cover rounded-full shadow-2xl border-border border-2 hover:ease-in-out duration-300"
                       priority
                     />
                   </AspectRatio>
