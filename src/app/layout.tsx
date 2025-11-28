@@ -29,7 +29,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div id="/"></div>
-          <header className="sticky top-0 z-50">
+          <header className="sticky top-0 z-40">
             <NavigationBar />
           </header>
 

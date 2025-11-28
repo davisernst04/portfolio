@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "./ui/button";
-import Link from "next/link"
+import Link from "next/link";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -10,7 +10,6 @@ import {
 import { ModeToggle } from "./ModeToggle";
 
 export default function NavigationBar() {
-
   const navigationItems = [
     { href: "#/", label: "Home" },
     { href: "#about", label: "About" },
@@ -21,7 +20,7 @@ export default function NavigationBar() {
   return (
     // Outer container for floating effect: adds padding to detach from top/sides
     // and ensures the sticky behavior applies to this container.
-    <div className="sticky top-0 z-50 ">
+    <div className="sticky top-0 z-40 ">
       {/* py-4 adds vertical spacing */}
       {/* The nav itself will now be the "floating" element */}
       <nav
@@ -42,12 +41,9 @@ export default function NavigationBar() {
               asChild
               className="cursor-pointer"
             >
-              <Link href="/">
-                DE
-              </Link>
+              <Link href="/">DE</Link>
             </Button>
           </div>
-
 
           {/* Center - Desktop Navigation */}
           <div className="hidden md:flex justify-center">
@@ -73,7 +69,7 @@ export default function NavigationBar() {
             {/* Mobile Menu Button */}
           </div>
         </div>
-      </nav >
-    </div >
+      </nav>
+    </div>
   );
 }
