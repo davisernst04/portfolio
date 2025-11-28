@@ -14,8 +14,9 @@ import {
   SiGooglecloud,
 } from "react-icons/si";
 import { RiNextjsFill } from "react-icons/ri";
+import Image from "next/image";
 
-export default function ExpandableCardDemo() {
+export default function ProjectCards() {
   const [active, setActive] = useState<(typeof cards)[number] | null>(null);
   const id = useId();
   const ref = useRef<HTMLDivElement>(null);
@@ -37,7 +38,9 @@ export default function ExpandableCardDemo() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [active]);
 
-  useOutsideClick(ref, () => setActive(null));
+  useOutsideClick(ref as React.RefObject<HTMLDivElement>, () =>
+    setActive(null),
+  );
 
   return (
     <>
@@ -58,17 +61,20 @@ export default function ExpandableCardDemo() {
               <motion.div
                 layoutId={`card-${active.title}-${id}`}
                 ref={ref}
-                className="w-full max-w-5xl h-auto flex flex-col  bg-card sm:rounded-3xl overflow-hidden shadow-2xl"
+                className="w-full max-w-5xl h-auto flex flex-col bg-card sm:rounded-3xl overflow-hidden shadow-2xl"
               >
+                {/* EXPANDED VIEW IMAGE */}
                 <motion.div
                   layoutId={`image-${active.title}-${id}`}
-                  className="relative cursor-pointer"
+                  className="relative w-full h-60 md:h-96 sm:rounded-tr-lg sm:rounded-tl-lg cursor-pointer overflow-hidden" // Added 'relative' and dimensions here
                   onClick={() => setActive(null)}
                 >
-                  <img
+                  <Image
+                    fill // Replaces width/height
                     src={active.src}
                     alt={active.title}
-                    className="w-full h-60 md:h-96 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
+                    className="object-cover object-top"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </motion.div>
 
@@ -97,7 +103,7 @@ export default function ExpandableCardDemo() {
                         exit={{ opacity: 0 }}
                         href={active.githubLink}
                         target="_blank"
-                        className="p-2 rounded-full  transition-colors "
+                        className="p-2 rounded-full transition-colors"
                         title="View Code"
                       >
                         <Github size={20} />
@@ -155,7 +161,7 @@ export default function ExpandableCardDemo() {
       </AnimatePresence>
 
       <ul className="mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-6 p-4 md:p-8">
-        {cards.map((card, index) => (
+        {cards.map((card) => (
           <motion.div
             layoutId={`card-${card.title}-${id}`}
             key={card.title}
@@ -163,24 +169,30 @@ export default function ExpandableCardDemo() {
             className="group p-4 flex flex-col rounded-xl cursor-pointer bg-card border border-transparent transition-colors"
           >
             <div className="flex gap-4 flex-col w-full">
-              <motion.div layoutId={`image-${card.title}-${id}`}>
-                <img
+              {/* GRID VIEW IMAGE */}
+              <motion.div
+                layoutId={`image-${card.title}-${id}`}
+                className="w-full h-60 relative rounded-lg overflow-hidden" // Added 'relative' and dimensions here
+              >
+                <Image
+                  fill // Replaces width/height
                   src={card.src}
                   alt={card.title}
-                  className="h-60 w-full rounded-lg object-cover object-top shadow-sm group-hover:shadow-md transition-shadow"
+                  className="object-cover object-top shadow-sm group-hover:shadow-md transition-shadow"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </motion.div>
               <div className="flex justify-center items-center flex-col">
                 <motion.h3
                   layoutId={`title-${card.title}-${id}`}
-                  layout // <--- ADD THIS
+                  layout
                   className="font-medium text-center md:text-left text-base"
                 >
                   {card.title}
                 </motion.h3>
                 <motion.p
                   layoutId={`description-${card.title}-${id}`}
-                  layout // <--- ADD THIS
+                  layout
                   className="text-center md:text-left text-base"
                 >
                   {card.description}
@@ -218,13 +230,12 @@ export const CloseIcon = () => {
   );
 };
 
-// --- PROJECTS DATA ---
-
+// ... keep your cards data below ...
 const cards = [
   {
     title: "Gameboy Emulator",
     description: "Individual Project",
-    src: "/Game-Boy-Original-2976723000.jpg",
+    src: "/Game-Boy-Original-2976723000.jpg", // This one was already correct
     githubLink: "https://github.com/yourusername/emulator",
     ctaLink: "https://emulator-demo.com",
     technologies: [
@@ -246,7 +257,7 @@ const cards = [
   {
     title: "Real Time Game Analysis",
     description: "SPEN Club at USASK",
-    src: "RTGA.jpg",
+    src: "/RTGA.jpg", // FIXED: Added leading slash
     githubLink: "https://github.com/yourusername/scraper",
     ctaLink: null,
     technologies: [{ name: "Python", icon: <SiPython size={16} /> }],
@@ -263,7 +274,7 @@ const cards = [
   {
     title: "Managy",
     description: "Group Project at USASK",
-    src: "HotelBooking.jpeg",
+    src: "/HotelBooking.jpeg", // FIXED: Added leading slash
     githubLink: "https://github.com/yourusername/scraper",
     ctaLink: null,
     technologies: [
@@ -287,7 +298,7 @@ const cards = [
   {
     title: "Basketball Platform",
     description: "Individual Project",
-    src: "BasketballTraining.jpg",
+    src: "/BasketballTraining.jpg", // FIXED: Added leading slash
     githubLink: "https://github.com/yourusername/scraper",
     ctaLink: null,
     technologies: [{ name: "Python", icon: <SiPython size={16} /> }],
@@ -301,7 +312,7 @@ const cards = [
   {
     title: "D's Corner",
     description: "Another Individual Project",
-    src: "HEAT.jpg",
+    src: "/HEAT.jpg", // FIXED: Added leading slash
     githubLink: "https://github.com/yourusername/scraper",
     ctaLink: null,
     technologies: [
@@ -312,7 +323,7 @@ const cards = [
     ],
     content: () => (
       <p>
-        Haven't really decided what this is supposed to be. I guess you could
+        Have not really decided what this is supposed to be. I guess you could
         call it a personal blog, a diary maybe. I call it a place where I can
         dump my thoughts and ideas about the things that interest me. Lorem
         ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex

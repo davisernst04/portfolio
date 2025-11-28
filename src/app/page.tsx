@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Github, Linkedin, Mail } from "lucide-react";
 import ContentCard from "@/components/ContentCard";
-import ExpandableCardDemo from "@/components/expandable-card-demo-grid";
+import ProjectCards from "@/components/ProjectCards";
 /**
  * @returns [TODO:return]
  */
@@ -100,8 +100,8 @@ export default function Home() {
           <h1 className="text-center text-7xl font-bold tracking-tight sm:text-7xl lg:text-9xl pb-4">
             Projects
           </h1>
-          <div className="">
-            <ExpandableCardDemo />
+          <div>
+            <ProjectCards />
           </div>
         </section>
         <section id="contact" className="px-4 max-w-6xl mx-auto ">
