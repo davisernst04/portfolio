@@ -4,6 +4,8 @@ import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { Github } from "lucide-react";
+import { AspectRatio } from "./ui/aspect-ratio";
+
 import {
   SiTypescript,
   SiReact,
@@ -63,19 +65,20 @@ export default function ProjectCards() {
                 ref={ref}
                 className="w-full max-w-5xl h-auto flex flex-col bg-card sm:rounded-3xl overflow-hidden shadow-2xl"
               >
-                {/* EXPANDED VIEW IMAGE */}
                 <motion.div
                   layoutId={`image-${active.title}-${id}`}
-                  className="relative w-full h-60 md:h-96 sm:rounded-tr-lg sm:rounded-tl-lg cursor-pointer overflow-hidden" // Added 'relative' and dimensions here
+                  className="relative w-full h-60 md:h-96 sm:rounded-tr-lg sm:rounded-tl-lg cursor-pointer overflow-hidden"
                   onClick={() => setActive(null)}
                 >
-                  <Image
-                    fill // Replaces width/height
-                    src={active.src}
-                    alt={active.title}
-                    className="object-cover object-top"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
+                  <AspectRatio ratio={16 / 9}>
+                    <Image
+                      fill
+                      src={active.src}
+                      alt={active.title}
+                      className="object-cover object-top"
+                      sizes=""
+                    />
+                  </AspectRatio>
                 </motion.div>
 
                 <div className="relative">
@@ -169,18 +172,19 @@ export default function ProjectCards() {
             className="group p-4 flex flex-col rounded-xl cursor-pointer bg-card border border-transparent transition-colors"
           >
             <div className="flex gap-4 flex-col w-full">
-              {/* GRID VIEW IMAGE */}
               <motion.div
                 layoutId={`image-${card.title}-${id}`}
-                className="w-full h-60 relative rounded-lg overflow-hidden" // Added 'relative' and dimensions here
+                className="w-full relative rounded-lg overflow-hidden"
               >
-                <Image
-                  fill // Replaces width/height
-                  src={card.src}
-                  alt={card.title}
-                  className="object-cover object-top shadow-sm group-hover:shadow-md transition-shadow"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
+                <AspectRatio ratio={16 / 9}>
+                  <Image
+                    fill
+                    src={card.src}
+                    alt={card.title}
+                    className="object-cover object-top shadow-sm group-hover:shadow-md transition-shadow"
+                    sizes=""
+                  />
+                </AspectRatio>
               </motion.div>
               <div className="flex justify-center items-center flex-col">
                 <motion.h3
@@ -230,12 +234,11 @@ export const CloseIcon = () => {
   );
 };
 
-// ... keep your cards data below ...
 const cards = [
   {
     title: "Gameboy Emulator",
     description: "Individual Project",
-    src: "/Game-Boy-Original-2976723000.jpg", // This one was already correct
+    src: "/Game-Boy-Original-2976723000.jpg",
     githubLink: "https://github.com/yourusername/emulator",
     ctaLink: "https://emulator-demo.com",
     technologies: [
@@ -257,7 +260,7 @@ const cards = [
   {
     title: "Real Time Game Analysis",
     description: "SPEN Club at USASK",
-    src: "/RTGA.jpg", // FIXED: Added leading slash
+    src: "/RTGA.jpg",
     githubLink: "https://github.com/yourusername/scraper",
     ctaLink: null,
     technologies: [{ name: "Python", icon: <SiPython size={16} /> }],
@@ -274,7 +277,7 @@ const cards = [
   {
     title: "Managy",
     description: "Group Project at USASK",
-    src: "/HotelBooking.jpeg", // FIXED: Added leading slash
+    src: "/HotelBooking.jpeg",
     githubLink: "https://github.com/yourusername/scraper",
     ctaLink: null,
     technologies: [
@@ -298,7 +301,7 @@ const cards = [
   {
     title: "Basketball Platform",
     description: "Individual Project",
-    src: "/BasketballTraining.jpg", // FIXED: Added leading slash
+    src: "/BasketballTraining.jpg",
     githubLink: "https://github.com/yourusername/scraper",
     ctaLink: null,
     technologies: [{ name: "Python", icon: <SiPython size={16} /> }],
@@ -312,7 +315,7 @@ const cards = [
   {
     title: "D's Corner",
     description: "Another Individual Project",
-    src: "/HEAT.jpg", // FIXED: Added leading slash
+    src: "/HEAT.jpg",
     githubLink: "https://github.com/yourusername/scraper",
     ctaLink: null,
     technologies: [

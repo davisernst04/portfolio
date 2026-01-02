@@ -2,7 +2,6 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Github, Linkedin, Mail } from "lucide-react";
-import ContentCard from "@/components/ContentCard";
 import ProjectCards from "@/components/ProjectCards";
 /**
  * @returns [TODO:return]
@@ -121,7 +120,6 @@ export default function Home() {
               <p></p>
               <br />
               <p></p>
-              <ContentCard />
             </CardContent>
           </Card>
         </section>
