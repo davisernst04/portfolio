@@ -13,7 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   });
 
-  const postUrls = posts.map((post) => ({
+  const postUrls = posts.map((post: { slug: string; updatedAt: Date }) => ({
     url: `${baseUrl}/corner/post/${post.slug}`,
     lastModified: post.updatedAt,
     changeFrequency: "weekly" as const,
