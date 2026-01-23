@@ -126,7 +126,7 @@ export default async function PublicCornerPage() {
 
             {remainingPosts.length > 0 && (
               <BentoGrid className="max-w-7xl mx-auto">
-                {remainingPosts.map((post) => {
+                {remainingPosts.map((post: any) => {
                   const plainTextPreview = stripMarkdown(
                     post.content,
                   ).substring(0, 150);
