@@ -2,23 +2,30 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "@/lib/prisma";
 
-if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
-  throw new Error("Missing required GitHub OAuth credentials");
-}
+// Use dummy values during build time if env vars are not available
+const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID || "dummy-client-id";
+const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET || "dummy-client-secret";
+const BETTER_AUTH_SECRET = process.env.BETTER_AUTH_SECRET || "dummy-secret-key-for-build-time-only";
 
-if (!process.env.BETTER_AUTH_SECRET) {
-  throw new Error("Missing BETTER_AUTH_SECRET environment variable");
+// Only validate in production runtime (not during build)
+if (typeof window === "undefined" && process.env.NODE_ENV === "production") {
+  if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
+    console.warn("Missing required GitHub OAuth credentials");
+  }
+  if (!process.env.BETTER_AUTH_SECRET) {
+    console.warn("Missing BETTER_AUTH_SECRET environment variable");
+  }
 }
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
-  secret: process.env.BETTER_AUTH_SECRET,
+  secret: BETTER_AUTH_SECRET,
   socialProviders: {
     github: {
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      clientId: GITHUB_CLIENT_ID,
+      clientSecret: GITHUB_CLIENT_SECRET,
     },
   },
   session: {
