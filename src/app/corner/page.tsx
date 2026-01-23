@@ -6,6 +6,17 @@ import { Button } from "@/components/ui/button";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { Card } from "@/components/ui/card";
 
+type Post = {
+  id: string;
+  title: string;
+  content: string;
+  imageUrl: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+  publish: boolean;
+  slug: string;
+};
+
 export const metadata: Metadata = {
   title: "Corner - Blog",
   description:
@@ -126,7 +137,7 @@ export default async function PublicCornerPage() {
 
             {remainingPosts.length > 0 && (
               <BentoGrid className="max-w-7xl mx-auto">
-                {remainingPosts.map((post: any) => {
+                {remainingPosts.map((post: Post) => {
                   const plainTextPreview = stripMarkdown(
                     post.content,
                   ).substring(0, 150);
