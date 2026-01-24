@@ -205,10 +205,10 @@ export default function DashboardPage() {
 
   return (
     <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-8 text-foreground min-h-screen">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <h1 className="text-6xl font-bold">Dashboard</h1>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 w-full sm:w-auto">
           <Dialog open={isDialogOpen} onOpenChange={handleDialogClose}>
             <DialogTrigger asChild>
               <Button onClick={openCreateDialog} className="cursor-pointer">
