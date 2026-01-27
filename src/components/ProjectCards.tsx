@@ -309,7 +309,7 @@ const cards = [
       <p>
         This is a web application built for the Avatar clubhouse in Colombia. It
         serves as a management system for clubhouses administrators and staff. I
-        worked on this with an incredible group of people that I'm grateful to
+        worked on this with an incredible group of people that I am grateful to
         have met.
       </p>
     ),
