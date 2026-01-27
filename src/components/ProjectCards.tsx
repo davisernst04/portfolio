@@ -277,8 +277,8 @@ const cards = [
   {
     title: "Managy",
     description: "Group Project at USASK",
-    src: "/HotelBooking.jpeg",
-    githubLink: "https://github.com/yourusername/scraper",
+    src: "/managy.png",
+    githubLink: "https://github.com/davisernst04/managy",
     ctaLink: null,
     technologies: [
       { name: "Python", icon: <SiPython size={16} /> },
@@ -299,25 +299,27 @@ const cards = [
     ),
   },
   {
-    title: "Basketball Platform",
-    description: "Individual Project",
-    src: "/BasketballTraining.jpg",
+    title: "Shadow Basketball Official Page",
+    description: "A website for a basketball team",
+    src: "/shadow_basketball.jpg",
     githubLink: "https://github.com/yourusername/scraper",
     ctaLink: null,
     technologies: [{ name: "Python", icon: <SiPython size={16} /> }],
     content: () => (
       <p>
         This is a web application built for the Avatar clubhouse in Colombia. It
-        serves as a management system for clubhouses administrators and staff.
+        serves as a management system for clubhouses administrators and staff. I
+        worked on this with an incredible group of people that I'm grateful to
+        have met.
       </p>
     ),
   },
   {
-    title: "D's Corner",
-    description: "Another Individual Project",
-    src: "/HEAT.jpg",
+    title: "Davis Corner",
+    description: "Individual Project",
+    src: "/davis_corner.png",
     githubLink: "https://github.com/yourusername/scraper",
-    ctaLink: null,
+    ctaLink: "https://davisernst.com/corner",
     technologies: [
       { name: "Next.js", icon: <RiNextjsFill size={16} /> },
       { name: "TypeScript", icon: <SiTypescript size={16} /> },
@@ -328,58 +330,7 @@ const cards = [
       <p>
         Have not really decided what this is supposed to be. I guess you could
         call it a personal blog, a diary maybe. I call it a place where I can
-        dump my thoughts and ideas about the things that interest me. Lorem
-        ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex
-        sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus
-        duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar
-        vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-        malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class
-        aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-        himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-        Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus
-        mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna
-        tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas.
-        Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit
-        semper vel class aptent taciti sociosqu. Ad litora torquent per conubia
-        nostra inceptos himenaeos. Lorem ipsum dolor sit amet consectetur
-        adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem
-        placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu
-        aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus
-        bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc
-        posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora
-        torquent per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit
-        amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-        pellentesque sem placerat. In id cursus mi pretium tellus duis
-        convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-        fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada
-        lacinia integer nunc posuere. Ut hendrerit semper vel class aptent
-        taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-        himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-        Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus
-        mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna
-        tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas.
-        Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit
-        semper vel class aptent taciti sociosqu. Ad litora torquent per conubia
-        nostra inceptos himenaeos. Lorem ipsum dolor sit amet consectetur
-        adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem
-        placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu
-        aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus
-        bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc
-        posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora
-        torquent per conubia nostra inceptos himenaeos. Lorem ipsum dolor sit
-        amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-        pellentesque sem placerat. In id cursus mi pretium tellus duis
-        convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus
-        fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada
-        lacinia integer nunc posuere. Ut hendrerit semper vel class aptent
-        taciti sociosqu. Ad litora torquent per conubia nostra inceptos
-        himenaeos. Lorem ipsum dolor sit amet consectetur adipiscing elit.
-        Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus
-        mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna
-        tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas.
-        Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit
-        semper vel class aptent taciti sociosqu. Ad litora torquent per conubia
-        nostra inceptos himenaeos.
+        dump my thoughts and ideas about the things that interest me.
       </p>
     ),
   },
