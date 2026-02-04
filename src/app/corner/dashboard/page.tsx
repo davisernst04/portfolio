@@ -411,7 +411,7 @@ export default function DashboardPage() {
                 header={
                   <div className="relative w-full h-32 rounded-lg overflow-hidden">
                     <Image
-                      src={post.imageUrl || "/profile_pic.JPEG"}
+                      src={post.imageUrl || "/photos/profile.JPG"}
                       alt={post.title}
                       fill
                       className="object-cover"

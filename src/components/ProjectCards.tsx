@@ -238,7 +238,7 @@ const cards = [
   {
     title: "Gameboy Emulator",
     description: "Individual Project",
-    src: "/Game-Boy-Original-2976723000.jpg",
+    src: "/photos/Game-Boy-Original-2976723000.jpg",
     githubLink: "https://github.com/davisernst04/gameboy-emulator",
     ctaLink: null,
     technologies: [
@@ -260,7 +260,7 @@ const cards = [
   {
     title: "Real Time Game Analysis",
     description: "SPEN Club at USASK",
-    src: "/RTGA.jpg",
+    src: "/photos/RTGA.jpg",
     githubLink: "https://github.com/ElleOwO/realtimegamestatistics",
     ctaLink: null,
     technologies: [{ name: "Python", icon: <SiPython size={16} /> }],
@@ -277,7 +277,7 @@ const cards = [
   {
     title: "Managy",
     description: "Group Project at USASK",
-    src: "/managy.png",
+    src: "/photos/managy.png",
     githubLink: "https://github.com/davisernst04/managy",
     ctaLink: null,
     technologies: [
@@ -301,7 +301,7 @@ const cards = [
   {
     title: "Shadow Basketball Official Page",
     description: "A website for a basketball team",
-    src: "/shadow_basketball.jpg",
+    src: "/photos/shadow_basketball.jpg",
     githubLink: "#",
     ctaLink: null,
     technologies: [
@@ -319,7 +319,7 @@ const cards = [
   {
     title: "Davis Corner",
     description: "Individual Project",
-    src: "/davis_corner.png",
+    src: "/photos/davis_corner.png",
     githubLink: "https://github.com/yourusername/scraper",
     ctaLink: "https://davisernst.com/corner",
     technologies: [

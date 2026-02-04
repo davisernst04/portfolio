@@ -23,7 +23,7 @@ export default function HeroSection() {
         <div className="lg:col-span-6 order-1 lg:order-2">
           <AspectRatio ratio={1}>
             <Image
-              src="/profile.JPG"
+              src="/photos/profile.JPG"
               alt="Davis Ernst"
               className="rounded-full object-cover border-2 shadow-lg"
               fill

@@ -84,7 +84,7 @@ export default async function PublicCornerPage() {
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4">
                     <div className="relative w-full h-[400px] lg:h-[600px] overflow-hidden rounded-lg">
                       <Image
-                        src={featuredPost.imageUrl || "/profile_pic.JPEG"}
+                        src={featuredPost.imageUrl || "/photos/profile.JPG"}
                         alt={featuredPost.title}
                         fill
                         className="object-cover group-hover/featured:scale-110 transition-transform duration-300"
@@ -177,7 +177,7 @@ export default async function PublicCornerPage() {
                         header={
                           <div className="relative w-full h-32 rounded-lg overflow-hidden">
                             <Image
-                              src={post.imageUrl || "/profile_pic.JPEG"}
+                              src={post.imageUrl || "/photos/profile.JPG"}
                               alt={post.title}
                               fill
                               className="object-cover group-hover/bento:scale-110 transition-transform duration-300"
