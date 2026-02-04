@@ -163,7 +163,7 @@ export default function ProjectCards() {
         ) : null}
       </AnimatePresence>
 
-      <ul className="mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-6 p-4 md:p-8">
+      <ul className="mx-auto w-full grid grid-cols-1 lg:grid-cols-2 items-start gap-6 p-4 md:p-8">
         {cards.map((card) => (
           <motion.div
             layoutId={`card-${card.title}-${id}`}
@@ -239,8 +239,8 @@ const cards = [
     title: "Gameboy Emulator",
     description: "Individual Project",
     src: "/Game-Boy-Original-2976723000.jpg",
-    githubLink: "https://github.com/yourusername/emulator",
-    ctaLink: "https://emulator-demo.com",
+    githubLink: "https://github.com/davisernst04/gameboy-emulator",
+    ctaLink: null,
     technologies: [
       { name: "TypeScript", icon: <SiTypescript size={16} /> },
       { name: "React", icon: <SiReact size={16} /> },
@@ -261,7 +261,7 @@ const cards = [
     title: "Real Time Game Analysis",
     description: "SPEN Club at USASK",
     src: "/RTGA.jpg",
-    githubLink: "https://github.com/yourusername/scraper",
+    githubLink: "https://github.com/ElleOwO/realtimegamestatistics",
     ctaLink: null,
     technologies: [{ name: "Python", icon: <SiPython size={16} /> }],
     content: () => (
@@ -302,15 +302,17 @@ const cards = [
     title: "Shadow Basketball Official Page",
     description: "A website for a basketball team",
     src: "/shadow_basketball.jpg",
-    githubLink: "https://github.com/yourusername/scraper",
+    githubLink: "#",
     ctaLink: null,
-    technologies: [{ name: "Python", icon: <SiPython size={16} /> }],
+    technologies: [
+      { name: "Python", icon: <SiPython size={16} /> },
+      { name: "Django", icon: <SiDjango size={16} /> },
+      { name: "Tailwind", icon: <SiTailwindcss size={16} /> },
+    ],
     content: () => (
       <p>
-        This is a web application built for the Avatar clubhouse in Colombia. It
-        serves as a management system for clubhouses administrators and staff. I
-        worked on this with an incredible group of people that I am grateful to
-        have met.
+        The official website for Shadow Basketball, featuring team rosters, game schedules, and player statistics. 
+        Built to provide fans and players with up-to-date information and a centralized hub for team news.
       </p>
     ),
   },

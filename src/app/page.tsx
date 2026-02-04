@@ -1,19 +1,18 @@
-import type { Metadata } from "next";
+"use client";
+
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, User, FileDown } from "lucide-react";
 import ProjectCards from "@/components/ProjectCards";
+import Skills from "@/components/Skills";
 import {
   generatePersonSchema,
   generateWebsiteSchema,
 } from "@/lib/structured-data";
-
-export const metadata: Metadata = {
-  title: "Home",
-  description:
-    "Welcome to Davis Ernst's portfolio. Computer Science student at the University of Saskatchewan, passionate about software development, sports, and cinema.",
-};
+import { Button } from "@/components/ui/button";
+import { motion } from "motion/react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   const personSchema = generatePersonSchema();
@@ -30,33 +29,90 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
       <main className="flex-grow">
-        <section
-          className="px-4 max-w-6xl mx-auto py-4 lg:py-10"
+        <motion.section
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          id="about"
+          className="px-4 max-w-6xl mx-auto py-8 lg:py-10"
           aria-label="Hero section"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-8 lg:gap-16">
-            <div className="lg:col-span-6 text-center lg:text-left">
-              <h1 className="text-8xl md:text-9xl font-bold tracking-tight sm:text-8xl lg:text-[200px]">
-                Davis Ernst
-              </h1>
-            </div>
-
-            <div className="lg:col-span-6">
-              <AspectRatio ratio={1 / 1}>
+            {/* Image First on Mobile, Second on Desktop */}
+            <div className="lg:col-span-6 order-1 lg:order-2">
+              <AspectRatio ratio={1}>
                 <Image
-                  src="/profile_pic.JPEG"
-                  alt="Portrait of Davis Ernst"
+                  src="/profile.JPG"
+                  alt="Davis Ernst"
+                  className="rounded-full object-cover border-2 shadow-lg"
                   fill
-                  className="object-cover rounded-full shadow-2xl border-border border-2 transition-transform hover:scale-105 duration-300"
                   priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
               </AspectRatio>
             </div>
-          </div>
-        </section>
 
-        <section
+            {/* Text Second on Mobile, First on Desktop */}
+            <div className="lg:col-span-6 text-center lg:text-left order-2 lg:order-1 space-y-4">
+              <h1 className="text-6xl md:text-9xl lg:text-[200px] font-bold tracking-tight">
+                Davis Ernst
+              </h1>
+              <p className="text-base md:text-lg lg:text-xl text-muted-foreground">
+                Computer Science Student at the University of Saskatchewan and
+                Software Developer based in Saskatoon, SK.
+              </p>
+              <div className="flex justify-center lg:justify-start gap-3 pt-2">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="cursor-pointer"
+                  asChild
+                >
+                  <Link href="https://github.com/davisernst04">
+                    <Github />
+                  </Link>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  className="cursor-pointer"
+                  size="lg"
+                  asChild
+                >
+                  <Link href="https://www.linkedin.com/in/davis-ernst-987391362/">
+                    <Linkedin />
+                  </Link>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="cursor-pointer"
+                  asChild
+                >
+                  <Link href="mailto:davis.ernst@outlook.com">
+                    <Mail />
+                  </Link>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="cursor-pointer"
+                  disabled
+                >
+                  <FileDown />
+                </Button>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
           id="about"
           className="px-4 max-w-6xl mx-auto pb-4"
           aria-labelledby="about-heading"
@@ -64,56 +120,56 @@ export default function Home() {
           <hr className="max-w-6xl mx-auto my-12 border-border" />
           <h2
             id="about-heading"
-            className="text-center text-7xl font-bold tracking-tight sm:text-7xl lg:text-9xl pb-4"
+            className="text-center text-5xl md:text-7xl lg:text-9xl font-bold tracking-tight pb-12"
           >
             About Me
           </h2>
-          <Card>
-            <CardContent className="text-xl pt-6 space-y-4">
-              <p>
-                I am a student at the University of Saskatchewan studying
-                computer science. A career in software development is something
-                that I am ambitous about. I enjoy learning about operating
-                systems and low level programming as much as I also enjoy
-                learning about app development. But beyond the actual code I am
-                writing, the thing I enjoy most about this field of study is the
-                required process of solving a problem. Any chance to peel back a
-                layer of abstraction is something to look forward to. I hope I
-                can lead a prosperous career and one that will genuinely help
-                people along the way.
-              </p>
-              <p>
-                Outside of my career aspirations, I am a huge sports guy. I grew
-                up playing all kinds of sports, from hockey to soccer, to
-                basketball. Soccer is my favourite sport and I love playing
-                soccer as much as I love just about anything. I also love to
-                watch soccer and read about it too, so everything and anything
-                soccer related I am 1000% in. Unfortunately, I have not been
-                able to play for a while because of a ruptured achilles tendon I
-                suffered when playing over the summer. I seriously look forward
-                to being able to play again. In the mean time, I try to stay
-                active in thegym. Exercise is something very important to me. I
-                think the reason I am so into sports is the authenticty it
-                generates. There is nothing more real than the art of
-                competition and the stories that are crafted. Competition is
-                where you will find the most authentic human expression.
-              </p>
-              <p>
-                I also really love watching movies. This was never really the
-                case before I ruptured my achilles tendon but following surgery,
-                I had a bunch of free time before school started back up again
-                in the fall. I needed to be stationarywith my leg elevated for
-                22 hours of the day, which was awful but it gave the chance to
-                watch all of the movies Ihave wanted to see. And there is still
-                so much that I really want to see. Some of my favourite movies
-                include WALL-E (2008), Heat (1995), and La la Land (2016).
-              </p>
-              <p>If you read through all of that, thank you!</p>
-            </CardContent>
-          </Card>
-        </section>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <Card className="h-full order-1">
+              <CardContent className="text-lg md:text-xl pt-6 space-y-4 leading-relaxed text-foreground h-full flex flex-col justify-center">
+                <p>
+                  I am an ambitous Computer Science student at the University of
+                  Saskatchewan. Most of my work is in full stack development,
+                  but I also enjoy working on mobile applications and machine
+                  learning projects.
+                </p>
+                <p>
+                  Beyond the code I write, I am a sports and fitness enthusiast.
+                  I love going to the gym and playing soccer. I also love movies
+                </p>
+                <p>
+                  If you wish to learn more about me personally, you can check
+                  out my blog by clicking the button below!
+                </p>
+                <Button variant="ghost" className="w-full p-0 mt-2" asChild>
+                  <Link
+                    href="https://davisernst04.medium.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <User className="inline mr-2" />
+                    Visit My Blog
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </motion.section>
 
-        <section
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <Skills />
+        </motion.div>
+
+        <motion.section
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
           id="projects"
           className="px-4 max-w-6xl mx-auto"
           aria-labelledby="projects-heading"
@@ -121,16 +177,20 @@ export default function Home() {
           <hr className="max-w-6xl mx-auto my-12 border-border" />
           <h2
             id="projects-heading"
-            className="text-center text-7xl font-bold tracking-tight sm:text-7xl lg:text-9xl pb-4"
+            className="text-center text-5xl md:text-7xl lg:text-9xl font-bold tracking-tight pb-8"
           >
             Projects
           </h2>
           <div>
             <ProjectCards />
           </div>
-        </section>
+        </motion.section>
 
-        <section
+        <motion.section
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
           id="contact"
           className="px-4 max-w-6xl mx-auto"
           aria-labelledby="contact-heading"
@@ -138,19 +198,76 @@ export default function Home() {
           <hr className="max-w-6xl mx-auto my-12 border-border" />
           <h2
             id="contact-heading"
-            className="text-center text-7xl font-bold tracking-tight sm:text-7xl lg:text-9xl pb-4"
+            className="text-center text-5xl md:text-7xl lg:text-9xl font-bold tracking-tight pb-8"
           >
             Contact
           </h2>
 
-          <Card>
-            <CardContent className="text-lg pt-6">
-              <p className="text-muted-foreground">
-                Contact form coming soon...
-              </p>
-            </CardContent>
-          </Card>
-        </section>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
+              <CardContent className="pt-6">
+                <h3 className="text-xl font-semibold mb-4">
+                  Let&apos;s Connect
+                </h3>
+                <p className="text-muted-foreground mb-6">
+                  I&apos;m currently open to new opportunities and
+                  collaborations. Whether you have a question, want to discuss a
+                  project, or just want to say hi, feel free to reach out!
+                </p>
+                <Button asChild className="w-full">
+                  <a href="mailto:davis.ernst@outlook.com">
+                    <Mail className="mr-2 h-4 w-4" />
+                    Send Email
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="pt-6">
+                <h3 className="text-xl font-semibold mb-4">Socials & Resume</h3>
+                <div className="space-y-3">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    asChild
+                  >
+                    <a
+                      href="https://github.com/davisernst04"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Github className="mr-2 h-4 w-4" />
+                      GitHub
+                    </a>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    asChild
+                  >
+                    <a
+                      href="https://linkedin.com/in/davis-ernst-987391362"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Linkedin className="mr-2 h-4 w-4" />
+                      LinkedIn
+                    </a>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    disabled
+                  >
+                    <FileDown className="mr-2 h-4 w-4" />
+                    Download Resume (Coming Soon)
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </motion.section>
 
         <footer className="px-4 sm:px-6 max-w-6xl mx-auto" role="contentinfo">
           <hr className="max-w-6xl mx-auto my-12 border-border" />

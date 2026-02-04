@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   
   // Enable React strict mode for better development experience
   reactStrictMode: true,
+
+  turbopack: {},
   
   // Optimize images
   images: {
