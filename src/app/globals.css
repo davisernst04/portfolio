@@ -142,12 +142,18 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Times', sans-serif;
   }
 
   html {
     @apply scroll-smooth;
     scroll-padding-top: 4rem; /* 64px - height of navbar */
   }
+}
+
+@font-face {
+  font-family: 'Times';
+  src: url('/fonts/times.ttf') format('truetype');
 }
 
 @layer base {

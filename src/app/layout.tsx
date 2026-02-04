@@ -83,7 +83,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${robotoMono.variable} ${lora.variable}`}>
-      <body className="m-0 antialiased font-serif">
+      <body className="m-0 antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
