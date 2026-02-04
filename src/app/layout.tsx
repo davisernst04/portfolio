@@ -1,8 +1,27 @@
 import type { Metadata, Viewport } from "next";
+import { Inter, Roboto_Mono, Lora } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import NavigationBar from "@/components/NavigationBar";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+const lora = Lora({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -63,7 +82,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${robotoMono.variable} ${lora.variable}`}>
       <body className="m-0 antialiased font-serif">
         <ThemeProvider
           attribute="class"

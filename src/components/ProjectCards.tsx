@@ -76,7 +76,7 @@ export default function ProjectCards() {
                       src={active.src}
                       alt={active.title}
                       className="object-cover object-top"
-                      sizes=""
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                     />
                   </AspectRatio>
                 </motion.div>
@@ -182,7 +182,7 @@ export default function ProjectCards() {
                     src={card.src}
                     alt={card.title}
                     className="object-cover object-top shadow-sm group-hover:shadow-md transition-shadow"
-                    sizes=""
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                 </AspectRatio>
               </motion.div>
@@ -311,7 +311,7 @@ const cards = [
     ],
     content: () => (
       <p>
-        The official website for Shadow Basketball, featuring team rosters, game schedules, and player statistics. 
+        The official website for Shadow Basketball, featuring team rosters, game schedules, and player statistics.
         Built to provide fans and players with up-to-date information and a centralized hub for team news.
       </p>
     ),
