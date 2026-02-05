@@ -9,7 +9,10 @@ import {
   SiGit,
   SiNodedotjs,
   SiLinux,
+  SiDocker,
+  SiVim,
 } from "react-icons/si";
+import { Card } from "./ui/card";
 
 const skills = [
   { Icon: SiTypescript, name: "TypeScript" },
@@ -22,6 +25,8 @@ const skills = [
   { Icon: SiPostgresql, name: "PostgreSQL" },
   { Icon: SiGit, name: "Git" },
   { Icon: SiLinux, name: "Linux" },
+  { Icon: SiDocker, name: "Docker" },
+  { Icon: SiVim, name: "Vim" },
 ];
 
 export default function Skills() {
@@ -31,14 +36,18 @@ export default function Skills() {
       <h2 className="text-center text-6xl md:text-7xl lg:text-9xl font-bold tracking-tight mb-8">
         Skills
       </h2>
-      <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-6">
-        {skills.map(({ Icon, name }) => (
-          <div key={name} className="group flex items-center gap-2">
-            <Icon className="w-8 h-8 text-foreground/80 group-hover:text-primary transition-colors duration-300" />
-            <span className="text-lg font-medium">{name}</span>
-          </div>
-        ))}
-      </div>
+      <Card className="p-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 place-items-center">
+          {skills.map(({ Icon, name }) => (
+            <div key={name} className="flex items-center gap-3 w-40">
+              <Icon className="w-8 h-8 flex-shrink-0 text-foreground/80 hover:text-primary transition-colors duration-300" />
+              <span className="text-base font-medium whitespace-nowrap">
+                {name}
+              </span>
+            </div>
+          ))}
+        </div>
+      </Card>
     </section>
   );
 }

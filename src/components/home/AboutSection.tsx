@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "motion/react";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { User } from "lucide-react";
@@ -25,7 +25,7 @@ export default function AboutSection() {
         About Me
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-        <Card className="h-full order-1 md:col-span-2  bg-card">
+        <Card className="h-full order-1 md:col-span-2">
           <CardContent className="text-lg md:text-xl leading-relaxed text-foreground h-full flex flex-col justify-center">
             <p>
               I am an ambitous Computer Science student at the University of

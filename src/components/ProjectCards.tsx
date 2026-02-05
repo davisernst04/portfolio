@@ -163,7 +163,7 @@ export default function ProjectCards() {
         ) : null}
       </AnimatePresence>
 
-      <ul className="mx-auto w-full grid grid-cols-1 lg:grid-cols-2 items-start gap-6 px-4">
+      <ul className="mx-auto w-full grid grid-cols-1 lg:grid-cols-2 items-start gap-6 px-4 pb-16">
         {cards.map((card) => (
           <motion.div
             layoutId={`card-${card.title}-${id}`}

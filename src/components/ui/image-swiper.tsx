@@ -1,16 +1,13 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import Image from "next/image";
 
 interface ImageSwiperProps {
   images: string;
-  cardWidth?: number;
-  cardHeight?: number;
   className?: string;
 }
 
 export const ImageSwiper: React.FC<ImageSwiperProps> = ({
   images,
-  cardWidth,
-  cardHeight,
   className = "",
 }) => {
   const cardStackRef = useRef<HTMLDivElement>(null);
@@ -169,7 +166,7 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
     const handlePointerMove = (e: PointerEvent) => {
       handleMove(e.clientX);
     };
-    const handlePointerUp = (e: PointerEvent) => {
+    const handlePointerUp = () => {
       handleEnd();
     };
 
@@ -229,11 +226,13 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
             } as React.CSSProperties
           }
         >
-          <img
+          <Image
             src={imageList[originalIndex]}
             alt={`Swiper image ${originalIndex + 1}`}
-            className="w-full h-full object-cover select-none pointer-events-none"
+            fill
+            className="object-cover select-none pointer-events-none"
             draggable={false}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </article>
       ))}
