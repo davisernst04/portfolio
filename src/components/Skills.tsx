@@ -25,8 +25,8 @@ const skills = [
 export default function Skills() {
   return (
     <section id="skills" className="px-4 max-w-6xl mx-auto py-10">
-      <hr className="mb-12 border-border" />
-      <h2 className="text-center text-5xl md:text-7xl lg:text-9xl font-bold tracking-tight pb-12">
+      <hr className="mb-8 border-border" />
+      <h2 className="text-center text-6xl md:text-7xl lg:text-9xl font-bold tracking-tight mb-8">
         Skills
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

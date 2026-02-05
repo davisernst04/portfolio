@@ -59,7 +59,7 @@ export default function ProjectCards() {
       <AnimatePresence>
         {active && typeof active === "object" ? (
           <div className="fixed inset-0 z-[100] overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 md:p-10">
+            <div className="flex min-h-full items-center justify-center md:p-10">
               <motion.div
                 layoutId={`card-${active.title}-${id}`}
                 ref={ref}
@@ -163,7 +163,7 @@ export default function ProjectCards() {
         ) : null}
       </AnimatePresence>
 
-      <ul className="mx-auto w-full grid grid-cols-1 lg:grid-cols-2 items-start gap-6 p-4 md:p-8">
+      <ul className="mx-auto w-full grid grid-cols-1 lg:grid-cols-2 items-start gap-6 px-4">
         {cards.map((card) => (
           <motion.div
             layoutId={`card-${card.title}-${id}`}
@@ -311,8 +311,9 @@ const cards = [
     ],
     content: () => (
       <p>
-        The official website for Shadow Basketball, featuring team rosters, game schedules, and player statistics.
-        Built to provide fans and players with up-to-date information and a centralized hub for team news.
+        The official website for Shadow Basketball, featuring team rosters, game
+        schedules, and player statistics. Built to provide fans and players with
+        up-to-date information and a centralized hub for team news.
       </p>
     ),
   },

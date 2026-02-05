@@ -167,7 +167,7 @@
   .prose h4,
   .prose h5,
   .prose h6 {
-    @apply text-foreground font-bold mt-8 mb-4;
+    @apply text-foreground font-bold mt-4 mb-2;
   }
   
   .prose h1 {
@@ -228,7 +228,7 @@
   }
   
   .prose hr {
-    @apply border-border my-8;
+    @apply border-border my-4;
   }
   
   .prose table {
