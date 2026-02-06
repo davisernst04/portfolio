@@ -36,10 +36,10 @@ export default function Skills() {
       <h2 className="text-center text-6xl md:text-7xl lg:text-9xl font-bold tracking-tight mb-8">
         Skills
       </h2>
-      <Card className="p-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 place-items-center">
+      <Card className="p-4 sm:p-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 place-items-center">
           {skills.map(({ Icon, name }) => (
-            <div key={name} className="flex items-center gap-3 w-40">
+            <div key={name} className="flex items-center gap-3 w-36 sm:w-40">
               <Icon className="w-8 h-8 flex-shrink-0 text-foreground/80 hover:text-primary transition-colors duration-300" />
               <span className="text-base font-medium whitespace-nowrap">
                 {name}

@@ -55,7 +55,7 @@ export default function AboutSection() {
         <div className="order-2 h-96 md:h-full">
           <ImageSwiper
             images={
-              "/photos/HEAT.jpg, /photos/RTGA.jpg, /photos/davis_corner.png"
+              "/photos/card_swipe1.jpg, /photos/card_swipe2.jpg, /photos/card_swipe3.jpg, /photos/card_swipe4.jpg"
             }
             className="mx-auto md:max-w-none h-full"
           />
