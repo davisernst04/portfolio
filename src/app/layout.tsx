@@ -25,11 +25,11 @@ const lora = Lora({
 
 export const metadata: Metadata = {
   title: {
-    default: "Davis Ernst | Software Developer & Computer Science Student",
+    default: "Davis Ernst",
     template: "%s | Davis Ernst",
   },
   description:
-    "Personal portfolio and blog of Davis Ernst, a Computer Science student at the University of Saskatchewan passionate about software development, operating systems, and full-stack web development.",
+    "Personal portfolio and blog of Davis Ernst, a Computer Science student at the University of Saskatchewan passionate about software development.",
   keywords: [
     "Davis Ernst",
     "Software Developer",
@@ -82,7 +82,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${robotoMono.variable} ${lora.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${robotoMono.variable} ${lora.variable}`}
+    >
       <body className="m-0 antialiased">
         <ThemeProvider
           attribute="class"
@@ -90,10 +94,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <header className="sticky top-0 z-40">
+          <div className="relative flex min-h-screen flex-col">
             <NavigationBar />
-          </header>
-          <AuroraBackground>{children}</AuroraBackground>
+            <AuroraBackground className="flex-1">
+              {children}
+            </AuroraBackground>
+          </div>
         </ThemeProvider>
       </body>
     </html>

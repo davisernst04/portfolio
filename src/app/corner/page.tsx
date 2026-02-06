@@ -55,7 +55,7 @@ export default async function PublicCornerPage() {
 
   return (
     <main className="text-foreground min-h-screen">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+      <div className="max-w-6xl mx-auto px-4 py-8">
         <h1 className="text-center text-7xl md:text-8xl lg:text-9xl font-bold mb-2">
           Davis Corner
         </h1>
@@ -136,7 +136,7 @@ export default async function PublicCornerPage() {
             )}
 
             {remainingPosts.length > 0 && (
-              <BentoGrid className="max-w-7xl mx-auto">
+              <BentoGrid className="w-full mx-auto">
                 {remainingPosts.map((post: Post) => {
                   const plainTextPreview = stripMarkdown(
                     post.content,
