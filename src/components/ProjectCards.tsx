@@ -14,6 +14,7 @@ import {
   SiDjango,
   SiPostgresql,
   SiGooglecloud,
+  SiNextdotjs,
 } from "react-icons/si";
 import { RiNextjsFill } from "react-icons/ri";
 import Image from "next/image";
@@ -131,7 +132,10 @@ export default function ProjectCards() {
                         </Button>
 
                         {active.ctaLink && (
-                          <Button asChild className="rounded-full px-6 font-semibold">
+                          <Button
+                            asChild
+                            className="rounded-full px-6 font-semibold"
+                          >
                             <motion.a
                               layout
                               initial={{ opacity: 0 }}
@@ -155,7 +159,9 @@ export default function ProjectCards() {
                             variant="secondary"
                             className="flex items-center gap-2 py-1 px-3"
                           >
-                            <span className="text-foreground/80">{tech.icon}</span>
+                            <span className="text-foreground/80">
+                              {tech.icon}
+                            </span>
                             <span>{tech.name}</span>
                           </Badge>
                         ))}
@@ -228,7 +234,11 @@ export default function ProjectCards() {
                   {card.technologies && (
                     <div className="flex gap-4 flex-wrap items-center">
                       {card.technologies.map((tech, idx) => (
-                        <div key={idx} className="text-foreground/70 scale-125" title={tech.name}>
+                        <div
+                          key={idx}
+                          className="text-foreground/70 scale-125"
+                          title={tech.name}
+                        >
                           {tech.icon}
                         </div>
                       ))}
@@ -334,20 +344,25 @@ const cards = [
   },
   {
     title: "Shadow Basketball Official Page",
-    description: "A website for a basketball team",
+    description: "A website for a youth basketball team",
     src: "/photos/shadow_basketball.jpg",
-    githubLink: "#",
-    ctaLink: null,
+    githubLink:
+      "https://github.com/davisernst04/basketball-registration-platform",
+    ctaLink: "https://basketball-registration-platform.vercel.app/",
     technologies: [
-      { name: "Python", icon: <SiPython size={16} /> },
-      { name: "Django", icon: <SiDjango size={16} /> },
+      { name: "Typescript", icon: <SiTypescript size={16} /> },
+      { name: "Nextjs", icon: <SiNextdotjs size={16} /> },
       { name: "Tailwind", icon: <SiTailwindcss size={16} /> },
+      { name: "PostgreSQL", icon: <SiPostgresql size={16} /> },
     ],
     content: () => (
       <p>
-        The official website for Shadow Basketball, featuring team rosters, game
-        schedules, and player statistics. Built to provide fans and players with
-        up-to-date information and a centralized hub for team news.
+        The official website for Shadow Basketball. This is primarily a place
+        where parents can go to register their kids for basketball tryouts and
+        find information about the team. It also serves as a place where the
+        coaches can post updates and information about the team. This was a fun
+        project to work on as it allowed me to use my web development skills to
+        help out a local youth sports team.
       </p>
     ),
   },
@@ -368,6 +383,35 @@ const cards = [
         Have not really decided what this is supposed to be. I guess you could
         call it a personal blog, a diary maybe. I call it a place where I can
         dump my thoughts and ideas about the things that interest me.
+      </p>
+    ),
+  },
+
+  {
+    title: "Ye Guesser",
+    description: "Individual Project",
+    src: "/photos/ye_guesser.png",
+    githubLink: "https://github.com/yourusername/scraper",
+    ctaLink: "https://ye-guesser.vercel.app",
+    technologies: [
+      { name: "TypeScript", icon: <SiTypescript size={16} /> },
+      { name: "Next.js", icon: <RiNextjsFill size={16} /> },
+      { name: "Tailwind", icon: <SiTailwindcss size={16} /> },
+    ],
+    content: () => (
+      <p>
+        Preface: this is not an endorsment Ye's inflammatory behaviour. This is
+        just something I wanted to make to test my knowledge of Kanye West's
+        music. He is my most streamed music artist and thought this would be fun
+        to make.
+        <br />
+        <br />
+        This was created using Deezer's API where you can get information about
+        an artist's discography and their top tracks. I used this information to
+        create a wordle-like game where you have to guess the name of the song
+        based on a short audio clip. The more guesses you have, the more of the
+        song you can listen to. You only have 6 guesses so you better make them
+        count!
       </p>
     ),
   },
