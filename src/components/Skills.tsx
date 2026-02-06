@@ -31,9 +31,9 @@ const skills = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="px-4 max-w-6xl mx-auto py-16">
-      <hr className="mb-8 border-border" />
-      <h2 className="text-center text-6xl md:text-7xl lg:text-9xl font-bold tracking-tight mb-8">
+    <section id="skills" className="px-4 max-w-6xl mx-auto pb-24 scroll-mt-16">
+      <hr className="border-border" />
+      <h2 className="text-center text-6xl md:text-7xl lg:text-9xl font-bold tracking-tight mt-8 mb-8">
         Skills
       </h2>
       <Card className="p-4 sm:p-8">

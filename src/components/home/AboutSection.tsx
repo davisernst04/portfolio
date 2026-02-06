@@ -14,13 +14,13 @@ export default function AboutSection() {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       id="about"
-      className="px-4 max-w-6xl mx-auto pb-4"
+      className="px-4 max-w-6xl mx-auto pb-24 scroll-mt-16"
       aria-labelledby="about-heading"
     >
-      <hr className="max-w-6xl mx-auto mb-8 border-border" />
+      <hr className="max-w-6xl mx-auto border-border" />
       <h2
         id="about-heading"
-        className="text-center text-6xl lg:text-9xl font-bold tracking-tight mb-8"
+        className="text-center text-6xl lg:text-9xl font-bold tracking-tight mt-8 mb-8"
       >
         About Me
       </h2>

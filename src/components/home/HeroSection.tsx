@@ -14,8 +14,8 @@ export default function HeroSection() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      id="about"
-      className="px-4 max-w-6xl mx-auto py-8 lg:py-10"
+      id="home"
+      className="px-4 max-w-6xl mx-auto pt-8 lg:pt-16 pb-24 scroll-mt-16"
       aria-label="Hero section"
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-8 lg:gap-16">

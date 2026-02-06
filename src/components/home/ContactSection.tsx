@@ -13,13 +13,13 @@ export default function ContactSection() {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       id="contact"
-      className="px-4 max-w-6xl mx-auto"
+      className="px-4 max-w-6xl mx-auto pb-24 scroll-mt-16"
       aria-labelledby="contact-heading"
     >
-      <hr className="max-w-6xl mx-auto mb-8 border-border" />
+      <hr className="max-w-6xl mx-auto border-border" />
       <h2
         id="contact-heading"
-        className="text-center text-6xl lg:text-9xl font-bold tracking-tight mb-8"
+        className="text-center text-6xl lg:text-9xl font-bold tracking-tight mt-8 mb-8"
       >
         Contact
       </h2>

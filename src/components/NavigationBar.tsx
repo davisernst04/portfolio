@@ -1,10 +1,4 @@
 "use client";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { Moon, Sun, Menu } from "lucide-react";
@@ -26,7 +20,7 @@ export default function NavigationBar() {
   };
 
   const navigationItems = [
-    { href: "/", label: "Home" },
+    { href: "/#home", label: "Home" },
     { href: "/#about", label: "About" },
     { href: "/#skills", label: "Skills" },
     { href: "/#projects", label: "Projects" },
@@ -67,21 +61,16 @@ export default function NavigationBar() {
           </div>
 
           {/* Desktop Navigation - Left Aligned */}
-          <div className="hidden lg:flex items-center">
-            <NavigationMenu>
-              <NavigationMenuList>
-                {navigationItems.map((item) => (
-                  <NavigationMenuItem key={item.href}>
-                    <NavigationMenuLink
-                      href={item.href}
-                      className="text-md font-medium text-foreground/80 hover:text-foreground transition-colors rounded-md hover:bg-accent px-3 py-2"
-                    >
-                      {item.label}
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                ))}
-              </NavigationMenuList>
-            </NavigationMenu>
+          <div className="hidden lg:flex items-center gap-1">
+            {navigationItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="text-md font-medium text-foreground/80 hover:text-foreground transition-colors rounded-md hover:bg-accent px-3 py-2 cursor-pointer"
+              >
+                {item.label}
+              </a>
+            ))}
           </div>
 
           {/* Theme Toggle - Right Aligned */}

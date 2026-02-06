@@ -147,7 +147,7 @@
 
   html {
     @apply scroll-smooth;
-    scroll-padding-top: 4rem; /* 64px - height of navbar */
+    scroll-padding-top: 64px; /* Exact height of h-16 navbar */
   }
 }
 

@@ -11,13 +11,13 @@ export default function ProjectsSection() {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       id="projects"
-      className="max-w-6xl mx-auto"
+      className="max-w-6xl mx-auto pb-24 scroll-mt-16"
       aria-labelledby="projects-heading"
     >
-      <hr className="max-w-6xl mx-auto mb-8 border-border" />
+      <hr className="max-w-6xl mx-auto border-border" />
       <h2
         id="projects-heading"
-        className="text-center text-7xl md:text-7xl lg:text-9xl font-bold tracking-tight mb-8"
+        className="text-center text-7xl md:text-7xl lg:text-9xl font-bold tracking-tight mt-8 mb-8"
       >
         Projects
       </h2>
