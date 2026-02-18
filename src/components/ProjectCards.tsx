@@ -226,33 +226,4 @@ const cards = [
       </p>
     ),
   },
-
-  {
-    title: "Ye Guesser",
-    description: "Individual Project",
-    src: "/photos/ye_guesser.png",
-    githubLink: "https://github.com/yourusername/scraper",
-    ctaLink: "https://ye-guesser.vercel.app",
-    technologies: [
-      { name: "TypeScript", icon: <SiTypescript size={16} /> },
-      { name: "Next.js", icon: <RiNextjsFill size={16} /> },
-      { name: "Tailwind", icon: <SiTailwindcss size={16} /> },
-    ],
-    content: () => (
-      <p>
-        Preface: this is not an endorsment Ye's inflammatory behaviour. This is
-        just something I wanted to make to test my knowledge of Kanye West's
-        music. He is my most streamed music artist and thought this would be fun
-        to make.
-        <br />
-        <br />
-        This was created using Deezer's API where you can get information about
-        an artist's discography and their top tracks. I used this information to
-        create a wordle-like game where you have to guess the name of the song
-        based on a short audio clip. The more guesses you have, the more of the
-        song you can listen to. You only have 6 guesses so you better make them
-        count!
-      </p>
-    ),
-  },
 ];
