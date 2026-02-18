@@ -2,10 +2,10 @@
 import React from "react";
 import { motion } from "motion/react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Github, Linkedin, Mail, FileDown } from "lucide-react";
+import { ImageSwiper } from "@/components/ui/image-swiper";
 
 export default function HeroSection() {
   return (
@@ -15,19 +15,16 @@ export default function HeroSection() {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       id="home"
-      className="px-4 max-w-6xl mx-auto pt-8 lg:pt-16 pb-24 scroll-mt-16"
+      className="px-4 max-w-6xl mx-auto pt-8 lg:pt-16 pb-24"
       aria-label="Hero section"
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-8 lg:gap-16">
         {/* Image First on Mobile, Second on Desktop */}
         <div className="lg:col-span-6 order-1 lg:order-2">
           <AspectRatio ratio={1}>
-            <Image
-              src="/photos/profile.JPG"
-              alt="Davis Ernst"
-              className="rounded-full object-cover border-2 shadow-lg"
-              fill
-              priority
+            <ImageSwiper
+              images="/photos/profile.JPG, /photos/card_swipe1.jpg, /photos/card_swipe2.jpg, /photos/card_swipe3.jpg, /photos/card_swipe4.jpg"
+              className="rounded-full"
             />
           </AspectRatio>
         </div>

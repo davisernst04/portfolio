@@ -13,6 +13,7 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
   const cardStackRef = useRef<HTMLDivElement>(null);
   const isSwiping = useRef(false);
   const startX = useRef(0);
+  const startY = useRef(0);
   const currentX = useRef(0);
   const animationFrameId = useRef<number | null>(null);
 
@@ -138,7 +139,7 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
   }, [getDurationFromCSS, getActiveCard, applySwipeStyles]); // Removed updatePositions if not directly used
 
   const handleMove = useCallback(
-    (clientX: number) => {
+    (clientX: number, clientY: number) => {
       if (!isSwiping.current) return;
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
@@ -146,25 +147,34 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
       animationFrameId.current = requestAnimationFrame(() => {
         currentX.current = clientX;
         const deltaX = currentX.current - startX.current;
+        const deltaY = clientY - startY.current;
+
+        // If movement is more vertical than horizontal, don't swipe
+        if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 10) {
+          isSwiping.current = false;
+          return;
+        }
+
         applySwipeStyles(deltaX);
 
         if (Math.abs(deltaX) > 50) {
-          handleEnd(); // Now handleEnd is defined
+          handleEnd();
         }
       });
     },
     [applySwipeStyles, handleEnd],
-  ); // handleEnd is now a valid dependency
+  );
 
   useEffect(() => {
     const cardStackElement = cardStackRef.current;
     if (!cardStackElement) return;
 
     const handlePointerDown = (e: PointerEvent) => {
+      startY.current = e.clientY;
       handleStart(e.clientX);
     };
     const handlePointerMove = (e: PointerEvent) => {
-      handleMove(e.clientX);
+      handleMove(e.clientX, e.clientY);
     };
     const handlePointerUp = () => {
       handleEnd();
@@ -196,7 +206,7 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
         {
           width: "100%",
           height: "100%",
-          touchAction: "none",
+          touchAction: "pan-y",
           transformStyle: "preserve-3d",
           "--card-perspective": "700px",
           "--card-z-offset": "12px",
@@ -210,8 +220,8 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
         <article
           key={`${imageList[originalIndex]}-${originalIndex}`}
           className="image-card absolute cursor-grab active:cursor-grabbing
-                     place-self-center border border-slate-400 rounded-xl
-                     shadow-md overflow-hidden will-change-transform"
+                     place-self-center border-2 rounded-full
+                     shadow-lg overflow-hidden will-change-transform"
           style={
             {
               "--i": (displayIndex + 1).toString(),
@@ -232,7 +242,8 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
             fill
             className="object-cover select-none pointer-events-none"
             draggable={false}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 50vw"
+            quality={90}
           />
         </article>
       ))}

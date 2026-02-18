@@ -11,7 +11,7 @@ export default function ProjectsSection() {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       id="projects"
-      className="max-w-6xl mx-auto pb-24 scroll-mt-16"
+      className="px-4 max-w-6xl mx-auto pb-24"
       aria-labelledby="projects-heading"
     >
       <hr className="max-w-6xl mx-auto border-border" />

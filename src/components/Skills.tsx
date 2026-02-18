@@ -31,10 +31,10 @@ const skills = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="px-4 max-w-6xl mx-auto pb-24 scroll-mt-16">
+    <section id="skills" className="px-4 max-w-6xl mx-auto pb-24">
       <hr className="border-border" />
       <h2 className="text-center text-6xl md:text-7xl lg:text-9xl font-bold tracking-tight mt-8 mb-8">
-        Skills and Technologies
+        Skills and Tech
       </h2>
       <Card className="p-4 sm:p-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 place-items-center">
