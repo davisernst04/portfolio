@@ -13,13 +13,13 @@ export default function ContactSection() {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       id="contact"
-      className="px-4 max-w-6xl mx-auto pb-24"
+      className="px-4 max-w-6xl mx-auto pb-12"
       aria-labelledby="contact-heading"
     >
       <hr className="max-w-6xl mx-auto border-border" />
       <h2
         id="contact-heading"
-        className="text-center text-6xl lg:text-9xl font-bold tracking-tight mt-8 mb-8"
+        className="text-center lg:text-left text-6xl md:text-9xl lg:text-[200px] font-bold tracking-tight mt-4 mb-4"
       >
         Contact
       </h2>
@@ -80,7 +80,7 @@ export default function ContactSection() {
                 disabled
               >
                 <FileDown className="mr-2 h-4 w-4" />
-                Download Resume (Coming Soon)
+                Download Resume
               </Button>
             </div>
           </CardContent>

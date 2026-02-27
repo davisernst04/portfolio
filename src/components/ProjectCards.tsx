@@ -31,7 +31,7 @@ import { Badge } from "./ui/badge";
 
 export default function ProjectCards() {
   return (
-    <ul className="mx-auto w-full grid grid-cols-1 lg:grid-cols-2 items-start gap-8 px-4 pb-16">
+    <ul className="mx-auto w-full grid grid-cols-1 lg:grid-cols-2 items-start gap-8">
       {cards.map((card) => (
         <li key={card.title} className="h-full">
           <Card className="h-full flex flex-col overflow-hidden border-muted-foreground/20 hover:border-primary/50 transition-colors duration-300 py-0">

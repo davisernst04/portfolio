@@ -21,18 +21,18 @@ export default function NavigationBar() {
 
   const navigationItems = [
     { href: "/#home", label: "Home" },
-    { href: "/#skills", label: "Skills" },
+    { href: "/#about", label: "About" },
     { href: "/#projects", label: "Projects" },
     { href: "/#contact", label: "Contact" },
     { href: "/corner", label: "Corner" },
   ];
 
   return (
-    <nav className="w-full bg-background/80 backdrop-blur-md border-b border-border sticky top-0 z-50">
-      <div className="px-4 max-w-6xl mx-auto">
-        <div className="flex items-center justify-between h-16">
+    <nav className="px-4 w-full bg-background/80 backdrop-blur-md border-b border-border sticky top-0 z-50">
+      <div className="max-w-6xl mx-auto">
+        <div className="px-4 flex items-center justify-between h-16">
           {/* Mobile Menu */}
-          <div className="lg:hidden">
+          <div className="lg:hidden -ml-2">
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="cursor-pointer">
@@ -60,7 +60,7 @@ export default function NavigationBar() {
           </div>
 
           {/* Desktop Navigation - Left Aligned */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-1 -ml-3">
             {navigationItems.map((item) => (
               <a
                 key={item.href}
@@ -73,7 +73,7 @@ export default function NavigationBar() {
           </div>
 
           {/* Theme Toggle - Right Aligned */}
-          <div className="ml-auto">
+          <div className="ml-auto -mr-2">
             <Button
               variant="ghost"
               size="icon"

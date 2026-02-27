@@ -1,5 +1,5 @@
 import HeroSection from "@/components/home/HeroSection";
-import SkillsSection from "@/components/home/SkillsSection";
+import AboutSection from "@/components/home/AboutSection";
 import ProjectsSection from "@/components/home/ProjectsSection";
 import ContactSection from "@/components/home/ContactSection";
 import Footer from "@/components/home/Footer";
@@ -24,7 +24,7 @@ export default function Home() {
       />
       <main className="flex-grow">
         <HeroSection />
-        <SkillsSection />
+        <AboutSection />
         <ProjectsSection />
         <ContactSection />
         <Footer />
