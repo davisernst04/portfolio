@@ -69,7 +69,7 @@ export default function AboutSection() {
 
                 <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-left">
                   Outside of coding, I enjoy an active lifestyle that includes
-                  strenth training, soccer and basketball. I also love movies
+                  strength training, soccer and basketball. I also love movies
                   and I love my dogs!
                 </p>
 

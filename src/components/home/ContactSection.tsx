@@ -77,10 +77,12 @@ export default function ContactSection() {
               <Button
                 variant="outline"
                 className="w-full justify-start"
-                disabled
+                asChild
               >
-                <FileDown className="mr-2 h-4 w-4" />
-                Download Resume
+                <a href="/DavisErnstResume.pdf" download="DavisErnstResume.pdf">
+                  <FileDown className="mr-2 h-4 w-4" />
+                  Download Resume
+                </a>
               </Button>
             </div>
           </CardContent>
