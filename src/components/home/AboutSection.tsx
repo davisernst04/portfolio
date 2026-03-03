@@ -53,9 +53,6 @@ export default function AboutSection() {
             {/* Bio Section */}
             <div className="flex flex-col gap-8">
               <div className="space-y-6">
-                <CardTitle className="text-4xl font-bold tracking-tight mb-4 text-center lg:text-left">
-                  What I'm all about
-                </CardTitle>
                 <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-left">
                   I am a Computer Science Student at the University of
                   Saskatchewan and a Software Developer based in Saskatoon,
@@ -70,7 +67,6 @@ export default function AboutSection() {
                   strength training, soccer and basketball. I also love movies
                   and I love my dogs!
                 </p>
-
               </div>
             </div>
 
@@ -78,7 +74,7 @@ export default function AboutSection() {
 
             {/* Skills */}
             <div>
-              <CardTitle className="text-4xl font-bold tracking-tight mb-8 text-center lg:text-left">
+              <CardTitle className="text-6xl font-bold tracking-tight mb-8 text-center lg:text-left md:text-9xl lg:text-[200px]">
                 What I know
               </CardTitle>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
