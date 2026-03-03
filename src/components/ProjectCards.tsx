@@ -130,13 +130,14 @@ const cards = [
     ],
     content: () => (
       <p>
-        A Nintendo Game Boy emulator written in Typescript. Although Typescript
-        is not a language known for writing emulators, its ability to integrate
-        well with the web makes it a unique choice for this kind of project.{" "}
-        <br /> <br />
-        The canvas tag is used to write the Gameboy pixels onto the screen. This
-        was a really fun project to work on and I learned a lot from building
-        it.
+        A ground-up Nintendo Game Boy emulator built in TypeScript. Implements
+        the full SM83 instruction set with accurate flag handling, memory-mapped
+        I/O, and cycle-precise timing. The PPU renders tile-based graphics
+        through a custom pixel pipeline using the HTML5 Canvas API.
+        <br /><br />
+        TypeScript&apos;s web integration makes it a unique choice for emulation,
+        enabling the emulator to run directly in the browser with no plugins
+        or downloads required.
       </p>
     ),
   },
@@ -146,14 +147,22 @@ const cards = [
     src: "/photos/RTGA.jpg",
     githubLink: "https://github.com/ElleOwO/realtimegamestatistics",
     ctaLink: null,
-    technologies: [{ name: "Python", icon: <SiPython size={16} /> }],
+    technologies: [
+      { name: "Python", icon: <SiPython size={16} /> },
+      { name: "React", icon: <SiReact size={16} /> },
+      { name: "TypeScript", icon: <SiTypescript size={16} /> },
+    ],
     content: () => (
       <p>
-        This is an ongoing project with the sports engineering club at the
-        University of Saskatchewan. We are working towards creating a real time
-        game analysis program for the women soccer team. Although we are just
-        getting started, I have had a lot of fun working with a fantastic group
-        of people.
+        A live tactical analysis platform built with the Sports Engineering
+        Club (SPEN) at the University of Saskatchewan for the women&apos;s soccer
+        team. As UI/UX lead, I translate non-technical requirements from
+        coaching staff into concrete interface designs and frontend
+        specifications.
+        <br /><br />
+        The system uses fine-tuned object detection and keypoint estimation
+        models to track player positions and movements in real time, providing
+        coaches with actionable insights during active gameplay.
       </p>
     ),
   },
@@ -173,11 +182,14 @@ const cards = [
     ],
     content: () => (
       <p>
-        This is a web application built for the Avatar clubhouse in Colombia. It
-        serves as a management system for clubhouses administrators and staff.
-        It also serves people who want to join the clubhouse as it offers user
-        authentication and access to resources such as ammenities and events
-        created by the clubhouse staff.
+        A full-stack management platform built as a group project at the
+        University of Saskatchewan. The application handles user authentication,
+        role-based access control, and resource management for organization
+        administrators and staff.
+        <br /><br />
+        Features include event creation and scheduling, amenity booking, and
+        a member registration system. Built with a Django REST backend,
+        Next.js frontend, and PostgreSQL database deployed on Google Cloud.
       </p>
     ),
   },
@@ -196,12 +208,13 @@ const cards = [
     ],
     content: () => (
       <p>
-        The official website for Shadow Basketball. This is primarily a place
-        where parents can go to register their kids for basketball tryouts and
-        find information about the team. It also serves as a place where the
-        coaches can post updates and information about the team. This was a fun
-        project to work on as it allowed me to use my web development skills to
-        help out a local youth sports team.
+        The official website for Shadow Basketball, a local youth basketball
+        organization in Saskatoon. Handles player registration, tryout
+        management, and team communications for coaches and parents.
+        <br /><br />
+        Built with a normalized PostgreSQL schema for reliable data management,
+        and deployed with CI/CD via Vercel for zero-downtime deployments on
+        every push to main.
       </p>
     ),
   },
