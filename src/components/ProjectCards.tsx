@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "motion/react";
 import { Github } from "lucide-react";
 import { AspectRatio } from "./ui/aspect-ratio";
 
@@ -203,26 +202,6 @@ const cards = [
         coaches can post updates and information about the team. This was a fun
         project to work on as it allowed me to use my web development skills to
         help out a local youth sports team.
-      </p>
-    ),
-  },
-  {
-    title: "Davis Corner",
-    description: "Individual Project",
-    src: "/photos/davis_corner.png",
-    githubLink: "https://github.com/yourusername/scraper",
-    ctaLink: "https://davisernst.com/corner",
-    technologies: [
-      { name: "Next.js", icon: <RiNextjsFill size={16} /> },
-      { name: "TypeScript", icon: <SiTypescript size={16} /> },
-      { name: "Tailwind", icon: <SiTailwindcss size={16} /> },
-      { name: "PostgreSQL", icon: <SiPostgresql size={16} /> },
-    ],
-    content: () => (
-      <p>
-        Have not really decided what this is supposed to be. I guess you could
-        call it a personal blog, a diary maybe. I call it a place where I can
-        dump my thoughts and ideas about the things that interest me.
       </p>
     ),
   },

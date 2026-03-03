@@ -2,8 +2,6 @@
 import React from "react";
 import { motion } from "motion/react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import {
   SiTypescript,
   SiJavascript,
@@ -56,15 +54,15 @@ export default function AboutSection() {
             <div className="flex flex-col gap-8">
               <div className="space-y-6">
                 <CardTitle className="text-4xl font-bold tracking-tight mb-4 text-center lg:text-left">
-                  Who am I?
+                  What I'm all about
                 </CardTitle>
                 <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-left">
                   I am a Computer Science Student at the University of
-                  Saskatchewan and a Software Developer based in Saskatoon, SK.
-                  My experience includes full-stack web development, system
-                  architecture, and working with various modern technologies. I
-                  focus on writing clean, maintainable code to build functional
-                  and scalable software.
+                  Saskatchewan and a Software Developer based in Saskatoon,
+                  Canada. I'm experienced in building full-stack web
+                  applications, system architecture, and working with various
+                  modern technologies. I focus on writing clean, maintainable
+                  code to build functional and scalable software.
                 </p>
 
                 <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-left">
@@ -73,16 +71,6 @@ export default function AboutSection() {
                   and I love my dogs!
                 </p>
 
-                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-left">
-                  If you want to learn more about me, check out my corner of the
-                  internet below!
-                </p>
-
-                <div className="flex justify-center lg:justify-start pt-2">
-                  <Button asChild size="lg" className="font-semibold">
-                    <Link href="/corner">Visit My Corner</Link>
-                  </Button>
-                </div>
               </div>
             </div>
 
@@ -91,7 +79,7 @@ export default function AboutSection() {
             {/* Skills */}
             <div>
               <CardTitle className="text-4xl font-bold tracking-tight mb-8 text-center lg:text-left">
-                What do I know?
+                What I know
               </CardTitle>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 {skills.map(({ Icon, name }) => (

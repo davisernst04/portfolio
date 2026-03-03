@@ -31,24 +31,3 @@ export function generateWebsiteSchema() {
   };
 }
 
-export function generateBlogPostSchema(post: {
-  title: string;
-  content: string;
-  createdAt: Date;
-  updatedAt: Date;
-  slug: string;
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.content.substring(0, 160),
-    datePublished: post.createdAt.toISOString(),
-    dateModified: post.updatedAt.toISOString(),
-    author: {
-      "@type": "Person",
-      name: "Davis Ernst",
-    },
-    url: `https://davisernst.com/corner/post/${post.slug}`,
-  };
-}
