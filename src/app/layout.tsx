@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s | Davis Ernst",
   },
   description:
-    "Personal portfolio and blog of Davis Ernst, a Computer Science student at the University of Saskatchewan passionate about software development.",
+    "Personal portfolio of Davis Ernst, a Computer Science student at the University of Saskatchewan passionate about software development.",
   keywords: [
     "Davis Ernst",
     "Software Developer",
@@ -47,14 +47,14 @@ export const metadata: Metadata = {
     url: "https://davisernst.com",
     title: "Davis Ernst | Software Developer & Computer Science Student",
     description:
-      "Personal portfolio and blog of Davis Ernst, showcasing projects and technical writing.",
+      "Personal portfolio of Davis Ernst, showcasing projects.",
     siteName: "Davis Ernst Portfolio",
   },
   twitter: {
     card: "summary_large_image",
     title: "Davis Ernst | Software Developer",
     description:
-      "Personal portfolio and blog of Davis Ernst, showcasing projects and technical writing.",
+      "Personal portfolio of Davis Ernst, showcasing projects.",
   },
   robots: {
     index: true,

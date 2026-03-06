@@ -23,7 +23,7 @@ export function generateWebsiteSchema() {
     name: "Davis Ernst Portfolio",
     url: "https://davisernst.com",
     description:
-      "Personal portfolio and blog of Davis Ernst, showcasing projects and technical writing.",
+      "Personal portfolio of Davis Ernst, showcasing projects.",
     author: {
       "@type": "Person",
       name: "Davis Ernst",
