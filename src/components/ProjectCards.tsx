@@ -171,7 +171,7 @@ const cards = [
     description: "A website for a youth basketball team",
     src: "/photos/shadow_basketball.jpg",
     githubLink:
-      "https://github.com/davisernst04/shadow-basketball",
+      "https://github.com/davisernst04/Shadow-Basketball",
     ctaLink: "https://basketball-registration-platform.vercel.app/",
     technologies: [
       { name: "Typescript", icon: <SiTypescript size={16} /> },

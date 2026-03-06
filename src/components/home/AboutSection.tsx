@@ -35,7 +35,6 @@ const skills = [
 export default function AboutSection() {
   return (
     <motion.section
-      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
@@ -43,7 +42,7 @@ export default function AboutSection() {
       className="px-4 max-w-6xl mx-auto pb-12"
     >
       <hr className="max-w-6xl mx-auto border-border" />
-      <h2 className="text-center lg:text-left text-6xl md:text-9xl lg:text-[200px] font-bold tracking-tight mt-4 mb-4">
+      <h2 className="text-center lg:text-left text-5xl md:text-7xl lg:text-9xl font-bold tracking-tight mt-4 mb-4">
         About Me
       </h2>
 
