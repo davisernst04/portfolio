@@ -87,6 +87,9 @@ export default function HeroSection() {
               <Link href="#about" className="text-muted-foreground hover:text-foreground transition-colors">
                 About
               </Link>
+              <Link href="#experience" className="text-muted-foreground hover:text-foreground transition-colors">
+                Experience
+              </Link>
               <Link href="#projects" className="text-muted-foreground hover:text-foreground transition-colors">
                 Projects
               </Link>
