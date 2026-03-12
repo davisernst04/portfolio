@@ -33,8 +33,8 @@ export default function HeroSection() {
             Davis Ernst
           </h1>
           <h2 className="text-lg md:text-2xl font-medium text-muted-foreground pb-2">
-            Software Engineering Candidate | Full-Stack Development &amp; Systems
-            Programming
+            Software Engineering Candidate | Full-Stack Development &amp;
+            Systems Programming
           </h2>
           <div className="w-full max-w-[360px] mx-auto lg:mx-0">
             <div className="grid grid-cols-4 gap-3">
@@ -81,21 +81,6 @@ export default function HeroSection() {
                   <FileDown />
                 </a>
               </Button>
-            </div>
-            
-            <div className="flex justify-center lg:justify-start gap-6 mt-6 pt-2 text-sm font-medium">
-              <Link href="#about" className="text-muted-foreground hover:text-foreground transition-colors">
-                About
-              </Link>
-              <Link href="#experience" className="text-muted-foreground hover:text-foreground transition-colors">
-                Experience
-              </Link>
-              <Link href="#projects" className="text-muted-foreground hover:text-foreground transition-colors">
-                Projects
-              </Link>
-              <Link href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">
-                Contact
-              </Link>
             </div>
           </div>
         </div>
