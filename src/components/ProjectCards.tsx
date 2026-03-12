@@ -166,6 +166,31 @@ const cards = [
     ),
   },
   {
+    title: "Shadow Basketball Official Page",
+    description: "A website for a youth basketball team",
+    src: "/photos/shadow_basketball.jpg",
+    githubLink:
+      "https://github.com/davisernst04/shadow-basketball",
+    ctaLink: "https://basketball-registration-platform.vercel.app/",
+    technologies: [
+      { name: "Typescript", icon: <SiTypescript size={16} /> },
+      { name: "Nextjs", icon: <SiNextdotjs size={16} /> },
+      { name: "Tailwind", icon: <SiTailwindcss size={16} /> },
+      { name: "PostgreSQL", icon: <SiPostgresql size={16} /> },
+    ],
+    content: () => (
+      <p>
+        The official website for Shadow Basketball, a local youth basketball
+        organization in Saskatoon. Handles player registration, tryout
+        management, and team communications for coaches and parents.
+        <br /><br />
+        Built with a normalized PostgreSQL schema for reliable data management,
+        and deployed with CI/CD via Vercel for zero-downtime deployments on
+        every push to main.
+      </p>
+    ),
+  },
+  {
     title: "Managy",
     description: "Group Project at USASK",
     src: "/photos/managy.png",

@@ -1,19 +1,14 @@
 "use client";
 import React from "react";
-import { motion } from "motion/react";
+import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Github, Linkedin, Mail, FileDown } from "lucide-react";
-import { ImageSwiper } from "@/components/ui/image-swiper";
 
 export default function HeroSection() {
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+    <section
       id="home"
       className="px-4 max-w-6xl mx-auto pt-8 lg:pt-16 pb-12"
       aria-label="Hero section"
@@ -22,9 +17,12 @@ export default function HeroSection() {
         {/* Image First on Mobile, Second on Desktop */}
         <div className="lg:col-span-6 order-1 lg:order-2">
           <AspectRatio ratio={1}>
-            <ImageSwiper
-              images="/photos/profile.JPG, /photos/card_swipe2.jpg, /photos/card_swipe4.jpg, /photos/card_swipe1.jpg"
-              className="rounded-full"
+            <Image
+              src="/photos/profile.JPG"
+              alt="Davis Ernst"
+              fill
+              className="rounded-full object-cover shadow-lg"
+              priority
             />
           </AspectRatio>
         </div>
@@ -84,9 +82,24 @@ export default function HeroSection() {
                 </a>
               </Button>
             </div>
+            
+            <div className="flex justify-center lg:justify-start gap-6 mt-6 pt-2 text-sm font-medium">
+              <Link href="#about" className="text-muted-foreground hover:text-foreground transition-colors">
+                About
+              </Link>
+              <Link href="#experience" className="text-muted-foreground hover:text-foreground transition-colors">
+                Experience
+              </Link>
+              <Link href="#projects" className="text-muted-foreground hover:text-foreground transition-colors">
+                Projects
+              </Link>
+              <Link href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">
+                Contact
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }
