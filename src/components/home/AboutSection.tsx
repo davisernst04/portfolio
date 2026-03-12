@@ -73,23 +73,18 @@ export default function AboutSection() {
             <hr className="border-border/50" />
 
             {/* Skills */}
-            <div>
-              <CardTitle className="text-6xl font-bold tracking-tight mb-8 text-center lg:text-left md:text-9xl lg:text-[200px]">
-                What I know
-              </CardTitle>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                {skills.map(({ Icon, name }) => (
-                  <div
-                    key={name}
-                    className="flex items-center gap-3 p-4 rounded-xl border border-border/40 bg-background/50 hover:bg-primary/5 hover:border-primary/30 transition-all duration-300 group"
-                  >
-                    <Icon className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                    <span className="font-medium text-sm text-foreground/80 group-hover:text-foreground">
-                      {name}
-                    </span>
-                  </div>
-                ))}
-              </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {skills.map(({ Icon, name }) => (
+                <div
+                  key={name}
+                  className="flex items-center gap-3 p-4 rounded-xl border border-border/40 bg-background/50 hover:bg-primary/5 hover:border-primary/30 transition-all duration-300 group"
+                >
+                  <Icon className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                  <span className="font-medium text-sm text-foreground/80 group-hover:text-foreground">
+                    {name}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </CardContent>

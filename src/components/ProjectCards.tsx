@@ -121,23 +121,21 @@ const cards = [
   {
     title: "Gameboy Emulator",
     description: "Individual Project",
-    src: "/photos/Game-Boy-Original-2976723000.jpg",
+    src: "/photos/typescript-gb-emu.png",
     githubLink: "https://github.com/davisernst04/gameboy-emulator",
-    ctaLink: null,
-    technologies: [
-      { name: "TypeScript", icon: <SiTypescript size={16} /> },
-      { name: "React", icon: <SiReact size={16} /> },
-    ],
+    ctaLink: "https://typescript-gameboy-emulator.vercel.app",
+    technologies: [{ name: "TypeScript", icon: <SiTypescript size={16} /> }],
     content: () => (
       <p>
         A ground-up Nintendo Game Boy emulator built in TypeScript. Implements
         the full SM83 instruction set with accurate flag handling, memory-mapped
         I/O, and cycle-precise timing. The PPU renders tile-based graphics
         through a custom pixel pipeline using the HTML5 Canvas API.
-        <br /><br />
-        TypeScript&apos;s web integration makes it a unique choice for emulation,
-        enabling the emulator to run directly in the browser with no plugins
-        or downloads required.
+        <br />
+        <br />
+        TypeScript&apos;s web integration makes it a unique choice for
+        emulation, enabling the emulator to run directly in the browser with no
+        plugins or downloads required.
       </p>
     ),
   },
@@ -154,12 +152,13 @@ const cards = [
     ],
     content: () => (
       <p>
-        A live tactical analysis platform built with the Sports Engineering
-        Club (SPEN) at the University of Saskatchewan for the women&apos;s soccer
+        A live tactical analysis platform built with the Sports Engineering Club
+        (SPEN) at the University of Saskatchewan for the women&apos;s soccer
         team. As UI/UX lead, I translate non-technical requirements from
         coaching staff into concrete interface designs and frontend
         specifications.
-        <br /><br />
+        <br />
+        <br />
         The system uses fine-tuned object detection and keypoint estimation
         models to track player positions and movements in real time, providing
         coaches with actionable insights during active gameplay.
@@ -186,10 +185,11 @@ const cards = [
         University of Saskatchewan. The application handles user authentication,
         role-based access control, and resource management for organization
         administrators and staff.
-        <br /><br />
-        Features include event creation and scheduling, amenity booking, and
-        a member registration system. Built with a Django REST backend,
-        Next.js frontend, and PostgreSQL database deployed on Google Cloud.
+        <br />
+        <br />
+        Features include event creation and scheduling, amenity booking, and a
+        member registration system. Built with a Django REST backend, Next.js
+        frontend, and PostgreSQL database deployed on Google Cloud.
       </p>
     ),
   },
@@ -211,7 +211,8 @@ const cards = [
         The official website for Shadow Basketball, a local youth basketball
         organization in Saskatoon. Handles player registration, tryout
         management, and team communications for coaches and parents.
-        <br /><br />
+        <br />
+        <br />
         Built with a normalized PostgreSQL schema for reliable data management,
         and deployed with CI/CD via Vercel for zero-downtime deployments on
         every push to main.
