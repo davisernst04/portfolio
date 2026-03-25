@@ -122,20 +122,20 @@ const cards = [
     title: "Gameboy Emulator",
     description: "Individual Project",
     src: "/photos/typescript_gameboy_emulator.png",
-    githubLink: "https://github.com/davisernst04/gameboy-emulator",
-    ctaLink: "https://typescript-gameboy-emulator.vercel.app",
+    githubLink: "https://github.com/davisernst04/typescript_gameboy_emulator",
+    ctaLink: "https://emulator-demo.vercel.app",
     technologies: [{ name: "TypeScript", icon: <SiTypescript size={16} /> }],
     content: () => (
       <p>
-        A ground-up Nintendo Game Boy emulator built in TypeScript. Implements
-        the full SM83 instruction set with accurate flag handling, memory-mapped
-        I/O, and cycle-precise timing. The PPU renders tile-based graphics
-        through a custom pixel pipeline using the HTML5 Canvas API.
+        A Nintendo Game Boy emulator built using TypeScript. Implements the full
+        gameboy instruction set with accurate flag handling, I/O, and cycle
+        timing. The PPU renders graphics via tiles through a custom pixel
+        pipeline using the HTML5 Canvas.
         <br />
         <br />
-        TypeScript&apos;s web integration makes it a unique choice for
-        emulation, enabling the emulator to run directly in the browser with no
-        plugins or downloads required.
+        The build compiles the Typescript source into Javascript. This makes it
+        a unique choice for emulation, enabling the emulator to run directly in
+        the browser with no plugins or downloads required.
       </p>
     ),
   },
@@ -152,16 +152,14 @@ const cards = [
     ],
     content: () => (
       <p>
-        A live tactical analysis platform built with the Sports Engineering Club
-        (SPEN) at the University of Saskatchewan for the women&apos;s soccer
-        team. As UI/UX lead, I translate non-technical requirements from
-        coaching staff into concrete interface designs and frontend
-        specifications.
+        A real time game analysis dashboard built with the Sports Engineering
+        Club at the University of Saskatchewan for the women&apos;s soccer team.
+        This is an ongoing project.
         <br />
         <br />
-        The system uses fine-tuned object detection and keypoint estimation
-        models to track player positions and movements in real time, providing
-        coaches with actionable insights during active gameplay.
+        The system uses fine-tuned object and keypoint detection models to track
+        player positions and movements in real time, providing coaches with
+        actionable insights during active gameplay.
       </p>
     ),
   },
@@ -170,7 +168,7 @@ const cards = [
     description: "A website for a youth basketball team",
     src: "/photos/shadow_basketball.jpg",
     githubLink:
-      "https://github.com/davisernst04/Shadow-Basketball",
+      "https://github.com/davisernst04/basketball-registration-platform",
     ctaLink: "https://basketball-registration-platform.vercel.app/",
     technologies: [
       { name: "Typescript", icon: <SiTypescript size={16} /> },
@@ -181,12 +179,12 @@ const cards = [
     content: () => (
       <p>
         The official website for Shadow Basketball, a local youth basketball
-        organization in Saskatoon. Handles player registration, tryout
-        management, and team communications for coaches and parents.
-        <br /><br />
+        club in Saskatoon. Handles player registration, tryout management, and
+        team communications for coaches and parents.
+        <br />
+        <br />
         Built with a normalized PostgreSQL schema for reliable data management,
-        and deployed with CI/CD via Vercel for zero-downtime deployments on
-        every push to main.
+        and deployed on Vercel.
       </p>
     ),
   },
