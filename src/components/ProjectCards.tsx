@@ -121,9 +121,9 @@ const cards = [
   {
     title: "Gameboy Emulator",
     description: "Individual Project",
-    src: "/photos/typescript-gb-emu.png",
+    src: "/photos/typscript_gameboy_emulator.png",
     githubLink: "https://github.com/davisernst04/gameboy-emulator",
-    ctaLink: "https://typescript-gameboy-emulator.vercel.app",
+    ctaLink: "https://emulator-demo.vercel.app",
     technologies: [{ name: "TypeScript", icon: <SiTypescript size={16} /> }],
     content: () => (
       <p>
@@ -169,8 +169,7 @@ const cards = [
     title: "Shadow Basketball Official Page",
     description: "A website for a youth basketball team",
     src: "/photos/shadow_basketball.jpg",
-    githubLink:
-      "https://github.com/davisernst04/shadow-basketball",
+    githubLink: "https://github.com/davisernst04/shadow-basketball",
     ctaLink: "https://basketball-registration-platform.vercel.app/",
     technologies: [
       { name: "Typescript", icon: <SiTypescript size={16} /> },
@@ -183,7 +182,8 @@ const cards = [
         The official website for Shadow Basketball, a local youth basketball
         organization in Saskatoon. Handles player registration, tryout
         management, and team communications for coaches and parents.
-        <br /><br />
+        <br />
+        <br />
         Built with a normalized PostgreSQL schema for reliable data management,
         and deployed with CI/CD via Vercel for zero-downtime deployments on
         every push to main.

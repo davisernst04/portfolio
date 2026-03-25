@@ -33,8 +33,8 @@ export default function HeroSection() {
             Davis Ernst
           </h1>
           <h2 className="text-lg md:text-2xl font-medium text-muted-foreground pb-2">
-            Software Engineering Candidate | Full-Stack Development &amp;
-            Systems Programming
+            Computer Science Student at the University of Saskatchewan |
+            Software Developer
           </h2>
           <div className="w-full max-w-[360px] mx-auto lg:mx-0">
             <div className="grid grid-cols-4 gap-3">
