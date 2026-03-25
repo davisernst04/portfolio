@@ -1,0 +1,11 @@
+{
+  "extensions": {
+    "conductor": {}
+  },
+  "mcpServers": {
+    "shadcn": {
+      "command": "npx",
+      "args": ["-y", "@jpisnice/shadcn-ui-mcp-server", "--framework", "react"]
+    }
+  }
+}
