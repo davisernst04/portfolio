@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
@@ -9,37 +9,9 @@ import {
   Linkedin,
   Mail,
   FileDown,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
-
-const images = [
-  "/photos/profile.JPG",
-  "/photos/card_swipe1.jpg",
-  "/photos/card_swipe2.jpg",
-  "/photos/card_swipe3.jpg",
-  "/photos/card_swipe4.jpg",
-];
 
 export default function HeroSection() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
   return (
     <section
       id="home"
@@ -51,53 +23,14 @@ export default function HeroSection() {
         <div className="lg:col-span-6 order-1 lg:order-2">
           <div className="relative group">
             <AspectRatio ratio={1}>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentIndex}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="w-full h-full"
-                >
-                  <Image
-                    src={images[currentIndex]}
-                    alt="Davis Ernst"
-                    fill
-                    className="rounded-full object-cover shadow-lg"
-                    priority
-                  />
-                </motion.div>
-              </AnimatePresence>
+              <Image
+                src="/photos/profile.JPG"
+                alt="Davis Ernst"
+                fill
+                className="rounded-full object-cover shadow-lg"
+                priority
+              />
             </AspectRatio>
-
-            <button
-              onClick={prevSlide}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/50 hover:bg-background/80 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
-              aria-label="Previous image"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/50 hover:bg-background/80 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
-              aria-label="Next image"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-              {images.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentIndex(i)}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    i === currentIndex ? "bg-primary" : "bg-primary/30"
-                  }`}
-                  aria-label={`Go to image ${i + 1}`}
-                />
-              ))}
-            </div>
           </div>
         </div>
 
