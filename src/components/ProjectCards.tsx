@@ -120,7 +120,7 @@ export default function ProjectCards() {
 const cards = [
   {
     title: "Gameboy Emulator",
-    description: "Individual Project | NPM Package",
+    description: "Individual Project",
     src: "/photos/typescript_gameboy_emulator.png",
     githubLink: "https://github.com/davisernst04/typescript_gameboy_emulator",
     ctaLink: "https://emulator-demo.vercel.app",
@@ -133,8 +133,10 @@ const cards = [
         pipeline using the HTML5 Canvas.
         <br />
         <br />
-        Published as an <strong>npm package</strong> for easy integration into browser applications and Node.js projects.
-        The build compiles TypeScript to JavaScript, enabling the emulator to run directly in the browser with no plugins or downloads required.
+        Published as an npm package for easy integration into browser
+        applications and Node.js projects. The build compiles TypeScript to
+        JavaScript, enabling the emulator to run directly in the browser with no
+        plugins or downloads required.
       </p>
     ),
   },
