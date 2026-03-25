@@ -121,7 +121,7 @@ const cards = [
   {
     title: "Gameboy Emulator",
     description: "Individual Project",
-    src: "/photos/typscript_gameboy_emulator.png",
+    src: "/photos/typescript_gameboy_emulator.png",
     githubLink: "https://github.com/davisernst04/gameboy-emulator",
     ctaLink: "https://typescript-gameboy-emulator.vercel.app",
     technologies: [{ name: "TypeScript", icon: <SiTypescript size={16} /> }],
