@@ -17,9 +17,6 @@ This project is designed to serve as both a public portfolio and a lightweight c
 - TypeScript
 - Tailwind CSS
 - React
-- Better Auth
-- PostgreSQL / Prisma
-- Zod
 
 ## Features
 
