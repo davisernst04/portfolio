@@ -17,19 +17,34 @@ import {
   SiVim,
 } from "react-icons/si";
 
-const skills = [
-  { Icon: SiTypescript, name: "TypeScript" },
-  { Icon: SiJavascript, name: "JavaScript" },
-  { Icon: SiPython, name: "Python" },
-  { Icon: SiReact, name: "React" },
-  { Icon: SiNextdotjs, name: "Next.js" },
-  { Icon: SiTailwindcss, name: "Tailwind CSS" },
-  { Icon: SiNodedotjs, name: "Node.js" },
-  { Icon: SiPostgresql, name: "PostgreSQL" },
-  { Icon: SiGit, name: "Git" },
-  { Icon: SiLinux, name: "Linux" },
-  { Icon: SiDocker, name: "Docker" },
-  { Icon: SiVim, name: "Vim" },
+const skillGroups = [
+  {
+    category: "Frontend",
+    skills: [
+      { Icon: SiTypescript, name: "TypeScript" },
+      { Icon: SiJavascript, name: "JavaScript" },
+      { Icon: SiReact, name: "React" },
+      { Icon: SiNextdotjs, name: "Next.js" },
+      { Icon: SiTailwindcss, name: "Tailwind CSS" },
+    ],
+  },
+  {
+    category: "Backend",
+    skills: [
+      { Icon: SiNodedotjs, name: "Node.js" },
+      { Icon: SiPython, name: "Python" },
+      { Icon: SiPostgresql, name: "PostgreSQL" },
+    ],
+  },
+  {
+    category: "Tools",
+    skills: [
+      { Icon: SiGit, name: "Git" },
+      { Icon: SiLinux, name: "Linux" },
+      { Icon: SiDocker, name: "Docker" },
+      { Icon: SiVim, name: "Vim" },
+    ],
+  },
 ];
 
 export default function AboutSection() {
@@ -53,18 +68,19 @@ export default function AboutSection() {
             <div className="flex flex-col gap-8">
               <div className="space-y-6">
                 <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-left">
-                  I am a Computer Science Student at the University of
-                  Saskatchewan and a Software Developer based in Saskatoon,
-                  Canada. I'm experienced in building full-stack web
-                  applications, system architecture, and working with various
-                  modern technologies. I focus on writing clean, maintainable
-                  code to build functional and scalable software.
+                  Fourth-year CS student at the University of Saskatchewan,
+                  graduating in 2027. I build full-stack web apps and systems
+                  with a focus on clean architecture — currently into React,
+                  TypeScript, and Python. When I&apos;m not coding, I&apos;m probably
+                  on a soccer pitch, in the gym, or watching movies with my two
+                  dogs.
                 </p>
 
                 <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-left">
-                  Outside of coding, I enjoy an active lifestyle that includes
-                  strength training, soccer and basketball. I also love movies
-                  and I love my dogs!
+                  I&apos;m particularly proud of a Gameboy Emulator I built from
+                  scratch — it&apos;s on npm and runs entirely in the browser with
+                  no plugins. Right now I&apos;m exploring ML-driven sports
+                  analytics and looking for summer 2026 internships.
                 </p>
               </div>
             </div>
@@ -72,16 +88,25 @@ export default function AboutSection() {
             <hr className="border-border/50" />
 
             {/* Skills */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {skills.map(({ Icon, name }) => (
-                <div
-                  key={name}
-                  className="flex items-center gap-3 p-4 rounded-xl border border-border/40 bg-background/50 hover:bg-primary/5 hover:border-primary/30 transition-all duration-300 group"
-                >
-                  <Icon className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                  <span className="font-medium text-sm text-foreground/80 group-hover:text-foreground">
-                    {name}
-                  </span>
+            <div className="space-y-6">
+              {skillGroups.map(({ category, skills }) => (
+                <div key={category}>
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                    {category}
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    {skills.map(({ Icon, name }) => (
+                      <div
+                        key={name}
+                        className="flex items-center gap-2 p-3 rounded-lg border border-border/40 bg-background/50 hover:bg-primary/5 hover:border-primary/30 transition-all duration-300 group"
+                      >
+                        <Icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                        <span className="font-medium text-sm text-foreground/80 group-hover:text-foreground">
+                          {name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
