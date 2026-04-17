@@ -80,7 +80,7 @@ export default function AboutSection() {
                   I&apos;m particularly proud of a Gameboy Emulator I built from
                   scratch — it&apos;s on npm and runs entirely in the browser with
                   no plugins. Right now I&apos;m exploring ML-driven sports
-                  analytics and looking for summer 2026 internships.
+                  analytics and keeping an eye out for interesting projects.
                 </p>
               </div>
             </div>
