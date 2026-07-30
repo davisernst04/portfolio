@@ -29,7 +29,7 @@ export default function Footer() {
                         </li>
                         <li>
                             <a
-                                href="https://linkedin.com/in/davis-ernst-987391362"
+                                href="https://www.linkedin.com/in/davisernst"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-muted-foreground hover:text-foreground transition-colors"

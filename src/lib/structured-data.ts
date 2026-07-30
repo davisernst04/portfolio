@@ -11,7 +11,7 @@ export function generatePersonSchema() {
     },
     sameAs: [
       "https://github.com/davisernst04",
-      "https://linkedin.com/in/davis-ernst-987391362",
+      "https://www.linkedin.com/in/davisernst",
     ],
   };
 }

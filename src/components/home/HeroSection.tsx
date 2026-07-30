@@ -62,7 +62,7 @@ export default function HeroSection() {
                 size="lg"
                 asChild
               >
-                <Link href="https://www.linkedin.com/in/davis-ernst-987391362/">
+                <Link href="https://www.linkedin.com/in/davisernst">
                   <FaLinkedin />
                 </Link>
               </Button>
