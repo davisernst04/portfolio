@@ -15,9 +15,9 @@ Personal portfolio website for Davis Ernst, a Software Developer and Computer Sc
 
 ## Features
 
-- Responsive multi-page portfolio (`/`, `/projects`, `/about`) with a compact persistent header
-- Dark and light theme support with a radial View Transitions reveal (reduced-motion and no-API fallbacks)
-- SEO-oriented route metadata, structured data (JSON-LD), sitemap and robots routes
+- Responsive single-page portfolio (hero, about, projects, contact)
+- Dark and light theme support
+- SEO-oriented metadata, structured data (JSON-LD), sitemap and robots routes
 - Security headers via Next.js proxy (`src/proxy.ts`)
 
 ## Getting Started
@@ -49,9 +49,11 @@ Then open `http://localhost:3000`.
 portfolio/
 ├── public/            # static assets (photos, fonts, resume)
 └── src/
-    ├── app/           # App Router routes (/, /projects, /about, sitemap, robots)
-    ├── components/    # site components (Header, Footer, ThemeToggle, ...)
+    ├── app/           # App Router entry points (layout, page, sitemap, robots)
+    ├── components/    # site components
+    │   ├── home/      # homepage sections
     │   └── ui/        # shadcn/ui primitives
+    ├── hooks/
     └── lib/
 ```
 
