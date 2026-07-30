@@ -1,31 +1,24 @@
 # Davis Ernst Portfolio
 
-Personal website and writing platform built with Next.js. The site combines a portfolio, a blog section called Corner, and a private dashboard for managing posts.
-
-## Overview
-
-This project is designed to serve as both a public portfolio and a lightweight content system. It includes:
-
-- a portfolio homepage for projects and background
-- a blog with individual post pages
-- an authenticated dashboard for creating, editing, and publishing posts
-- responsive theming and modern UI components
+Personal portfolio website for Davis Ernst, a Software Developer and Computer Science student at the University of Saskatchewan.
 
 ## Stack
 
-- Next.js
-- TypeScript
-- Tailwind CSS
-- React
+- **Next.js 16** (App Router, Turbopack)
+- **React 19**
+- **TypeScript 7** — native compiler for `tsc`, with the TypeScript 6 API sidecar (`@typescript/typescript6`) for tooling that still needs the JS API (typescript-eslint, Next.js type checking)
+- **Tailwind CSS 4**
+- **shadcn/ui** + Radix UI primitives
+- **Motion** for animations
+- **lucide-react** + **react-icons** for icons
+- **next-themes** for dark/light mode
 
 ## Features
 
-- Responsive portfolio layout
-- Blog post publishing workflow
-- Protected admin dashboard
-- GitHub OAuth authentication
+- Responsive single-page portfolio (hero, about, projects, contact)
 - Dark and light theme support
-- SEO-oriented page metadata and site structure
+- SEO-oriented metadata, structured data (JSON-LD), sitemap and robots routes
+- Security headers via Next.js proxy (`src/proxy.ts`)
 
 ## Getting Started
 
@@ -42,33 +35,7 @@ cd portfolio
 npm install
 ```
 
-### 3. Configure environment variables
-
-```bash
-cp .env.example .env
-```
-
-Update `.env` with the required values:
-
-```env
-DATABASE_URL=postgresql://user:password@localhost:5432/portfolio
-BETTER_AUTH_SECRET=your-secret-key-here
-BETTER_AUTH_URL=http://localhost:3000
-GITHUB_CLIENT_ID=your-github-client-id
-GITHUB_CLIENT_SECRET=your-github-client-secret
-ADMIN_GITHUB_ID=your-github-user-id
-```
-
-For GitHub OAuth setup details, see [`docs/GITHUB_OAUTH_SETUP.md`](docs/GITHUB_OAUTH_SETUP.md).
-
-### 4. Prepare the database
-
-```bash
-npx prisma generate
-npx prisma db push
-```
-
-### 5. Start the development server
+### 3. Start the development server
 
 ```bash
 npm run dev
@@ -80,24 +47,15 @@ Then open `http://localhost:3000`.
 
 ```text
 portfolio/
-├── prisma/
-├── public/
-├── src/
-│   ├── actions/
-│   ├── app/
-│   ├── components/
-│   └── lib/
-├── .env.example
-└── package.json
+├── public/            # static assets (photos, fonts, resume)
+└── src/
+    ├── app/           # App Router entry points (layout, page, sitemap, robots)
+    ├── components/    # site components
+    │   ├── home/      # homepage sections
+    │   └── ui/        # shadcn/ui primitives
+    ├── hooks/
+    └── lib/
 ```
-
-## Key Routes
-
-- `/` - portfolio homepage
-- `/corner` - blog index
-- `/corner/post/[slug]` - individual blog post
-- `/corner/dashboard` - admin dashboard
-- `/corner/sign-in` - authentication page
 
 ## Available Scripts
 
@@ -109,14 +67,12 @@ portfolio/
 
 ## Deployment
 
-The project is intended to deploy cleanly to Vercel, but it can also be self-hosted:
+The project deploys cleanly to Vercel, but it can also be self-hosted:
 
 ```bash
 npm run build
 npm start
 ```
-
-Make sure the database and environment variables are configured for the target environment.
 
 ## License
 

@@ -127,10 +127,6 @@ export function DraggableCards() {
               }}
               onRemove={() => handleCardRemove(index)}
             >
-              import Image from "next/image";
-
-// ... (rest of the component)
-
               <Image
                 src={item.image}
                 alt={item.title}

@@ -5,11 +5,11 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
-  Github,
-  Linkedin,
   Mail,
   FileDown,
 } from "lucide-react";
+import { SiGithub } from "react-icons/si";
+import { FaLinkedin } from "react-icons/fa6";
 
 export default function HeroSection() {
   return (
@@ -52,7 +52,7 @@ export default function HeroSection() {
                 asChild
               >
                 <Link href="https://github.com/davisernst04">
-                  <Github />
+                  <SiGithub />
                 </Link>
               </Button>
 
@@ -63,7 +63,7 @@ export default function HeroSection() {
                 asChild
               >
                 <Link href="https://www.linkedin.com/in/davis-ernst-987391362/">
-                  <Linkedin />
+                  <FaLinkedin />
                 </Link>
               </Button>
 

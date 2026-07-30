@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { Github } from "lucide-react";
 import { AspectRatio } from "./ui/aspect-ratio";
 
 import {
+  SiGithub,
   SiTypescript,
   SiReact,
   SiPython,
@@ -71,7 +71,7 @@ export default function ProjectCards() {
                       rel="noopener noreferrer"
                       title="View Code"
                     >
-                      <Github className="w-5 h-5" />
+                      <SiGithub className="w-5 h-5" />
                     </a>
                   </Button>
 

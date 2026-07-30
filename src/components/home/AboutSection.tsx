@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "motion/react";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   SiTypescript,
   SiJavascript,
@@ -55,7 +55,7 @@ export default function AboutSection() {
                 <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-left">
                   I am a Computer Science Student at the University of
                   Saskatchewan and a Software Developer based in Saskatoon,
-                  Canada. I'm experienced in building full-stack web
+                  Canada. I&apos;m experienced in building full-stack web
                   applications, system architecture, and working with various
                   modern technologies. I focus on writing clean, maintainable
                   code to build functional and scalable software.

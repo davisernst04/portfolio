@@ -3,7 +3,9 @@ import React from "react";
 import { motion } from "motion/react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mail, Github, Linkedin, FileDown } from "lucide-react";
+import { Mail, FileDown } from "lucide-react";
+import { SiGithub } from "react-icons/si";
+import { FaLinkedin } from "react-icons/fa6";
 
 export default function ContactSection() {
   return (
@@ -55,7 +57,7 @@ export default function ContactSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Github className="mr-2 h-4 w-4" />
+                  <SiGithub className="mr-2 h-4 w-4" />
                   GitHub
                 </a>
               </Button>
@@ -69,7 +71,7 @@ export default function ContactSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Linkedin className="mr-2 h-4 w-4" />
+                  <FaLinkedin className="mr-2 h-4 w-4" />
                   LinkedIn
                 </a>
               </Button>

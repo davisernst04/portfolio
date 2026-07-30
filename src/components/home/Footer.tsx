@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
+import { SiGithub } from "react-icons/si";
+import { FaLinkedin } from "react-icons/fa6";
 
 export default function Footer() {
     return (
@@ -22,7 +24,7 @@ export default function Footer() {
                                 className="text-muted-foreground hover:text-foreground transition-colors"
                                 aria-label="GitHub profile"
                             >
-                                <Github className="w-5 h-5" />
+                                <SiGithub className="w-5 h-5" />
                             </a>
                         </li>
                         <li>
@@ -33,7 +35,7 @@ export default function Footer() {
                                 className="text-muted-foreground hover:text-foreground transition-colors"
                                 aria-label="LinkedIn profile"
                             >
-                                <Linkedin className="w-5 h-5" />
+                                <FaLinkedin className="w-5 h-5" />
                             </a>
                         </li>
                         <li>
