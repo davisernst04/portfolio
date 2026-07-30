@@ -42,21 +42,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --animate-aurora: aurora 60s linear infinite;
-
-  @keyframes aurora {
-    from {
-      background-position:
-        50% 50%,
-        50% 50%;
-    }
-
-    to {
-      background-position:
-        350% 50%,
-        350% 50%;
-    }
-  }
 }
 
 :root {
@@ -144,11 +129,6 @@
     @apply bg-background text-foreground;
     font-family: 'Times', sans-serif;
   }
-
-  html {
-    @apply scroll-smooth;
-    scroll-padding-top: 64px; /* Exact height of h-16 navbar */
-  }
 }
 
 @font-face {
@@ -156,99 +136,22 @@
   src: url('/fonts/times.ttf') format('truetype');
 }
 
-@layer base {
-  .prose {
-    @apply text-foreground;
-  }
-  
-  .prose h1,
-  .prose h2,
-  .prose h3,
-  .prose h4,
-  .prose h5,
-  .prose h6 {
-    @apply text-foreground font-bold mt-4 mb-2;
-  }
-  
-  .prose h1 {
-    @apply text-4xl;
-  }
-  
-  .prose h2 {
-    @apply text-3xl;
-  }
-  
-  .prose h3 {
-    @apply text-2xl;
-  }
-  
-  .prose p {
-    @apply text-foreground/90 mb-4;
-  }
-  
-  .prose a {
-    @apply text-primary hover:text-primary/80 underline;
-  }
-  
-  .prose ul,
-  .prose ol {
-    @apply mb-4 ml-6;
-  }
-  
-  .prose ul {
-    @apply list-disc;
-  }
-  
-  .prose ol {
-    @apply list-decimal;
-  }
-  
-  .prose li {
-    @apply mb-2;
-  }
-  
-  .prose code {
-    @apply bg-muted text-foreground px-1.5 py-0.5 rounded;
-  }
-  
-  .prose pre {
-    @apply bg-muted text-foreground p-4 rounded-lg overflow-x-auto mb-4;
-  }
-  
-  .prose pre code {
-    @apply bg-transparent p-0;
-  }
-  
-  .prose blockquote {
-    @apply border-l-4 border-l-primary text-muted-foreground pl-4 italic my-4;
-  }
-  
-  .prose img {
-    @apply rounded-lg my-4;
-  }
-  
-  .prose hr {
-    @apply border-border my-4;
-  }
-  
-  .prose table {
-    @apply w-full border-collapse mb-4;
-  }
-  
-  .prose th,
-  .prose td {
-    @apply border border-border px-4 py-2;
-  }
-  
-  .prose th {
-    @apply bg-muted font-semibold;
-  }
-  
-  .prose strong {
-    @apply font-bold;
-  }
-  
-  .prose em {
-    @apply italic;
-  }
+/*
+ * View Transitions for theme switching.
+ * The radial reveal itself is driven from the theme toggle via the WAAPI
+ * (clip-path circle on ::view-transition-new(root)); these rules strip the
+ * default crossfade so the circle reveal reads cleanly.
+ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2147483646;
 }

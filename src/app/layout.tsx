@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Roboto_Mono, Lora } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { AuroraBackground } from "@/components/ui/aurora-background";
-import NavigationBar from "@/components/NavigationBar";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,6 +24,9 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || "https://davisernst.com",
+  ),
   title: {
     default: "Davis Ernst",
     template: "%s | Davis Ernst",
@@ -92,13 +95,13 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
         >
-          <div className="relative flex min-h-screen flex-col">
-            <NavigationBar />
-            <AuroraBackground className="flex-1">
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <main className="mx-auto w-full max-w-2xl flex-1 px-6">
               {children}
-            </AuroraBackground>
+            </main>
+            <Footer />
           </div>
         </ThemeProvider>
       </body>
