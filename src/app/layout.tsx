@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Roboto_Mono, Lora } from "next/font/google";
+import { MotionConfig } from "motion/react";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuroraBackground } from "@/components/ui/aurora-background";
@@ -94,12 +95,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative flex min-h-screen flex-col">
-            <NavigationBar />
-            <AuroraBackground className="flex-1">
-              {children}
-            </AuroraBackground>
-          </div>
+          <MotionConfig reducedMotion="user">
+            <div className="relative flex min-h-screen flex-col">
+              <NavigationBar />
+              <AuroraBackground className="flex-1">
+                {children}
+              </AuroraBackground>
+            </div>
+          </MotionConfig>
         </ThemeProvider>
       </body>
     </html>

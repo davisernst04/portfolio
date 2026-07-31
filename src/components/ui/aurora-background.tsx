@@ -24,8 +24,8 @@ export const AuroraBackground = ({
       <div className="absolute inset-0 overflow-hidden">
         <div
           className={cn(
-            `after:animate-aurora pointer-events-none absolute -inset-[10px] opacity-50 blur-[10px] invert filter will-change-transform 
-            [background-image:var(--white-gradient),var(--aurora)] 
+            `after:animate-aurora pointer-events-none absolute -inset-[10px] opacity-40 blur-[10px] invert filter will-change-transform
+            [background-image:var(--white-gradient),var(--aurora)]
             [background-size:300%,_200%] 
             [background-position:50%_50%,50%_50%]
             [--aurora:repeating-linear-gradient(100deg,var(--primary)_10%,var(--accent)_15%,var(--secondary)_20%,var(--muted)_25%,var(--primary)_30%)]

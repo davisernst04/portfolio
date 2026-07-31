@@ -146,8 +146,27 @@
   }
 
   html {
-    @apply scroll-smooth;
-    scroll-padding-top: 64px; /* Exact height of h-16 navbar */
+    /* Clears the 65px sticky navbar (h-16 = 64px + 1px border) with margin */
+    scroll-padding-top: 80px;
+  }
+}
+
+/* Theme change: radial View Transition reveal is driven from ModeToggle.
+   Disable the default cross-fade so the clip-path animation owns the effect. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

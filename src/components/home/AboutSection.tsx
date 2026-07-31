@@ -1,7 +1,5 @@
 "use client";
-import React from "react";
-import { motion } from "motion/react";
-import { Card, CardContent } from "@/components/ui/card";
+import { motion, type Variants } from "motion/react";
 import {
   SiTypescript,
   SiJavascript,
@@ -32,62 +30,85 @@ const skills = [
   { Icon: SiVim, name: "Vim" },
 ];
 
+const listVariants: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.04 } },
+};
+
+const skillVariants: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+};
+
 export default function AboutSection() {
   return (
-    <motion.section
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+    <section
       id="about"
       className="px-4 max-w-6xl mx-auto pb-12"
+      aria-labelledby="about-heading"
     >
-      <hr className="max-w-6xl mx-auto border-border" />
-      <h2 className="text-center lg:text-left text-5xl md:text-7xl lg:text-9xl font-bold tracking-tight mt-4 mb-4">
-        About Me
-      </h2>
+      {/* The anchor target stays untransformed so anchor scrolling lands on a
+          stable position; the reveal motion lives on this inner wrapper. */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <hr className="max-w-6xl mx-auto border-border" />
+        <h2
+          id="about-heading"
+          className="text-center lg:text-left text-5xl md:text-7xl lg:text-9xl font-bold tracking-tight mt-4 mb-4"
+        >
+          About Me
+        </h2>
 
-      <Card className="border-border/60 shadow-sm bg-card/50 backdrop-blur-sm overflow-hidden hover:border-primary/30 transition-colors duration-500">
-        <CardContent className="p-8 md:p-12">
-          <div className="flex flex-col gap-8 md:gap-12">
-            {/* Bio Section */}
-            <div className="flex flex-col gap-8">
-              <div className="space-y-6">
-                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-left">
-                  I am a Computer Science Student at the University of
-                  Saskatchewan and a Software Developer based in Saskatoon,
-                  Canada. I&apos;m experienced in building full-stack web
-                  applications, system architecture, and working with various
-                  modern technologies. I focus on writing clean, maintainable
-                  code to build functional and scalable software.
-                </p>
+        {/* Bio */}
+        <div className="max-w-3xl mx-auto lg:mx-0 space-y-8 mt-10">
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-left">
+            I am a Computer Science Student at the University of Saskatchewan
+            and a Software Developer based in Saskatoon, Canada. I&apos;m
+            experienced in building full-stack web applications, system
+            architecture, and working with various modern technologies. I focus
+            on writing clean, maintainable code to build functional and
+            scalable software.
+          </p>
 
-                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-left">
-                  Outside of coding, I enjoy an active lifestyle that includes
-                  strength training, soccer and basketball. I also love movies
-                  and I love my dogs!
-                </p>
-              </div>
-            </div>
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-left">
+            Outside of coding, I enjoy an active lifestyle that includes
+            strength training, soccer and basketball. I also love movies and I
+            love my dogs!
+          </p>
+        </div>
 
-            <hr className="border-border/50" />
-
-            {/* Skills */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {skills.map(({ Icon, name }) => (
-                <div
-                  key={name}
-                  className="flex items-center gap-3 p-4 rounded-xl border border-border/40 bg-background/50 hover:bg-primary/5 hover:border-primary/30 transition-all duration-300 group"
-                >
-                  <Icon className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                  <span className="font-medium text-sm text-foreground/80 group-hover:text-foreground">
-                    {name}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </motion.section>
+        {/* Skills */}
+        <h3 className="text-center lg:text-left text-xl font-semibold mt-16 mb-8">
+          Skills
+        </h3>
+        <motion.ul
+          variants={listVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-6 list-none m-0 p-0"
+        >
+          {skills.map(({ Icon, name }) => (
+            <motion.li
+              key={name}
+              variants={skillVariants}
+              className="group flex items-center gap-3"
+            >
+              <Icon
+                aria-hidden
+                className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground transition-colors"
+              />
+              <span className="font-medium text-foreground/80 group-hover:text-foreground transition-colors">
+                {name}
+              </span>
+            </motion.li>
+          ))}
+        </motion.ul>
+      </motion.div>
+    </section>
   );
 }
