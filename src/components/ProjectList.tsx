@@ -72,6 +72,7 @@ export default function ProjectList() {
             <AnimatePresence initial={false}>
               {isOpen && (
                 <motion.div
+                  key={panelId}
                   id={panelId}
                   role="region"
                   initial={{ height: 0, opacity: 0 }}

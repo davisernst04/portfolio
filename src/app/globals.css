@@ -157,13 +157,18 @@
 
 
 @media (prefers-reduced-motion: reduce) {
+  /* Respect reduced motion without nuking all motion: skip smooth scroll
+     and stop infinite/looping decorative animations (e.g. the aurora
+     gradient), but keep brief, functional UI feedback such as hover/focus
+     transitions, the nav sheet slide, and the project accordion expand,
+     since those aid orientation rather than distract. */
+  html {
+    scroll-behavior: auto !important;
+  }
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
   }
 }
 
