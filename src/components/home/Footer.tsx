@@ -7,9 +7,7 @@ import { FaLinkedin } from "react-icons/fa6";
 export default function Footer() {
     return (
         <footer className="px-4 sm:px-6 max-w-6xl mx-auto" role="contentinfo">
-            <hr className="max-w-6xl mx-auto my-12 border-border" />
-
-            <div className="flex flex-col sm:flex-row justify-between items-center py-8 gap-4">
+<div className="flex flex-col sm:flex-row justify-between items-center py-8 gap-4">
                 <div className="flex flex-col items-center sm:items-start">
                     <h3 className="text-lg font-semibold">Davis Ernst</h3>
                 </div>

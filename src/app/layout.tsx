@@ -93,7 +93,6 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
         >
           <MotionConfig reducedMotion="user">
             <div className="relative flex min-h-screen flex-col">

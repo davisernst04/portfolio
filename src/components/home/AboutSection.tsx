@@ -1,50 +1,11 @@
 "use client";
-import { motion, type Variants } from "motion/react";
-import {
-  SiTypescript,
-  SiJavascript,
-  SiReact,
-  SiPython,
-  SiTailwindcss,
-  SiPostgresql,
-  SiNextdotjs,
-  SiGit,
-  SiNodedotjs,
-  SiLinux,
-  SiDocker,
-  SiVim,
-} from "react-icons/si";
-
-const skills = [
-  { Icon: SiTypescript, name: "TypeScript" },
-  { Icon: SiJavascript, name: "JavaScript" },
-  { Icon: SiPython, name: "Python" },
-  { Icon: SiReact, name: "React" },
-  { Icon: SiNextdotjs, name: "Next.js" },
-  { Icon: SiTailwindcss, name: "Tailwind CSS" },
-  { Icon: SiNodedotjs, name: "Node.js" },
-  { Icon: SiPostgresql, name: "PostgreSQL" },
-  { Icon: SiGit, name: "Git" },
-  { Icon: SiLinux, name: "Linux" },
-  { Icon: SiDocker, name: "Docker" },
-  { Icon: SiVim, name: "Vim" },
-];
-
-const listVariants: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.04 } },
-};
-
-const skillVariants: Variants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
-};
+import { motion } from "motion/react";
 
 export default function AboutSection() {
   return (
     <section
       id="about"
-      className="px-4 max-w-6xl mx-auto pb-12"
+      className="px-4 max-w-6xl mx-auto pb-10 md:pb-12"
       aria-labelledby="about-heading"
     >
       {/* The anchor target stays untransformed so anchor scrolling lands on a
@@ -58,7 +19,7 @@ export default function AboutSection() {
         <hr className="max-w-6xl mx-auto border-border" />
         <h2
           id="about-heading"
-          className="text-center lg:text-left text-5xl md:text-7xl lg:text-9xl font-bold tracking-tight mt-4 mb-4"
+          className="text-center lg:text-left text-5xl md:text-7xl lg:text-9xl font-bold tracking-tight mt-10 md:mt-12 mb-4"
         >
           About Me
         </h2>
@@ -80,34 +41,6 @@ export default function AboutSection() {
             love my dogs!
           </p>
         </div>
-
-        {/* Skills */}
-        <h3 className="text-center lg:text-left text-xl font-semibold mt-16 mb-8">
-          Skills
-        </h3>
-        <motion.ul
-          variants={listVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-6 list-none m-0 p-0"
-        >
-          {skills.map(({ Icon, name }) => (
-            <motion.li
-              key={name}
-              variants={skillVariants}
-              className="group flex items-center gap-3"
-            >
-              <Icon
-                aria-hidden
-                className="w-5 h-5 shrink-0 text-muted-foreground group-hover:text-foreground transition-colors"
-              />
-              <span className="font-medium text-foreground/80 group-hover:text-foreground transition-colors">
-                {name}
-              </span>
-            </motion.li>
-          ))}
-        </motion.ul>
       </motion.div>
     </section>
   );

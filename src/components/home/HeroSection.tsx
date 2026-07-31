@@ -45,7 +45,11 @@ const containerVariants: Variants = {
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: "easeOut" },
+  },
 };
 
 const imageVariants: Variants = {
@@ -61,7 +65,7 @@ export default function HeroSection() {
   return (
     <motion.section
       id="home"
-      className="px-4 max-w-6xl mx-auto pt-4 lg:pt-8 pb-8"
+      className="px-4 max-w-6xl mx-auto pt-4 lg:pt-8 pb-10 md:pb-12"
       aria-label="Hero section"
       initial="hidden"
       animate="visible"
@@ -76,7 +80,7 @@ export default function HeroSection() {
                 src="/photos/profile.JPG"
                 alt="Portrait of Davis Ernst"
                 fill
-                className="rounded-full object-cover shadow-lg motion-safe:transition-transform motion-safe:duration-500 group-hover:scale-[1.02]"
+                className="rounded-full object-cover shadow-lg"
                 priority
               />
             </AspectRatio>
@@ -87,7 +91,7 @@ export default function HeroSection() {
         <div className="lg:col-span-6 text-center lg:text-left order-2 lg:order-1 space-y-4">
           <motion.h1
             variants={itemVariants}
-            className="text-5xl md:text-7xl lg:text-9xl font-bold "
+            className="text-6xl md:text-7xl lg:text-[200px] font-bold "
           >
             Davis Ernst
           </motion.h1>
@@ -102,24 +106,26 @@ export default function HeroSection() {
             variants={containerVariants}
             className="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 list-none m-0 p-0"
           >
-            {heroLinks.map(({ href, label, ariaLabel, Icon, external, download }) => (
-              <motion.li key={label} variants={itemVariants}>
-                <a
-                  href={href}
-                  aria-label={ariaLabel}
-                  {...(external
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                  {...(download ? { download: "DavisErnstResume.pdf" } : {})}
-                  className="group inline-flex items-center gap-2 rounded-sm text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-                >
-                  <Icon aria-hidden className="w-4.5 h-4.5" />
-                  <span className="underline-offset-4 group-hover:underline">
-                    {label}
-                  </span>
-                </a>
-              </motion.li>
-            ))}
+            {heroLinks.map(
+              ({ href, label, ariaLabel, Icon, external, download }) => (
+                <motion.li key={label} variants={itemVariants}>
+                  <a
+                    href={href}
+                    aria-label={ariaLabel}
+                    {...(external
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                    {...(download ? { download: "DavisErnstResume.pdf" } : {})}
+                    className="group inline-flex items-center gap-2 rounded-sm text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                  >
+                    <Icon aria-hidden className="w-4.5 h-4.5" />
+                    <span className="underline-offset-4 group-hover:underline">
+                      {label}
+                    </span>
+                  </a>
+                </motion.li>
+              ),
+            )}
           </motion.ul>
         </div>
       </div>

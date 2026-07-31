@@ -146,18 +146,15 @@
   }
 
   html {
-    /* Clears the 65px sticky navbar (h-16 = 64px + 1px border) with margin */
-    scroll-padding-top: 80px;
+    /* The sticky navbar is 65px tall (h-16 = 64px inner + 1px border).
+       With no extra margin, an anchor scroll lands the section's top edge —
+       where each section's divider line sits — flush against the navbar's
+       bottom edge. scrollIntoView({ block: "start" }) honors this value. */
+    scroll-padding-top: 65px;
   }
 }
 
-/* Theme change: radial View Transition reveal is driven from ModeToggle.
-   Disable the default cross-fade so the clip-path animation owns the effect. */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
+
 
 @media (prefers-reduced-motion: reduce) {
   *,

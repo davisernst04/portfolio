@@ -1,14 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { flushSync } from "react-dom";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
-
-type ViewTransitionDocument = Document & {
-  startViewTransition?: (update: () => void) => { ready: Promise<void> };
-};
 
 const emptySubscribe = () => () => {};
 
@@ -22,48 +17,8 @@ export function ModeToggle() {
     () => false
   );
 
-  const toggleTheme = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const nextTheme = resolvedTheme === "dark" ? "light" : "dark";
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    const startViewTransition = (document as ViewTransitionDocument)
-      .startViewTransition;
-
-    // Clean fallback: no View Transitions support or reduced motion.
-    if (prefersReducedMotion || !startViewTransition) {
-      setTheme(nextTheme);
-      return;
-    }
-
-    const { clientX, clientY } = event;
-    const transition = startViewTransition.call(document, () => {
-      flushSync(() => setTheme(nextTheme));
-    });
-
-    transition.ready
-      .then(() => {
-        const radius = Math.hypot(
-          Math.max(clientX, window.innerWidth - clientX),
-          Math.max(clientY, window.innerHeight - clientY)
-        );
-        document.documentElement.animate(
-          {
-            clipPath: [
-              `circle(0px at ${clientX}px ${clientY}px)`,
-              `circle(${radius}px at ${clientX}px ${clientY}px)`,
-            ],
-          },
-          {
-            duration: 500,
-            easing: "ease-in-out",
-            pseudoElement: "::view-transition-new(root)",
-          }
-        );
-      })
-      .catch(() => {
-        // Transition was skipped; the theme has already been applied.
-      });
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
   return (

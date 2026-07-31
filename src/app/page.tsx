@@ -1,7 +1,6 @@
 import HeroSection from "@/components/home/HeroSection";
 import AboutSection from "@/components/home/AboutSection";
 import ProjectsSection from "@/components/home/ProjectsSection";
-import ContactSection from "@/components/home/ContactSection";
 import Footer from "@/components/home/Footer";
 import {
   generatePersonSchema,
@@ -26,7 +25,6 @@ export default function Home() {
         <HeroSection />
         <AboutSection />
         <ProjectsSection />
-        <ContactSection />
         <Footer />
       </main>
     </>

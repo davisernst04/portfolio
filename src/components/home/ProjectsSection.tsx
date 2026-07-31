@@ -6,7 +6,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="px-4 max-w-6xl mx-auto pb-12"
+      className="px-4 max-w-6xl mx-auto pb-10 md:pb-12"
       aria-labelledby="projects-heading"
     >
       {/* The anchor target stays untransformed so anchor scrolling lands on a
@@ -20,7 +20,7 @@ export default function ProjectsSection() {
         <hr className="max-w-6xl mx-auto border-border" />
         <h2
           id="projects-heading"
-          className="text-center lg:text-left text-5xl md:text-7xl lg:text-9xl font-bold tracking-tight mt-4 mb-4"
+          className="text-center lg:text-left text-5xl md:text-7xl lg:text-9xl font-bold tracking-tight mt-10 md:mt-12 mb-4"
         >
           Projects
         </h2>
