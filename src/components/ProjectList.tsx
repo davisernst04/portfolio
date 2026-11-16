@@ -84,12 +84,14 @@ export default function ProjectList() {
                   <div className="pb-10 pt-2 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
                     <div className="md:col-span-4 relative overflow-hidden rounded-md">
                       <AspectRatio ratio={16 / 9}>
+                        {/* Allow for the widest screenshot's object-cover crop. */}
                         <Image
                           fill
                           src={project.src}
                           alt={project.alt}
                           className="object-cover object-top"
-                          sizes="(max-width: 768px) 100vw, 384px"
+                          sizes="(min-width: 1152px) 416px, (min-width: 768px) calc((100vw - 112px) * 0.4), calc((100vw - 32px) * 1.2)"
+                          quality={90}
                         />
                       </AspectRatio>
                     </div>

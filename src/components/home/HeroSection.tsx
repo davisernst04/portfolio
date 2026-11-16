@@ -76,10 +76,14 @@ export default function HeroSection() {
         <div className="lg:col-span-6 order-1 lg:order-2">
           <motion.div variants={imageVariants} className="relative group">
             <AspectRatio ratio={1}>
+              {/* The 4:3 photo needs 4/3 of the slot width to stay sharp
+                  when object-cover crops it to a square. */}
               <Image
                 src="/photos/profile.JPG"
                 alt="Portrait of Davis Ernst"
                 fill
+                sizes="(min-width: 1152px) 704px, (min-width: 1024px) calc((100vw - 96px) * 2 / 3), calc((100vw - 32px) * 4 / 3)"
+                quality={90}
                 className="rounded-full object-cover shadow-lg"
                 priority
               />
