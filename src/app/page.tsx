@@ -1,5 +1,4 @@
 import HeroSection from "@/components/home/HeroSection";
-import AboutSection from "@/components/home/AboutSection";
 import ProjectsSection from "@/components/home/ProjectsSection";
 import Footer from "@/components/home/Footer";
 import {
@@ -23,7 +22,6 @@ export default function Home() {
       />
       <main className="flex-grow">
         <HeroSection />
-        <AboutSection />
         <ProjectsSection />
         <Footer />
       </main>
