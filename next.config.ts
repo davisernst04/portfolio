@@ -27,6 +27,7 @@ const nextConfig: NextConfig = {
   images: {
     // WebP encodes much faster for uncached image sizes, with similar payloads here.
     formats: ["image/webp"],
+    qualities: [75, 90],
     remotePatterns: [
       {
         protocol: "https",

@@ -100,7 +100,8 @@ export default function ProjectList() {
                         src={project.src}
                         alt={project.alt}
                         className="object-cover object-top"
-                        sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1151px) calc((100vw - 112px) / 3), 347px"
+                        sizes="(min-width: 1152px) 416px, (min-width: 768px) calc((100vw - 112px) * 0.4), calc((100vw - 32px) * 1.2)"
+                        quality={90}
                         placeholder="blur"
                         loading={imagesNearby || isOpen ? "eager" : "lazy"}
                         fetchPriority={isOpen ? "high" : "low"}

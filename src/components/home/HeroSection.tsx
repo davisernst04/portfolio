@@ -57,6 +57,7 @@ export default function HeroSection() {
                 fill
                 className="rounded-full object-cover"
                 sizes="(max-width: 1023px) calc(100vw - 32px), (max-width: 1151px) calc((100vw - 96px) / 2), 528px"
+                quality={90}
                 placeholder="blur"
                 preload
               />
