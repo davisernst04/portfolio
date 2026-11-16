@@ -144,8 +144,8 @@
 
 
 @keyframes aurora-drift {
-  from { transform: translate3d(-6%, -2%, 0); }
-  to { transform: translate3d(6%, 2%, 0); }
+  from { transform: translate3d(-14%, -3%, 0); }
+  to { transform: translate3d(14%, 3%, 0); }
 }
 
 @keyframes page-arrive {
@@ -190,11 +190,13 @@
 
   .aurora-plane {
     position: absolute;
-    inset: -5% -10%;
+    inset: -8% -24%;
     background-image: var(--aurora-light);
     background-size: 100% 100%;
     will-change: transform;
-    animation: aurora-drift 60s ease-in-out infinite alternate;
+    /* Start mid-drift so the ambient motion is visible on arrival. The extra
+       overscan keeps the texture edges outside the viewport at both ends. */
+    animation: aurora-drift 24s linear -6s infinite alternate;
   }
 
   .dark .aurora-plane { background-image: var(--aurora-dark); }
@@ -332,7 +334,10 @@
   @media (prefers-reduced-motion: reduce) {
     /* The requested ambient loop remains continuous, at a slower pace. Other
        effects use fades; closing panels stay present until the fade ends. */
-    .aurora-plane { animation-duration: 90s; }
+    .aurora-plane {
+      animation-duration: 72s;
+      animation-delay: -18s;
+    }
 
     .hero-name,
     .hero-subtitle,
