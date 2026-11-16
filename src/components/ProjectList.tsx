@@ -1,11 +1,14 @@
 "use client";
 
-import { useState, useId } from "react";
-import { motion, AnimatePresence, type Variants } from "motion/react";
-import { AspectRatio } from "./ui/aspect-ratio";
+import { useState, useId, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ArrowUpRight, Plus } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/Reveal";
+import emulatorPreview from "../../public/photos/optimized/typescript_gameboy_emulator.webp";
+import rtgaPreview from "../../public/photos/optimized/rtga.webp";
+import basketballPreview from "../../public/photos/optimized/shadow_basketball.webp";
+import managyPreview from "../../public/photos/optimized/managy.webp";
 import {
   SiGithub,
   SiTypescript,
@@ -20,42 +23,49 @@ import {
   SiNextdotjs,
 } from "react-icons/si";
 
-const listVariants: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
-};
-
-const projectVariants: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
-
 export default function ProjectList() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [imagesNearby, setImagesNearby] = useState(false);
+  const listRef = useRef<HTMLUListElement>(null);
   const id = useId();
 
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list || !window.IntersectionObserver) return;
+
+    // Start low-priority preview requests before a visitor opens a project.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setImagesNearby(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px 0px" },
+    );
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <motion.ul
-      variants={listVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      className="list-none m-0 p-0 mt-10 border-y border-border divide-y divide-border"
+    <ul
+      ref={listRef}
+      className="project-list list-none m-0 p-0 border-y border-border divide-y divide-border"
     >
       {projects.map((project, index) => {
         const isOpen = openIndex === index;
         const panelId = `${id}-panel-${index}`;
 
         return (
-          <motion.li key={project.title} variants={projectVariants}>
+          <Reveal as="li" key={project.title} className="project-row" delay={index * 35}>
             <button
               type="button"
               aria-expanded={isOpen}
               aria-controls={panelId}
               onClick={() => setOpenIndex(isOpen ? null : index)}
-              className="flex w-full items-center justify-between gap-4 py-6 text-left group cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+              className="project-trigger flex w-full items-center justify-between gap-4 py-6 text-left group cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
             >
-              <div>
+              <div className="project-label">
                 <h3 className="text-2xl md:text-3xl font-bold text-foreground/90 group-hover:text-foreground transition-colors">
                   {project.title}
                 </h3>
@@ -65,90 +75,93 @@ export default function ProjectList() {
               </div>
               <Plus
                 aria-hidden
-                className={`w-6 h-6 shrink-0 text-muted-foreground group-hover:text-foreground transition-all duration-300 ${isOpen ? "rotate-45" : ""}`}
+                className="project-toggle w-6 h-6 shrink-0 text-muted-foreground group-hover:text-foreground"
               />
             </button>
 
-            <AnimatePresence initial={false}>
-              {isOpen && (
-                <motion.div
-                  key={panelId}
-                  id={panelId}
-                  role="region"
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="overflow-hidden"
-                >
-                  <div className="pb-10 pt-2 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
-                    <div className="md:col-span-4 relative overflow-hidden rounded-md">
-                      <AspectRatio ratio={16 / 9}>
-                        <Image
-                          fill
-                          src={project.src}
-                          alt={project.alt}
-                          className="object-cover object-top"
-                          sizes="(max-width: 768px) 100vw, 384px"
-                        />
-                      </AspectRatio>
-                    </div>
-
-                    <div className="md:col-span-8 flex flex-col gap-5">
-                      <div className="text-muted-foreground text-base leading-relaxed">
-                        {project.content}
-                      </div>
-
-                      <ul className="flex flex-wrap gap-3 list-none m-0 p-0 text-muted-foreground">
-                        {project.technologies.map((tech) => (
-                          <li
-                            key={tech.name}
-                            className="flex items-center"
-                            title={tech.name}
-                          >
-                            <span aria-hidden className="text-foreground/70">
-                              {tech.icon}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-
-                      <div className="flex gap-3">
-                        <Button asChild variant="outline" size="sm">
-                          <a
-                            href={project.githubLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`View the source code for ${project.title} on GitHub (opens in a new tab)`}
-                          >
-                            <SiGithub aria-hidden className="size-4" />
-                            Code
-                          </a>
-                        </Button>
-
-                        {project.liveLink && (
-                          <Button asChild size="sm">
-                            <a
-                              href={project.liveLink}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label={`Visit the live ${project.title} site (opens in a new tab)`}
-                            >
-                              <ArrowUpRight aria-hidden className="size-4" />
-                              Live
-                            </a>
-                          </Button>
-                        )}
-                      </div>
+            <div
+              id={panelId}
+              role="region"
+              aria-label={project.title}
+              aria-hidden={!isOpen}
+              inert={!isOpen}
+              data-open={isOpen}
+              className="project-panel"
+            >
+              <div className="min-h-0 overflow-hidden">
+                <div className="pb-10 pt-2 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+                  <div
+                    className="project-preview md:col-span-4 relative overflow-hidden rounded-md bg-muted bg-cover bg-top"
+                    style={{ backgroundImage: `url("${project.src.blurDataURL}")` }}
+                  >
+                    <div className="relative aspect-video">
+                      <Image
+                        fill
+                        src={project.src}
+                        alt={project.alt}
+                        className="object-cover object-top"
+                        sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1151px) calc((100vw - 112px) / 3), 347px"
+                        placeholder="blur"
+                        loading={imagesNearby || isOpen ? "eager" : "lazy"}
+                        fetchPriority={isOpen ? "high" : "low"}
+                      />
                     </div>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.li>
+
+                  <div className="project-details md:col-span-8 flex flex-col gap-5">
+                    <div className="text-muted-foreground text-base leading-relaxed">
+                      {project.content}
+                    </div>
+
+                    <ul className="flex flex-wrap gap-3 list-none m-0 p-0 text-muted-foreground">
+                      {project.technologies.map((tech) => (
+                        <li
+                          key={tech.name}
+                          className="flex items-center"
+                          title={tech.name}
+                        >
+                          <span aria-hidden className="text-foreground/70">
+                            {tech.icon}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="flex gap-3">
+                      <Button asChild variant="outline" size="sm" className="motion-button transition-[transform,opacity,background-color,border-color] duration-200 ease-[var(--motion-ease)]">
+                        <a
+                          href={project.githubLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`View the source code for ${project.title} on GitHub (opens in a new tab)`}
+                        >
+                          <SiGithub aria-hidden className="size-4" />
+                          Code
+                        </a>
+                      </Button>
+
+                      {project.liveLink && (
+                        <Button asChild size="sm" className="motion-button transition-[transform,opacity,background-color,border-color] duration-200 ease-[var(--motion-ease)]">
+                          <a
+                            href={project.liveLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Visit the live ${project.title} site (opens in a new tab)`}
+                          >
+                            <ArrowUpRight aria-hidden className="size-4" />
+                            Live
+                          </a>
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
         );
       })}
-    </motion.ul>
+    </ul>
   );
 }
 
@@ -156,7 +169,7 @@ const projects = [
   {
     title: "Game Boy Emulator",
     description: "Individual Project",
-    src: "/photos/typescript_gameboy_emulator.png",
+    src: emulatorPreview,
     alt: "Game Boy Emulator project preview",
     githubLink: "https://github.com/davisernst04/typescript_gameboy_emulator",
     liveLink: "https://emulator-demo.vercel.app",
@@ -178,7 +191,7 @@ const projects = [
   {
     title: "Real Time Game Analysis",
     description: "SPEN Club at USASK",
-    src: "/photos/RTGA.jpg",
+    src: rtgaPreview,
     alt: "Real Time Game Analysis project preview",
     githubLink: "https://github.com/ElleOwO/realtimegamestatistics",
     liveLink: null,
@@ -199,7 +212,7 @@ const projects = [
   {
     title: "Shadow Basketball Official Page",
     description: "A website for a youth basketball team",
-    src: "/photos/shadow_basketball.jpg",
+    src: basketballPreview,
     alt: "Shadow Basketball Official Page project preview",
     githubLink:
       "https://github.com/davisernst04/basketball-registration-platform",
@@ -222,7 +235,7 @@ const projects = [
   {
     title: "Managy",
     description: "Group Project at USASK",
-    src: "/photos/managy.png",
+    src: managyPreview,
     alt: "Managy project preview",
     githubLink: "https://github.com/davisernst04/managy",
     liveLink: null,

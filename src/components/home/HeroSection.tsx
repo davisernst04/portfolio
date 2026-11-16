@@ -1,10 +1,8 @@
-"use client";
 import Image from "next/image";
-import { motion, type Variants } from "motion/react";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Mail, FileDown } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa6";
+import portrait from "../../../public/photos/optimized/profile.webp";
 
 const heroLinks = [
   {
@@ -38,77 +36,53 @@ const heroLinks = [
   },
 ];
 
-const containerVariants: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: "easeOut" },
-  },
-};
-
-const imageVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.94 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.7, ease: "easeOut" },
-  },
-};
-
 export default function HeroSection() {
   return (
-    <motion.section
+    <section
       id="home"
       className="px-4 max-w-6xl mx-auto pt-4 lg:pt-8 pb-10 md:pb-12"
       aria-label="Hero section"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-8 lg:gap-16">
         {/* Image First on Mobile, Second on Desktop */}
         <div className="lg:col-span-6 order-1 lg:order-2">
-          <motion.div variants={imageVariants} className="relative group">
-            <AspectRatio ratio={1}>
+          <div className="relative group">
+            <div
+              className="hero-portrait relative aspect-square overflow-hidden rounded-full bg-muted bg-cover bg-center shadow-lg"
+              style={{ backgroundImage: `url("${portrait.blurDataURL}")` }}
+            >
               <Image
-                src="/photos/profile.JPG"
+                src={portrait}
                 alt="Portrait of Davis Ernst"
                 fill
-                className="rounded-full object-cover shadow-lg"
-                priority
+                className="rounded-full object-cover"
+                sizes="(max-width: 1023px) calc(100vw - 32px), (max-width: 1151px) calc((100vw - 96px) / 2), 528px"
+                placeholder="blur"
+                preload
               />
-            </AspectRatio>
-          </motion.div>
+            </div>
+          </div>
         </div>
 
         {/* Text Second on Mobile, First on Desktop */}
         <div className="lg:col-span-6 text-center lg:text-left order-2 lg:order-1 space-y-4">
-          <motion.h1
-            variants={itemVariants}
-            className="text-6xl md:text-7xl lg:text-[200px] font-bold "
+          <h1
+            className="hero-name text-6xl md:text-7xl lg:text-[200px] font-bold"
           >
             Davis Ernst
-          </motion.h1>
-          <motion.h2
-            variants={itemVariants}
-            className="text-lg md:text-2xl font-medium text-muted-foreground pb-2"
+          </h1>
+          <h2
+            className="hero-subtitle text-lg md:text-2xl font-medium text-muted-foreground pb-2"
           >
             Computer Science Student at the University of Saskatchewan |
             Software Developer
-          </motion.h2>
-          <motion.ul
-            variants={containerVariants}
-            className="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 list-none m-0 p-0"
+          </h2>
+          <ul
+            className="hero-links flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 list-none m-0 p-0"
           >
             {heroLinks.map(
               ({ href, label, ariaLabel, Icon, external, download }) => (
-                <motion.li key={label} variants={itemVariants}>
+                <li key={label}>
                   <a
                     href={href}
                     aria-label={ariaLabel}
@@ -116,19 +90,19 @@ export default function HeroSection() {
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}
                     {...(download ? { download: "DavisErnstResume.pdf" } : {})}
-                    className="group inline-flex items-center gap-2 rounded-sm text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                    className="motion-link group inline-flex items-center gap-2 rounded-sm text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
                   >
                     <Icon aria-hidden className="w-4.5 h-4.5" />
-                    <span className="underline-offset-4 group-hover:underline">
+                    <span className="link-label">
                       {label}
                     </span>
                   </a>
-                </motion.li>
+                </li>
               ),
             )}
-          </motion.ul>
+          </ul>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

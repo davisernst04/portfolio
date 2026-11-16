@@ -1,27 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Roboto_Mono, Lora } from "next/font/google";
-import { MotionConfig } from "motion/react";
+import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import NavigationBar from "@/components/NavigationBar";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
+const times = localFont({
+  src: "../../public/fonts/times-latin.woff2",
+  variable: "--font-times",
   display: "swap",
-});
-
-const robotoMono = Roboto_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
-
-const lora = Lora({
-  subsets: ["latin"],
-  variable: "--font-serif",
-  display: "swap",
+  fallback: ["Times New Roman", "Times", "serif"],
 });
 
 export const metadata: Metadata = {
@@ -86,7 +74,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${robotoMono.variable} ${lora.variable}`}
+      className={times.variable}
     >
       <body className="m-0 antialiased">
         <ThemeProvider
@@ -94,14 +82,12 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
         >
-          <MotionConfig reducedMotion="user">
-            <div className="relative flex min-h-screen flex-col">
-              <NavigationBar />
-              <AuroraBackground className="flex-1">
-                {children}
-              </AuroraBackground>
-            </div>
-          </MotionConfig>
+          <div className="relative flex min-h-screen flex-col">
+            <NavigationBar />
+            <AuroraBackground className="flex-1">
+              {children}
+            </AuroraBackground>
+          </div>
         </ThemeProvider>
       </body>
     </html>
