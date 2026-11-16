@@ -19,6 +19,7 @@ subset.save_font(font, str(PUBLIC / "fonts/times-latin.woff2"), options)
 output = PUBLIC / "photos/optimized"
 output.mkdir(exist_ok=True)
 for filename in [
+    "ascendume.png",
     "profile.JPG",
     "typescript_gameboy_emulator.png",
     "RTGA.jpg",

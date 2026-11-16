@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ArrowUpRight, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
+import ascendumePreview from "../../public/photos/optimized/ascendume.webp";
 import emulatorPreview from "../../public/photos/optimized/typescript_gameboy_emulator.webp";
 import rtgaPreview from "../../public/photos/optimized/rtga.webp";
 import basketballPreview from "../../public/photos/optimized/shadow_basketball.webp";
@@ -170,7 +171,7 @@ const projects = [
   {
     title: "Ascendume",
     description: "AI-powered résumé builder · In development",
-    src: "/photos/ascendume.png",
+    src: ascendumePreview,
     alt: "Ascendume home screen with the headline Get hired yesterday and a résumé preview",
     githubLink: "https://github.com/davisernst04/ascendume",
     liveLink: null,
