@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useId } from "react";
-import { motion, AnimatePresence, type Variants } from "motion/react";
+import { motion, type Variants } from "motion/react";
 import { AspectRatio } from "./ui/aspect-ratio";
 import Image from "next/image";
 import { ArrowUpRight, Plus } from "lucide-react";
@@ -65,86 +65,84 @@ export default function ProjectList() {
               </div>
               <Plus
                 aria-hidden
-                className={`w-6 h-6 shrink-0 text-muted-foreground group-hover:text-foreground transition-all duration-300 ${isOpen ? "rotate-45" : ""}`}
+                className={`w-6 h-6 shrink-0 text-muted-foreground group-hover:text-foreground transition-[rotate,color] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:duration-0 ${isOpen ? "rotate-45" : ""}`}
               />
             </button>
 
-            <AnimatePresence initial={false}>
-              {isOpen && (
-                <motion.div
-                  key={panelId}
-                  id={panelId}
-                  role="region"
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="overflow-hidden"
-                >
-                  <div className="pb-10 pt-2 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
-                    <div className="md:col-span-4 relative overflow-hidden rounded-md">
-                      <AspectRatio ratio={16 / 9}>
-                        <Image
-                          fill
-                          src={project.src}
-                          alt={project.alt}
-                          className="object-cover object-top"
-                          sizes="(max-width: 768px) 100vw, 384px"
-                        />
-                      </AspectRatio>
+            {/* A persistent grid reverses smoothly when toggled mid-transition. */}
+            <div
+              id={panelId}
+              role="region"
+              aria-hidden={!isOpen}
+              inert={!isOpen}
+              className={`grid transition-[grid-template-rows] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:duration-0 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+            >
+              <div
+                className={`min-h-0 overflow-hidden transition-opacity motion-reduce:duration-0 motion-reduce:delay-0 ${isOpen ? "opacity-100 duration-250 delay-75" : "opacity-0 duration-150"}`}
+              >
+                <div className="pb-10 pt-2 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+                  <div className="md:col-span-4 relative overflow-hidden rounded-md">
+                    <AspectRatio ratio={16 / 9}>
+                      <Image
+                        fill
+                        src={project.src}
+                        alt={project.alt}
+                        className="object-cover object-top"
+                        sizes="(max-width: 768px) 100vw, 384px"
+                      />
+                    </AspectRatio>
+                  </div>
+
+                  <div className="md:col-span-8 flex flex-col gap-5">
+                    <div className="text-muted-foreground text-base leading-relaxed">
+                      {project.content}
                     </div>
 
-                    <div className="md:col-span-8 flex flex-col gap-5">
-                      <div className="text-muted-foreground text-base leading-relaxed">
-                        {project.content}
-                      </div>
+                    <ul className="flex flex-wrap gap-3 list-none m-0 p-0 text-muted-foreground">
+                      {project.technologies.map((tech) => (
+                        <li
+                          key={tech.name}
+                          className="flex items-center"
+                          title={tech.name}
+                        >
+                          <span aria-hidden className="text-foreground/70">
+                            {tech.icon}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
 
-                      <ul className="flex flex-wrap gap-3 list-none m-0 p-0 text-muted-foreground">
-                        {project.technologies.map((tech) => (
-                          <li
-                            key={tech.name}
-                            className="flex items-center"
-                            title={tech.name}
-                          >
-                            <span aria-hidden className="text-foreground/70">
-                              {tech.icon}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
+                    <div className="flex gap-3">
+                      <Button asChild variant="outline" size="sm">
+                        <a
+                          href={project.githubLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`View the source code for ${project.title} on GitHub (opens in a new tab)`}
+                        >
+                          <SiGithub aria-hidden className="size-4" />
+                          Code
+                        </a>
+                      </Button>
 
-                      <div className="flex gap-3">
-                        <Button asChild variant="outline" size="sm">
+                      {project.liveLink && (
+                        <Button asChild size="sm">
                           <a
-                            href={project.githubLink}
+                            href={project.liveLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            aria-label={`View the source code for ${project.title} on GitHub (opens in a new tab)`}
+                            aria-label={`Visit the live ${project.title} site (opens in a new tab)`}
                           >
-                            <SiGithub aria-hidden className="size-4" />
-                            Code
+                            <ArrowUpRight aria-hidden className="size-4" />
+                            Live
                           </a>
                         </Button>
-
-                        {project.liveLink && (
-                          <Button asChild size="sm">
-                            <a
-                              href={project.liveLink}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label={`Visit the live ${project.title} site (opens in a new tab)`}
-                            >
-                              <ArrowUpRight aria-hidden className="size-4" />
-                              Live
-                            </a>
-                          </Button>
-                        )}
-                      </div>
+                      )}
                     </div>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                </div>
+              </div>
+            </div>
           </motion.li>
         );
       })}
