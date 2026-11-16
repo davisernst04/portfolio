@@ -154,6 +154,29 @@ export default function ProjectList() {
 
 const projects = [
   {
+    title: "Ascendume",
+    description: "AI-powered résumé builder · In development",
+    src: "/photos/ascendume.png",
+    alt: "Ascendume home screen with the headline Get hired yesterday and a résumé preview",
+    githubLink: "https://github.com/davisernst04/ascendume",
+    liveLink: null,
+    technologies: [
+      { name: "TypeScript", icon: <SiTypescript size={22} /> },
+      { name: "Next.js", icon: <SiNextdotjs size={22} /> },
+      { name: "React", icon: <SiReact size={22} /> },
+      { name: "Tailwind CSS", icon: <SiTailwindcss size={22} /> },
+      { name: "PostgreSQL", icon: <SiPostgresql size={22} /> },
+    ],
+    content: (
+      <p>
+        An AI-powered résumé builder I&apos;m developing to help job seekers
+        turn their experience into polished, ATS-friendly résumés. Combines
+        AI bullet enhancement, live LaTeX previews, PDF export, and importing
+        existing résumés, with a Next.js frontend and PostgreSQL database.
+      </p>
+    ),
+  },
+  {
     title: "Game Boy Emulator",
     description: "Individual Project",
     src: "/photos/typescript_gameboy_emulator.png",
