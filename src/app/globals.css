@@ -168,6 +168,11 @@
   to { opacity: 0; }
 }
 
+/* Keep the theme switch interactive while the snapshots crossfade. */
+::view-transition {
+  pointer-events: none;
+}
+
 ::view-transition-old(root) {
   animation: theme-out 220ms ease-out both;
 }

@@ -11,6 +11,7 @@ const emptySubscribe = () => () => {};
 export function ModeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const transitionRef = React.useRef<ViewTransition | null>(null);
+  const requestIdRef = React.useRef(0);
   const requestedThemeRef = React.useRef<"light" | "dark" | null>(null);
   // Hydration-safe mounted flag: false on the server/first client render,
   // true afterwards — without setState-in-effect.
@@ -25,33 +26,49 @@ export function ModeToggle() {
       ? "light"
       : "dark";
     requestedThemeRef.current = nextTheme;
-    transitionRef.current?.skipTransition();
+    const requestId = ++requestIdRef.current;
+    const previousTransition = transitionRef.current;
+    transitionRef.current = null;
 
-    const update = () => flushSync(() => setTheme(nextTheme));
-    if (!document.startViewTransition) {
-      update();
-      transitionRef.current = null;
-      requestedThemeRef.current = null;
-      return;
-    }
-
-    // Crossfade two snapshots instead of repainting every theme color per frame.
-    const transition = document.startViewTransition(update);
-    transitionRef.current = transition;
-    // Skipping a superseded transition rejects its capture promise, but the
-    // theme update still completes normally.
-    void transition.ready.catch(() => {});
+    // A skipped transition can still run its update callback. Only the latest
+    // click may apply a theme or clear the pending request.
+    const update = () => {
+      if (requestId === requestIdRef.current) {
+        flushSync(() => setTheme(nextTheme));
+      }
+    };
     const finish = () => {
-      if (transitionRef.current === transition) {
+      if (requestId === requestIdRef.current) {
         transitionRef.current = null;
         requestedThemeRef.current = null;
       }
     };
-    void transition.finished.then(finish, finish);
+
+    try {
+      previousTransition?.skipTransition();
+      if (typeof document.startViewTransition !== "function") {
+        update();
+        finish();
+        return;
+      }
+
+      const transition = document.startViewTransition(update);
+      transitionRef.current = transition;
+      // Theme switching must still succeed if snapshot capture fails.
+      void transition.ready.catch(update);
+      void transition.finished.then(finish, () => {
+        update();
+        finish();
+      });
+    } catch {
+      update();
+      finish();
+    }
   };
 
   return (
     <Button
+      type="button"
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
