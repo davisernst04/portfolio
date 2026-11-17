@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Mail, FileDown } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa6";
+import { Reveal } from "@/components/Reveal";
 import portrait from "../../../public/photos/optimized/profile.webp";
 
 const heroLinks = [
@@ -45,8 +46,8 @@ export default function HeroSection() {
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-8 lg:gap-16">
         {/* Image First on Mobile, Second on Desktop */}
-        <div className="lg:col-span-6 order-1 lg:order-2">
-          <div className="relative group">
+        <Reveal className="lg:col-span-6 order-1 lg:order-2">
+          <div className="relative">
             <div
               className="hero-portrait relative aspect-square overflow-hidden rounded-full bg-muted bg-cover bg-center shadow-lg"
               style={{ backgroundImage: `url("${portrait.blurDataURL}")` }}
@@ -63,10 +64,10 @@ export default function HeroSection() {
               />
             </div>
           </div>
-        </div>
+        </Reveal>
 
         {/* Text Second on Mobile, First on Desktop */}
-        <div className="lg:col-span-6 text-center lg:text-left order-2 lg:order-1 space-y-4">
+        <Reveal className="lg:col-span-6 text-center lg:text-left order-2 lg:order-1 space-y-4">
           <h1
             className="hero-name text-6xl md:text-7xl lg:text-[200px] font-bold"
           >
@@ -102,7 +103,7 @@ export default function HeroSection() {
               ),
             )}
           </ul>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

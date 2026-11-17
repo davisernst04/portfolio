@@ -21,22 +21,27 @@ export function Reveal({
 
   useEffect(() => {
     const element = ref.current;
-    if (
-      !element ||
-      !window.IntersectionObserver ||
-      element.getBoundingClientRect().top < window.innerHeight - 48
-    ) {
-      return;
-    }
+    if (!element || !window.IntersectionObserver) return;
 
-    // Enhance offscreen content only; server-rendered content is visible
-    // immediately and stays readable if JavaScript is disabled.
-    element.classList.add("reveal-pending");
+    // Server-rendered content stays visible without JavaScript. Only hide
+    // offscreen content while waiting for its first intersection.
+    if (element.getBoundingClientRect().top >= window.innerHeight - 48) {
+      element.classList.add("reveal-pending");
+    }
+    let frame = 0;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          element.classList.remove("reveal-pending");
           observer.disconnect();
+          // Start after a visible paint, including on first load and reload.
+          frame = requestAnimationFrame(() => {
+            frame = requestAnimationFrame(() => {
+              element.classList.remove("reveal-pending");
+              if (!element.matches(":focus-within")) {
+                element.classList.add("reveal-enter");
+              }
+            });
+          });
         }
       },
       { rootMargin: "0px 0px -48px 0px" },
@@ -45,14 +50,15 @@ export function Reveal({
 
     return () => {
       observer.disconnect();
-      element.classList.remove("reveal-pending");
+      cancelAnimationFrame(frame);
+      element.classList.remove("reveal-pending", "reveal-enter");
     };
   }, []);
 
   return (
     <Component
       ref={setRef}
-      onFocusCapture={() => ref.current?.classList.remove("reveal-pending")}
+      onFocusCapture={() => ref.current?.classList.remove("reveal-pending", "reveal-enter")}
       className={cn("scroll-reveal", className)}
       style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
     >

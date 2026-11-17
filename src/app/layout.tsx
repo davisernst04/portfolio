@@ -2,8 +2,6 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { AuroraBackground } from "@/components/ui/aurora-background";
-import NavigationBar from "@/components/NavigationBar";
 
 const times = localFont({
   src: "../../public/fonts/times-latin.woff2",
@@ -82,12 +80,7 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
         >
-          <div className="relative flex min-h-screen flex-col">
-            <NavigationBar />
-            <AuroraBackground className="flex-1">
-              {children}
-            </AuroraBackground>
-          </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>

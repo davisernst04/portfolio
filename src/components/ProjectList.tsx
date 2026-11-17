@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useId, useEffect, useRef } from "react";
-import Image from "next/image";
+import { useState, useId, useEffect, useRef, type ReactNode } from "react";
+import Image, { type StaticImageData } from "next/image";
 import { ArrowUpRight, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
 import ascendumePreview from "../../public/photos/optimized/ascendume.webp";
 import emulatorPreview from "../../public/photos/optimized/typescript_gameboy_emulator.webp";
 import rtgaPreview from "../../public/photos/optimized/rtga.webp";
-import basketballPreview from "../../public/photos/optimized/shadow_basketball.webp";
-import managyPreview from "../../public/photos/optimized/managy.webp";
+import basketballPreview from "../../public/photos/optimized/shadow-basketball-hero.webp";
+import managyPreview from "../../public/photos/optimized/managy-hero.webp";
+import yeGuesserPreview from "../../public/photos/optimized/ye-guesser-home.webp";
 import {
   SiGithub,
   SiTypescript,
@@ -91,26 +92,27 @@ export default function ProjectList() {
             >
               <div className="min-h-0 overflow-hidden">
                 <div className="pb-10 pt-2 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
-                  <div
-                    className="project-preview md:col-span-4 relative overflow-hidden rounded-md bg-muted bg-cover bg-top"
-                    style={{ backgroundImage: `url("${project.src.blurDataURL}")` }}
-                  >
-                    <div className="relative aspect-video">
-                      <Image
-                        fill
-                        src={project.src}
-                        alt={project.alt}
-                        className="object-cover object-top"
-                        sizes="(min-width: 1152px) 416px, (min-width: 768px) calc((100vw - 112px) * 0.4), calc((100vw - 32px) * 1.2)"
-                        quality={90}
-                        placeholder="blur"
-                        loading={imagesNearby || isOpen ? "eager" : "lazy"}
-                        fetchPriority={isOpen ? "high" : "low"}
-                      />
+                  {project.src && (
+                    <div
+                      className="project-preview md:col-span-4 relative overflow-hidden rounded-md bg-muted bg-cover bg-top"
+                      style={{ backgroundImage: `url("${project.src.blurDataURL}")` }}
+                    >
+                      <div className="relative aspect-video">
+                        <Image
+                          fill
+                          src={project.src}
+                          alt={project.alt ?? `${project.title} preview`}
+                          className="object-cover object-top"
+                          sizes="(min-width: 1152px) 416px, (min-width: 768px) calc((100vw - 112px) * 0.4), calc((100vw - 32px) * 1.2)"
+                          quality={90}
+                          placeholder="blur"
+                          loading={imagesNearby || isOpen ? "eager" : "lazy"}
+                          fetchPriority={isOpen ? "high" : "low"}
+                        />
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="project-details md:col-span-8 flex flex-col gap-5">
+                  )}
+                  <div className={`project-details ${project.src ? "md:col-span-8" : "md:col-span-12"} flex flex-col gap-5`}>
                     <div className="text-muted-foreground text-base leading-relaxed">
                       {project.content}
                     </div>
@@ -129,19 +131,28 @@ export default function ProjectList() {
                       ))}
                     </ul>
 
-                    <div className="flex gap-3">
-                      <Button asChild variant="outline" size="sm" className="motion-button transition-[transform,opacity,background-color,border-color] duration-200 ease-[var(--motion-ease)]">
-                        <a
-                          href={project.githubLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`View the source code for ${project.title} on GitHub (opens in a new tab)`}
-                        >
-                          <SiGithub aria-hidden className="size-4" />
-                          Code
-                        </a>
-                      </Button>
-
+                    <div className="flex flex-wrap gap-3">
+                      {project.githubLink && (
+                        <Button asChild variant="outline" size="sm" className="motion-button transition-[transform,opacity,background-color,border-color] duration-200 ease-[var(--motion-ease)]">
+                          <a
+                            href={project.githubLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`View the source code for ${project.title} on GitHub (opens in a new tab)`}
+                          >
+                            <SiGithub aria-hidden className="size-4" />
+                            Code
+                          </a>
+                        </Button>
+                      )}
+                      {project.sources?.map((source) => (
+                        <Button key={source.href} asChild variant="outline" size="sm">
+                          <a href={source.href} target="_blank" rel="noopener noreferrer">
+                            <SiGithub aria-hidden className="size-4" />
+                            {source.label}
+                          </a>
+                        </Button>
+                      ))}
                       {project.liveLink && (
                         <Button asChild size="sm" className="motion-button transition-[transform,opacity,background-color,border-color] duration-200 ease-[var(--motion-ease)]">
                           <a
@@ -167,7 +178,19 @@ export default function ProjectList() {
   );
 }
 
-const projects = [
+interface Project {
+  title: string;
+  description: string;
+  src?: StaticImageData;
+  alt?: string;
+  githubLink: string | null;
+  liveLink: string | null;
+  sources?: { label: string; href: string }[];
+  technologies: { name: string; icon: ReactNode }[];
+  content: ReactNode;
+}
+
+const projects: Project[] = [
   {
     title: "Game Boy Emulator",
     description: "Individual Project",
@@ -213,11 +236,10 @@ const projects = [
   },
   {
     title: "Shadow Basketball Official Page",
-    description: "A website for a youth basketball team",
+    description: "A Website for a Youth Basketball Team",
     src: basketballPreview,
-    alt: "Shadow Basketball Official Page project preview",
-    githubLink:
-      "https://github.com/davisernst04/basketball-registration-platform",
+    alt: "Shadow Basketball homepage hero with the club wordmark and basketball game photography",
+    githubLink: null,
     liveLink: "https://basketball-registration-platform.vercel.app/",
     technologies: [
       { name: "TypeScript", icon: <SiTypescript size={22} /> },
@@ -238,9 +260,9 @@ const projects = [
     title: "Managy",
     description: "Group Project at USASK",
     src: managyPreview,
-    alt: "Managy project preview",
+    alt: "Managy homepage with its house illustration and Login, Register, and Learn More buttons",
     githubLink: "https://github.com/davisernst04/managy",
-    liveLink: null,
+    liveLink: "https://managy-snowy.vercel.app",
     technologies: [
       { name: "Python", icon: <SiPython size={22} /> },
       { name: "Django", icon: <SiDjango size={22} /> },
@@ -260,12 +282,33 @@ const projects = [
     ),
   },
   {
+    title: "Ye Guesser",
+    description: "Music Guessing Game",
+    src: yeGuesserPreview,
+    alt: "Ye Guesser homepage with green lettering, a Play Now button, and a collage of Kanye West album covers",
+    githubLink: "https://github.com/davisernst04/ye_guesser",
+    liveLink: "https://ye-guesser.vercel.app",
+    technologies: [
+      { name: "Next.js", icon: <SiNextdotjs size={22} /> },
+      { name: "TypeScript", icon: <SiTypescript size={22} /> },
+      { name: "React", icon: <SiReact size={22} /> },
+      { name: "Tailwind CSS", icon: <SiTailwindcss size={22} /> },
+    ],
+    content: (
+      <p>
+        A browser game inspired by Wordle, where players identify Kanye West
+        tracks from short audio clips. Each incorrect guess unlocks a longer
+        snippet, giving players another chance to name the song.
+      </p>
+    ),
+  },
+  {
     title: "Ascendume",
-    description: "AI-powered résumé builder · In development",
+    description: "AI-Powered Résumé Builder · In Development",
     src: ascendumePreview,
     alt: "Ascendume home screen with the headline Get hired yesterday and a résumé preview",
     githubLink: "https://github.com/davisernst04/ascendume",
-    liveLink: null,
+    liveLink: "https://ascendume.vercel.app",
     technologies: [
       { name: "TypeScript", icon: <SiTypescript size={22} /> },
       { name: "Next.js", icon: <SiNextdotjs size={22} /> },

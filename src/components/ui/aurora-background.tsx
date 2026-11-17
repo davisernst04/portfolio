@@ -1,11 +1,8 @@
+"use client";
 import { cn } from "@/lib/utils";
-import type { CSSProperties, HTMLProps, ReactNode } from "react";
-import light from "../../../public/photos/optimized/aurora-light.webp";
-import dark from "../../../public/photos/optimized/aurora-dark.webp";
-import lightFlat from "../../../public/photos/optimized/aurora-light-flat.webp";
-import darkFlat from "../../../public/photos/optimized/aurora-dark-flat.webp";
+import React, { ReactNode } from "react";
 
-interface AuroraBackgroundProps extends HTMLProps<HTMLDivElement> {
+interface AuroraBackgroundProps extends React.HTMLProps<HTMLDivElement> {
   children: ReactNode;
   showRadialGradient?: boolean;
 }
@@ -17,32 +14,28 @@ export const AuroraBackground = ({
   ...props
 }: AuroraBackgroundProps) => {
   return (
-    <div
-      className={cn(
-        "relative isolate min-h-screen bg-background text-foreground",
-        className,
-      )}
-      {...props}
-    >
-      {/* A viewport-sized layer stays independent of expanding project panels.
-          Only its transform moves; the gradient is not repainted every frame. */}
+    <main>
       <div
-        aria-hidden="true"
-        className="aurora-viewport"
-        data-masked={showRadialGradient}
+        className={cn(
+          "transition-bg relative flex h-[100vh] flex-col items-center justify-center bg-background text-foreground",
+          className,
+        )}
+        {...props}
       >
         <div
-          data-aurora
-          className="aurora-plane"
-          style={{
-            "--aurora-light": `url("${(showRadialGradient ? light : lightFlat).src}")`,
-            "--aurora-dark": `url("${(showRadialGradient ? dark : darkFlat).src}")`,
-          } as CSSProperties}
-        />
-      </div>
-      <div className="relative z-10">
+          className="absolute inset-0 overflow-hidden"
+        >
+          <div
+            className={cn(
+              `after:animate-aurora pointer-events-none absolute -inset-[10px] [background-image:var(--white-gradient),var(--aurora)] [background-size:300%,_200%] [background-position:50%_50%,50%_50%] opacity-50 blur-[10px] invert filter will-change-transform [--aurora:repeating-linear-gradient(100deg,var(--primary)_10%,var(--accent)_15%,var(--secondary)_20%,var(--muted)_25%,var(--primary)_30%)] [--dark-gradient:repeating-linear-gradient(100deg,var(--background)_0%,var(--background)_7%,transparent_10%,transparent_12%,var(--background)_16%)] [--white-gradient:repeating-linear-gradient(100deg,var(--foreground)_0%,var(--foreground)_7%,transparent_10%,transparent_12%,var(--foreground)_16%)] after:absolute after:inset-0 after:[background-image:var(--white-gradient),var(--aurora)] after:[background-size:200%,_100%] after:[background-attachment:fixed] after:mix-blend-difference after:content-[""] dark:[background-image:var(--dark-gradient),var(--aurora)] dark:invert-0 after:dark:[background-image:var(--dark-gradient),var(--aurora)]`,
+
+              showRadialGradient &&
+                `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,transparent_70%)]`,
+            )}
+          ></div>
+        </div>
         {children}
       </div>
-    </div>
+    </main>
   );
 };

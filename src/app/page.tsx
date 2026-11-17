@@ -1,3 +1,5 @@
+import { AuroraBackground } from "@/components/ui/aurora-background";
+import NavigationBar from "@/components/NavigationBar";
 import HeroSection from "@/components/home/HeroSection";
 import ProjectsSection from "@/components/home/ProjectsSection";
 import Footer from "@/components/home/Footer";
@@ -20,11 +22,14 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
-      <main className="flex-grow">
-        <HeroSection />
-        <ProjectsSection />
-        <Footer />
-      </main>
+      <NavigationBar />
+      <AuroraBackground className="h-auto min-h-screen items-stretch justify-start text-foreground">
+        <div className="relative z-10">
+          <HeroSection />
+          <ProjectsSection />
+          <Footer />
+        </div>
+      </AuroraBackground>
     </>
   );
 }

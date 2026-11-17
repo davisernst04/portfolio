@@ -24,7 +24,10 @@ for filename in [
     "typescript_gameboy_emulator.png",
     "RTGA.jpg",
     "shadow_basketball.jpg",
+    "shadow-basketball-hero.png",
     "managy.png",
+    "managy-hero.png",
+    "ye-guesser-home.png",
 ]:
     source = PUBLIC / "photos" / filename
     image = ImageOps.exif_transpose(Image.open(source)).convert("RGB")

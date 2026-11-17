@@ -38,14 +38,14 @@ Prefer Tailwind utility classes and existing design tokens over new one-off CSS.
 ## Rendering, Styling, and Assets
 
 - Theme tokens and Tailwind configuration live in `src/app/globals.css`. Preserve the cream/navy light and dark palettes and local Times typography unless a design change is requested.
-- Keep the aurora on a fixed viewport layer behind the content. It moves pre-rendered WebP textures using transforms; avoid animated gradients, live blur, blend modes, masks, or tying its dimensions to expanding content. Verify foreground images remain visible.
+- Keep the Aceternity aurora geometry and motion faithful to the supplied source, with colors mapped to the application’s cream/navy theme tokens. The standalone `/aurora-demo` route previews the themed component. The portfolio caller overrides height/alignment to fit its content and places foreground content above the effect. The sticky header matches the solid theme background; aurora must not show through it.
 - Shared motion timings and easing live in `src/app/globals.css`. Keep the hero readable throughout its initial CSS entrance. `Reveal` progressively enhances offscreen project rows and the footer with one-time transitions; it leaves content visible without JavaScript and reveals keyboard-focused content.
 - Theme changes crossfade viewport snapshots with the View Transition API, with an immediate fallback on unsupported browsers. Preserve focus and the final theme when toggles interrupt a transition.
 - The sticky header contains only the theme switch on all screen sizes. The hero flows directly into the project list without a visible Projects heading. Keep section anchor targets outside transformed reveal wrappers; `/#home` and `/#projects` remain available for incoming fragment links, with `scroll-padding-top` matching the header's 65px height.
 - Use static image imports with `next/image`, blur placeholders, meaningful alt text, and accurate responsive `sizes`. Preserve the hero portrait preload. Keep project panel contents mounted for smooth first-open and closing transitions; previews load at low priority as the list approaches the viewport, with the active preview promoted to high priority.
 - Project panels use a fade-only transition under reduced motion, including a fade before collapsing on close. Do not remove all panel transitions in this mode; keep spatial transforms disabled.
 - Keep original photos and `public/fonts/times.ttf`. After changing source assets, run `python -m pip install Pillow 'fonttools[woff]'` and `python scripts/optimize-assets.py`; update the script's source list for new images. Include regenerated web assets in the change. Normal builds do not need Python.
-- `python scripts/generate-aurora.py` regenerates the small light/dark ambient textures with Pillow. Update its foreground colors if the theme palette changes; include all four generated WebP variants. Normal builds use the included textures.
+- `scripts/generate-aurora.py` and the generated ambient WebP textures are retained as an unused alternative. The current aurora uses application theme colors with the Aceternity utilities, with `--animate-aurora` registered in the Tailwind theme.
 - Security headers and allowed remote image hosts are configured in `next.config.ts`.
 - Keep identity, profile links, and site URLs consistent across page content, layout metadata, and `src/lib/structured-data.ts`. `NEXT_PUBLIC_BASE_URL` overrides the default `https://davisernst.com` for sitemap and robots output only.
 
@@ -58,7 +58,7 @@ Manually verify affected sections in both light and dark themes, at mobile and d
 - Theme switching and keyboard focus on mobile and desktop, plus direct hash loads below the sticky header.
 - Project panel expansion/collapse, keyboard focus, and inaccessible focus targets in closed panels.
 - Image loading, résumé download, social links, and email links in the hero and footer.
-- Reduced-motion behavior and content visibility before hydration or with JavaScript disabled. The aurora intentionally continues looping, including under reduced motion; preserve this behavior unless asked to change it.
+- Reduced-motion behavior and content visibility before hydration or with JavaScript disabled. The supplied Aceternity source has no reduced-motion handling: its demo entrance and aurora loop continue under reduced motion. Preserve source behavior unless asked to change it.
 
 ## Commit & Pull Request Guidelines
 
