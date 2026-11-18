@@ -153,20 +153,6 @@
   to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
-@keyframes portrait-in {
-  from { transform: scale(0.9) rotate(-6deg); }
-  to { transform: scale(1) rotate(0); }
-}
-
-@keyframes portrait-zoom {
-  from { transform: scale(1.18); }
-  to { transform: scale(1); }
-}
-
-@keyframes portrait-scroll {
-  to { transform: translate3d(0, -14%, 0) scale(0.86) rotate(5deg); opacity: 0.35; }
-}
-
 /* Keep the theme switch interactive while the theme reveal runs. */
 ::view-transition {
   pointer-events: none;
@@ -215,14 +201,6 @@
   .hero-links > li:nth-child(2) { animation-delay: 580ms; }
   .hero-links > li:nth-child(3) { animation-delay: 640ms; }
   .hero-links > li:nth-child(4) { animation-delay: 700ms; }
-
-  .hero-portrait {
-    animation: portrait-in 1200ms var(--motion-ease) backwards;
-  }
-
-  .hero-portrait img {
-    animation: portrait-zoom 1600ms var(--motion-ease) backwards;
-  }
 
   .motion-link {
     transition: transform var(--motion-fast) var(--motion-ease),
@@ -287,9 +265,9 @@
   .project-trigger::before {
     content: "";
     position: absolute;
-    inset: 0 -0.75rem;
+    /* Match the row's divider lines exactly: no overhang, square corners. */
+    inset: 0;
     z-index: -1;
-    border-radius: var(--radius-md);
     background: color-mix(in oklab, var(--foreground) 5%, transparent);
     transform: scaleX(0);
     transform-origin: left;
@@ -392,27 +370,13 @@
     .project-trigger:is(:hover, :focus-visible)::before { transform: scaleX(1); }
   }
 
-  /* As the hero scrolls away, the portrait drifts up, shrinks, and tilts.
-     Unsupported browsers keep the static portrait. */
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .hero-portrait-wrap {
-        animation: portrait-scroll linear both;
-        animation-timeline: view();
-        animation-range: exit 0% exit 100%;
-      }
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     /* Portfolio entrances use fades; closing panels stay present until the
        fade ends. The Aceternity component retains its source motion behavior. */
 
     .hero-word,
     .hero-subtitle,
-    .hero-links > li,
-    .hero-portrait,
-    .hero-portrait img { animation: none; }
+    .hero-links > li { animation: none; }
 
     .project-trigger::before { transition: opacity var(--motion-fast) ease-out; transform: scaleX(1); opacity: 0; }
     .project-trigger[aria-expanded="true"]::before,
