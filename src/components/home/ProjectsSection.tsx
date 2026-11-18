@@ -5,8 +5,11 @@ export default function ProjectsSection() {
     <section
       id="projects"
       className="px-4 max-w-6xl mx-auto pb-10 md:pb-12"
-      aria-label="Projects"
+      aria-labelledby="projects-heading"
     >
+      <h2 id="projects-heading" className="sr-only">
+        Projects
+      </h2>
       <ProjectList />
     </section>
   );

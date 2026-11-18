@@ -1,5 +1,7 @@
 # Project catalog review — 2026-11-16
 
+> **Status:** historical. The portfolio now shows six projects (Game Boy Emulator, Real Time Game Analysis, Shadow Basketball Official Page, Managy, Ye Guesser, Ascendume); see the `projects` array in `src/components/ProjectList.tsx` for the current list. The coverage table below records the full review, not the entries currently displayed.
+
 Reviewed the 21 owned repositories returned by the authenticated GitHub connection, including private repositories. Existing Real Time Game Analysis also links to the club repository owned by ElleOwO.
 
 ## Preview captures

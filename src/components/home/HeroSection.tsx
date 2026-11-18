@@ -2,7 +2,6 @@ import Image from "next/image";
 import { Mail, FileDown } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa6";
-import { Reveal } from "@/components/Reveal";
 import portrait from "../../../public/photos/optimized/profile.webp";
 
 const heroLinks = [
@@ -42,12 +41,12 @@ export default function HeroSection() {
     <section
       id="home"
       className="px-4 max-w-6xl mx-auto pt-4 lg:pt-8 pb-10 md:pb-12"
-      aria-label="Hero section"
+      aria-labelledby="hero-name"
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-8 lg:gap-16">
         {/* Image First on Mobile, Second on Desktop */}
-        <Reveal className="lg:col-span-6 order-1 lg:order-2">
-          <div className="relative">
+        <div className="lg:col-span-6 order-1 lg:order-2">
+          <div className="hero-portrait-wrap relative">
             <div
               className="hero-portrait relative aspect-square overflow-hidden rounded-full bg-muted bg-cover bg-center shadow-lg"
               style={{ backgroundImage: `url("${portrait.blurDataURL}")` }}
@@ -64,21 +63,23 @@ export default function HeroSection() {
               />
             </div>
           </div>
-        </Reveal>
+        </div>
 
         {/* Text Second on Mobile, First on Desktop */}
-        <Reveal className="lg:col-span-6 text-center lg:text-left order-2 lg:order-1 space-y-4">
+        <div className="lg:col-span-6 text-center lg:text-left order-2 lg:order-1 space-y-4">
           <h1
+            id="hero-name"
             className="hero-name text-6xl md:text-7xl lg:text-[200px] font-bold"
           >
-            Davis Ernst
+            <span className="hero-word">Davis</span>{" "}
+            <span className="hero-word">Ernst</span>
           </h1>
-          <h2
+          <p
             className="hero-subtitle text-lg md:text-2xl font-medium text-muted-foreground pb-2"
           >
             Computer Science Student at the University of Saskatchewan |
             Software Developer
-          </h2>
+          </p>
           <ul
             className="hero-links flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 list-none m-0 p-0"
           >
@@ -103,7 +104,7 @@ export default function HeroSection() {
               ),
             )}
           </ul>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

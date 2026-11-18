@@ -9,19 +9,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-times);
   --font-serif: var(--font-times);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -76,19 +63,6 @@
   --border: oklch(0.88 0.02 95);
   --input: var(--border);
   --ring: var(--foreground);
-  --chart-1: oklch(0.63 0.22 40);
-  --chart-2: oklch(0.6 0.12 180);
-  --chart-3: oklch(0.4 0.07 230);
-  --chart-4: oklch(0.83 0.19 85);
-  --chart-5: oklch(0.77 0.18 70);
-  --sidebar: oklch(0.94 0.025 90);
-  --sidebar-foreground: var(--foreground);
-  --sidebar-primary: var(--foreground);
-  --sidebar-primary-foreground: var(--background);
-  --sidebar-accent: oklch(0.9 0.03 95);
-  --sidebar-accent-foreground: var(--foreground);
-  --sidebar-border: var(--border);
-  --sidebar-ring: var(--foreground);
 }
 
 .dark {
@@ -113,19 +87,6 @@
   --border: oklch(0.3 0.04 260);
   --input: var(--border);
   --ring: var(--foreground);
-  --chart-1: oklch(0.6 0.2 220);
-  --chart-2: oklch(0.65 0.15 180);
-  --chart-3: oklch(0.7 0.18 160);
-  --chart-4: oklch(0.55 0.22 280);
-  --chart-5: oklch(0.6 0.2 40);
-  --sidebar: oklch(0.16 0.04 260);
-  --sidebar-foreground: var(--foreground);
-  --sidebar-primary: var(--foreground);
-  --sidebar-primary-foreground: var(--background);
-  --sidebar-accent: oklch(0.2 0.04 260);
-  --sidebar-accent-foreground: var(--foreground);
-  --sidebar-border: var(--border);
-  --sidebar-ring: var(--foreground);
 }
 
 @layer base {
@@ -152,16 +113,6 @@
   to { background-position: 350% 50%, 350% 50%; }
 }
 
-@keyframes reveal-rise {
-  from { transform: translate3d(0, 28px, 0); }
-  to { transform: translate3d(0, 0, 0); }
-}
-
-@keyframes reveal-fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
 @keyframes page-fade {
   from { opacity: 0.78; }
   to { opacity: 1; }
@@ -177,22 +128,100 @@
   to { opacity: 0; }
 }
 
-/* Keep the theme switch interactive while the snapshots crossfade. */
+/* The new theme grows from the toggle; ModeToggle sets the center/radius. */
+@keyframes theme-reveal {
+  from { clip-path: circle(0 at var(--theme-x, 100%) var(--theme-y, 0)); }
+  to { clip-path: circle(var(--theme-r, 150vmax) at var(--theme-x, 100%) var(--theme-y, 0)); }
+}
+
+/* Hero load sequence: CSS-only, so it also runs before hydration. */
+@keyframes hero-word-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.32em, 0) rotate(3deg);
+    filter: blur(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes portrait-in {
+  from { transform: scale(0.9) rotate(-6deg); }
+  to { transform: scale(1) rotate(0); }
+}
+
+@keyframes portrait-zoom {
+  from { transform: scale(1.18); }
+  to { transform: scale(1); }
+}
+
+@keyframes portrait-scroll {
+  to { transform: translate3d(0, -14%, 0) scale(0.86) rotate(5deg); opacity: 0.35; }
+}
+
+/* Keep the theme switch interactive while the theme reveal runs. */
 ::view-transition {
   pointer-events: none;
 }
 
+/* Colors switch instantly underneath the reveal instead of fading from the
+   old theme inside the new snapshot. */
+:root:active-view-transition * {
+  transition: none !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+
 ::view-transition-old(root) {
-  animation: theme-out 220ms ease-out both;
+  animation: none;
 }
 
 ::view-transition-new(root) {
-  animation: theme-in 280ms ease-out both;
+  animation: theme-reveal 620ms var(--motion-ease) both;
 }
 
 @layer components {
   .site-header {
     animation: page-fade var(--motion-normal) ease-out backwards;
+  }
+
+  .hero-word {
+    display: inline-block;
+    transform-origin: 0 100%;
+    animation: hero-word-in 1000ms var(--motion-ease) backwards;
+  }
+
+  .hero-word:nth-child(2) { animation-delay: 140ms; }
+
+  .hero-subtitle {
+    animation: hero-fade-up 800ms var(--motion-ease) 380ms backwards;
+  }
+
+  .hero-links > li {
+    animation: hero-fade-up 700ms var(--motion-ease) 520ms backwards;
+  }
+
+  .hero-links > li:nth-child(2) { animation-delay: 580ms; }
+  .hero-links > li:nth-child(3) { animation-delay: 640ms; }
+  .hero-links > li:nth-child(4) { animation-delay: 700ms; }
+
+  .hero-portrait {
+    animation: portrait-in 1200ms var(--motion-ease) backwards;
+  }
+
+  .hero-portrait img {
+    animation: portrait-zoom 1600ms var(--motion-ease) backwards;
   }
 
   .motion-link {
@@ -241,28 +270,34 @@
   .dark .theme-sun { opacity: 0; transform: rotate(-70deg) scale(0.7); }
   .dark .theme-moon { opacity: 1; transform: rotate(0) scale(1); }
 
-  .scroll-reveal.reveal-enter {
-    animation: reveal-fade var(--motion-slow) ease-out var(--reveal-delay, 0ms) backwards,
-      reveal-rise var(--motion-reveal) var(--motion-ease) var(--reveal-delay, 0ms) backwards;
-  }
-
-  .scroll-reveal.reveal-pending {
-    opacity: 0;
-    transform: translate3d(0, 28px, 0);
-  }
-
-  .scroll-reveal:focus-within {
-    opacity: 1;
-    transform: none;
-    animation: none;
-  }
-
   .project-list {
     overflow-anchor: none;
   }
 
   .project-label {
     transition: transform var(--motion-normal) var(--motion-ease);
+  }
+
+  /* A soft band sweeps behind a row on hover and stays on the open row. */
+  .project-trigger {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .project-trigger::before {
+    content: "";
+    position: absolute;
+    inset: 0 -0.75rem;
+    z-index: -1;
+    border-radius: var(--radius-md);
+    background: color-mix(in oklab, var(--foreground) 5%, transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--motion-slow) var(--motion-ease);
+  }
+
+  .project-trigger[aria-expanded="true"]::before {
+    transform: scaleX(1);
   }
 
   .project-toggle {
@@ -301,7 +336,40 @@
     transition-duration: 360ms, 560ms;
   }
 
-  .project-panel[data-open="true"] .project-preview { transition-delay: 45ms; }
+  /* The preview wipes down into view while it fades and rises. */
+  .project-preview {
+    clip-path: inset(0 0 100% 0 round 6px);
+    transition: opacity var(--motion-fast) ease-out,
+      transform var(--motion-normal) var(--motion-ease),
+      clip-path var(--motion-normal) var(--motion-ease);
+  }
+
+  .project-panel[data-open="true"] .project-preview {
+    clip-path: inset(0 0 0 0 round 6px);
+    transition-duration: 360ms, 560ms, 760ms;
+    transition-delay: 45ms;
+  }
+
+  /* Technology icons pop in one after another once the panel opens. */
+  .project-tech > li {
+    opacity: 0;
+    transform: scale(0.4) rotate(-20deg);
+    transition: opacity var(--motion-fast) ease-out,
+      transform var(--motion-normal) var(--motion-ease);
+  }
+
+  .project-panel[data-open="true"] .project-tech > li {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+    transition: opacity 260ms ease-out 200ms,
+      transform 640ms var(--motion-spring) 200ms;
+  }
+
+  .project-panel[data-open="true"] .project-tech > li:nth-child(2) { transition-delay: 250ms; }
+  .project-panel[data-open="true"] .project-tech > li:nth-child(3) { transition-delay: 300ms; }
+  .project-panel[data-open="true"] .project-tech > li:nth-child(4) { transition-delay: 350ms; }
+  .project-panel[data-open="true"] .project-tech > li:nth-child(5) { transition-delay: 400ms; }
+  .project-panel[data-open="true"] .project-tech > li:nth-child(6) { transition-delay: 450ms; }
   .project-panel[data-open="true"] .project-details > :nth-child(1) { transition-delay: 90ms; }
   .project-panel[data-open="true"] .project-details > :nth-child(2) { transition-delay: 150ms; }
   .project-panel[data-open="true"] .project-details > :nth-child(3) { transition-delay: 210ms; }
@@ -321,17 +389,44 @@
     .project-trigger:is(:hover, :focus-visible) .project-label { transform: translateX(8px); }
     .project-trigger[aria-expanded="false"]:is(:hover, :focus-visible) .project-toggle { transform: rotate(90deg); }
     .project-panel[data-open="true"] .project-preview:hover img { transform: scale(1.035); }
+    .project-trigger:is(:hover, :focus-visible)::before { transform: scaleX(1); }
+  }
+
+  /* As the hero scrolls away, the portrait drifts up, shrinks, and tilts.
+     Unsupported browsers keep the static portrait. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-portrait-wrap {
+        animation: portrait-scroll linear both;
+        animation-timeline: view();
+        animation-range: exit 0% exit 100%;
+      }
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     /* Portfolio entrances use fades; closing panels stay present until the
        fade ends. The Aceternity component retains its source motion behavior. */
 
-    .scroll-reveal.reveal-enter {
-      animation: reveal-fade var(--motion-fast) ease-out backwards;
-    }
+    .hero-word,
+    .hero-subtitle,
+    .hero-links > li,
+    .hero-portrait,
+    .hero-portrait img { animation: none; }
 
-    .scroll-reveal.reveal-pending { transform: none; }
+    .project-trigger::before { transition: opacity var(--motion-fast) ease-out; transform: scaleX(1); opacity: 0; }
+    .project-trigger[aria-expanded="true"]::before,
+    .project-trigger:is(:hover, :focus-visible)::before { opacity: 1; }
+
+    .project-preview,
+    .project-panel[data-open="true"] .project-preview { clip-path: none; }
+
+    .project-tech > li,
+    .project-panel[data-open="true"] .project-tech > li {
+      transform: none;
+      transition: opacity var(--motion-fast) ease-out;
+      transition-delay: 0ms;
+    }
 
     .project-preview img,
     .project-label,
@@ -367,103 +462,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto !important; }
-  ::view-transition-old(root),
-  ::view-transition-new(root) { animation-duration: 180ms; }
-}
-
-@layer base {
-  .prose {
-    @apply text-foreground;
-  }
-  
-  .prose h1,
-  .prose h2,
-  .prose h3,
-  .prose h4,
-  .prose h5,
-  .prose h6 {
-    @apply text-foreground font-bold mt-4 mb-2;
-  }
-  
-  .prose h1 {
-    @apply text-4xl;
-  }
-  
-  .prose h2 {
-    @apply text-3xl;
-  }
-  
-  .prose h3 {
-    @apply text-2xl;
-  }
-  
-  .prose p {
-    @apply text-foreground/90 mb-4;
-  }
-  
-  .prose a {
-    @apply text-primary hover:text-primary/80 underline;
-  }
-  
-  .prose ul,
-  .prose ol {
-    @apply mb-4 ml-6;
-  }
-  
-  .prose ul {
-    @apply list-disc;
-  }
-  
-  .prose ol {
-    @apply list-decimal;
-  }
-  
-  .prose li {
-    @apply mb-2;
-  }
-  
-  .prose code {
-    @apply bg-muted text-foreground px-1.5 py-0.5 rounded;
-  }
-  
-  .prose pre {
-    @apply bg-muted text-foreground p-4 rounded-lg overflow-x-auto mb-4;
-  }
-  
-  .prose pre code {
-    @apply bg-transparent p-0;
-  }
-  
-  .prose blockquote {
-    @apply border-l-4 border-l-primary text-muted-foreground pl-4 italic my-4;
-  }
-  
-  .prose img {
-    @apply rounded-lg my-4;
-  }
-  
-  .prose hr {
-    @apply border-border my-4;
-  }
-  
-  .prose table {
-    @apply w-full border-collapse mb-4;
-  }
-  
-  .prose th,
-  .prose td {
-    @apply border border-border px-4 py-2;
-  }
-  
-  .prose th {
-    @apply bg-muted font-semibold;
-  }
-  
-  .prose strong {
-    @apply font-bold;
-  }
-  
-  .prose em {
-    @apply italic;
-  }
+  ::view-transition-old(root) { animation: theme-out 180ms ease-out both; }
+  ::view-transition-new(root) { animation: theme-in 180ms ease-out both; }
 }

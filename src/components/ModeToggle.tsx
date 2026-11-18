@@ -21,7 +21,21 @@ export function ModeToggle() {
     () => false,
   );
 
-  const toggleTheme = () => {
+  const toggleTheme = (event: React.MouseEvent<HTMLButtonElement>) => {
+    // Center the theme reveal on the toggle and size it to reach the
+    // farthest viewport corner.
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    const radius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y),
+    );
+    const rootStyle = document.documentElement.style;
+    rootStyle.setProperty("--theme-x", `${x}px`);
+    rootStyle.setProperty("--theme-y", `${y}px`);
+    rootStyle.setProperty("--theme-r", `${radius}px`);
+
     const nextTheme = (requestedThemeRef.current ?? resolvedTheme) === "dark"
       ? "light"
       : "dark";

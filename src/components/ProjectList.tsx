@@ -4,7 +4,6 @@ import { useState, useId, useEffect, useRef, type ReactNode } from "react";
 import Image, { type StaticImageData } from "next/image";
 import { ArrowUpRight, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Reveal } from "@/components/Reveal";
 import ascendumePreview from "../../public/photos/optimized/ascendume.webp";
 import emulatorPreview from "../../public/photos/optimized/typescript_gameboy_emulator.webp";
 import rtgaPreview from "../../public/photos/optimized/rtga.webp";
@@ -59,7 +58,7 @@ export default function ProjectList() {
         const panelId = `${id}-panel-${index}`;
 
         return (
-          <Reveal as="li" key={project.title} className="project-row" delay={index * 35}>
+          <li key={project.title} className="project-row">
             <button
               type="button"
               aria-expanded={isOpen}
@@ -103,7 +102,7 @@ export default function ProjectList() {
                           src={project.src}
                           alt={project.alt ?? `${project.title} preview`}
                           className="object-cover object-top"
-                          sizes="(min-width: 1152px) 416px, (min-width: 768px) calc((100vw - 112px) * 0.4), calc((100vw - 32px) * 1.2)"
+                          sizes="(min-width: 1152px) 360px, (min-width: 768px) calc((100vw - 112px) / 3), calc(100vw - 32px)"
                           quality={90}
                           placeholder="blur"
                           loading={imagesNearby || isOpen ? "eager" : "lazy"}
@@ -117,7 +116,7 @@ export default function ProjectList() {
                       {project.content}
                     </div>
 
-                    <ul className="flex flex-wrap gap-3 list-none m-0 p-0 text-muted-foreground">
+                    <ul className="project-tech flex flex-wrap gap-3 list-none m-0 p-0 text-muted-foreground">
                       {project.technologies.map((tech) => (
                         <li
                           key={tech.name}
@@ -171,7 +170,7 @@ export default function ProjectList() {
                 </div>
               </div>
             </div>
-          </Reveal>
+          </li>
         );
       })}
     </ul>

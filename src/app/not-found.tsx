@@ -3,15 +3,15 @@ import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6">
-      <h1 className="text-6xl font-bold mb-4">404</h1>
-      <h2 className="text-2xl font-semibold mb-4">Page Not Found</h2>
-      <p className="text-muted-foreground mb-8 text-center max-w-md">
-        Sorry, we could not find the page you are looking for.
+    <main className="flex flex-col items-start justify-center min-h-screen px-4 max-w-6xl mx-auto">
+      <h1 className="text-6xl md:text-8xl font-bold tracking-tight">Page not found</h1>
+      <p className="mt-6 text-xl text-muted-foreground max-w-[40ch]">
+        This address doesn&apos;t match any page on the site. The projects and
+        contact links are on the home page.
       </p>
-      <Link href="/">
-        <Button>Return Home</Button>
-      </Link>
-    </div>
+      <Button asChild size="lg" className="mt-8 text-base">
+        <Link href="/">Go to the home page</Link>
+      </Button>
+    </main>
   );
 }
