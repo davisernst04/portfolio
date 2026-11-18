@@ -256,26 +256,45 @@
     transition: transform var(--motion-normal) var(--motion-ease);
   }
 
-  /* A soft band sweeps behind a row on hover and stays on the open row. */
-  .project-trigger {
+  /* Each row is a soft rounded card: a band sweeps in behind it on hover and
+     stays on the open row, wrapping the title, preview, and links together. */
+  .project-row {
     position: relative;
     isolation: isolate;
+    border-radius: var(--radius-xl);
   }
 
-  .project-trigger::before {
+  .project-row::before {
     content: "";
     position: absolute;
-    /* Match the row's divider lines exactly: no overhang, square corners. */
     inset: 0;
     z-index: -1;
+    border-radius: inherit;
     background: color-mix(in oklab, var(--foreground) 5%, transparent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--motion-slow) var(--motion-ease);
+    clip-path: inset(0 100% 0 0 round var(--radius-xl));
+    transition: clip-path var(--motion-slow) var(--motion-ease);
   }
 
-  .project-trigger[aria-expanded="true"]::before {
-    transform: scaleX(1);
+  .project-row:has(> .project-trigger[aria-expanded="true"])::before {
+    clip-path: inset(0 0 0 0 round var(--radius-xl));
+  }
+
+  /* Dividers sit between rows, inset past the card corners, and step aside
+     around a highlighted row so the card never meets a straight edge. */
+  .project-row + .project-row::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: var(--radius-xl);
+    right: var(--radius-xl);
+    height: 1px;
+    background: var(--border);
+    transition: opacity var(--motion-normal) ease-out;
+  }
+
+  .project-row:has(> .project-trigger[aria-expanded="true"])::after,
+  .project-row:has(> .project-trigger[aria-expanded="true"]) + .project-row::after {
+    opacity: 0;
   }
 
   .project-toggle {
@@ -367,7 +386,13 @@
     .project-trigger:is(:hover, :focus-visible) .project-label { transform: translateX(8px); }
     .project-trigger[aria-expanded="false"]:is(:hover, :focus-visible) .project-toggle { transform: rotate(90deg); }
     .project-panel[data-open="true"] .project-preview:hover img { transform: scale(1.035); }
-    .project-trigger:is(:hover, :focus-visible)::before { transform: scaleX(1); }
+    .project-row:has(> .project-trigger:is(:hover, :focus-visible))::before {
+      clip-path: inset(0 0 0 0 round var(--radius-xl));
+    }
+    .project-row:has(> .project-trigger:is(:hover, :focus-visible))::after,
+    .project-row:has(> .project-trigger:is(:hover, :focus-visible)) + .project-row::after {
+      opacity: 0;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -378,9 +403,12 @@
     .hero-subtitle,
     .hero-links > li { animation: none; }
 
-    .project-trigger::before { transition: opacity var(--motion-fast) ease-out; transform: scaleX(1); opacity: 0; }
-    .project-trigger[aria-expanded="true"]::before,
-    .project-trigger:is(:hover, :focus-visible)::before { opacity: 1; }
+    .project-row::before {
+      clip-path: none;
+      opacity: 0;
+      transition: opacity var(--motion-fast) ease-out;
+    }
+    .project-row:has(> .project-trigger:is([aria-expanded="true"], :hover, :focus-visible))::before { opacity: 1; }
 
     .project-preview,
     .project-panel[data-open="true"] .project-preview { clip-path: none; }

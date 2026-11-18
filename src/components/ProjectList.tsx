@@ -51,20 +51,20 @@ export default function ProjectList() {
   return (
     <ul
       ref={listRef}
-      className="project-list list-none m-0 p-0 border-y border-border divide-y divide-border"
+      className="project-list list-none m-0 -mx-3 md:-mx-5 p-0"
     >
       {projects.map((project, index) => {
         const isOpen = openIndex === index;
         const panelId = `${id}-panel-${index}`;
 
         return (
-          <li key={project.title} className="project-row">
+          <li key={project.title} className="project-row px-3 md:px-5">
             <button
               type="button"
               aria-expanded={isOpen}
               aria-controls={panelId}
               onClick={() => setOpenIndex(isOpen ? null : index)}
-              className="project-trigger flex w-full items-center justify-between gap-4 py-6 text-left group cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+              className="project-trigger flex w-full items-center justify-between gap-4 py-6 text-left group cursor-pointer rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
             >
               <div className="project-label">
                 <h3 className="text-2xl md:text-3xl font-bold text-foreground/90 group-hover:text-foreground transition-colors">
@@ -90,7 +90,7 @@ export default function ProjectList() {
               className="project-panel"
             >
               <div className="min-h-0 overflow-hidden">
-                <div className="pb-10 pt-2 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+                <div className="pb-6 pt-1 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
                   {project.src && (
                     <div
                       className="project-preview md:col-span-4 relative overflow-hidden rounded-md bg-muted bg-cover bg-top"
