@@ -3,6 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
+  // Dev-only: let the dev server hydrate when opened from the Pi's
+  // Tailscale and LAN addresses, not just localhost.
+  allowedDevOrigins: ["100.97.211.24", "192.168.68.68"],
+
   async headers() {
     return [
       {

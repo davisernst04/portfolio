@@ -1,14 +1,20 @@
 "use client";
 
-import { useState, useId, useEffect, useRef, type ReactNode } from "react";
+import {
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type TransitionEvent,
+} from "react";
 import Image, { type StaticImageData } from "next/image";
 import { ArrowUpRight, Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import ascendumePreview from "../../public/photos/optimized/ascendume.webp";
-import emulatorPreview from "../../public/photos/optimized/typescript_gameboy_emulator.webp";
-import rtgaPreview from "../../public/photos/optimized/rtga.webp";
 import basketballPreview from "../../public/photos/optimized/shadow-basketball-hero.webp";
+import emulatorPreview from "../../public/photos/optimized/typescript_gameboy_emulator.webp";
 import managyPreview from "../../public/photos/optimized/managy-hero.webp";
+import rtgaPreview from "../../public/photos/optimized/rtga.webp";
 import yeGuesserPreview from "../../public/photos/optimized/ye-guesser-home.webp";
 import {
   SiGithub,
@@ -24,59 +30,75 @@ import {
   SiNextdotjs,
 } from "react-icons/si";
 
+const linkClass =
+  "motion-link inline-flex items-center gap-1.5 rounded-sm text-foreground/80 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring";
+
+const reducedMotion = "(prefers-reduced-motion: reduce)";
+
+function revealRow(
+  list: HTMLUListElement | null,
+  row: HTMLLIElement | null,
+  behavior: ScrollBehavior,
+) {
+  if (!list || !row) return;
+
+  const listBox = list.getBoundingClientRect();
+  const rowBox = row.getBoundingClientRect();
+  const top = rowBox.top - listBox.top;
+  const bottom = rowBox.bottom - listBox.bottom;
+
+  // Align taller rows to the top so the title and start of the preview stay visible.
+  const offset = rowBox.height > listBox.height || top < 0 ? top : Math.max(0, bottom);
+  if (offset !== 0) list.scrollBy({ top: offset, behavior });
+}
+
 export default function ProjectList() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [imagesNearby, setImagesNearby] = useState(false);
   const listRef = useRef<HTMLUListElement>(null);
+  const openRowRef = useRef<HTMLLIElement>(null);
   const id = useId();
 
-  useEffect(() => {
-    const list = listRef.current;
-    if (!list || !window.IntersectionObserver) return;
+  useLayoutEffect(() => {
+    if (openIndex !== null && window.matchMedia(reducedMotion).matches) {
+      revealRow(listRef.current, openRowRef.current, "instant");
+    }
+  }, [openIndex]);
 
-    // Start low-priority preview requests before a visitor opens a project.
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setImagesNearby(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "300px 0px" },
-    );
-    observer.observe(list);
-    return () => observer.disconnect();
-  }, []);
+  const handlePanelTransitionEnd = (event: TransitionEvent<HTMLDivElement>) => {
+    if (event.target !== event.currentTarget || event.propertyName !== "grid-template-rows") return;
+
+    // In reduced motion, the previous panel may finish collapsing after the
+    // new one has opened, shifting the open row inside the list.
+    const reduce = window.matchMedia(reducedMotion).matches;
+    if (reduce || event.currentTarget.dataset.open === "true") {
+      revealRow(listRef.current, openRowRef.current, reduce ? "instant" : "smooth");
+    }
+  };
 
   return (
     <ul
       ref={listRef}
-      className="project-list list-none m-0 -mx-3 md:-mx-5 p-0"
+      className="project-list list-none min-h-0 overflow-y-auto overscroll-contain -mx-3 my-0 py-1 px-0"
     >
       {projects.map((project, index) => {
         const isOpen = openIndex === index;
         const panelId = `${id}-panel-${index}`;
 
         return (
-          <li key={project.title} className="project-row px-3 md:px-5">
+          <li key={project.title} ref={isOpen ? openRowRef : undefined} className="project-row px-3">
             <button
               type="button"
               aria-expanded={isOpen}
               aria-controls={panelId}
               onClick={() => setOpenIndex(isOpen ? null : index)}
-              className="project-trigger flex w-full items-center justify-between gap-4 py-6 text-left group cursor-pointer rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+              className="project-trigger flex w-full items-center justify-between gap-4 py-3 text-left group cursor-pointer rounded-md focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
             >
-              <div className="project-label">
-                <h3 className="text-2xl md:text-3xl font-bold text-foreground/90 group-hover:text-foreground transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-muted-foreground mt-1">
-                  {project.description}
-                </p>
-              </div>
+              <h3 className="text-xl text-foreground/85 group-hover:text-foreground transition-colors">
+                {project.title}
+              </h3>
               <Plus
                 aria-hidden
-                className="project-toggle w-6 h-6 shrink-0 text-muted-foreground group-hover:text-foreground"
+                className="project-toggle w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground"
               />
             </button>
 
@@ -87,86 +109,64 @@ export default function ProjectList() {
               aria-hidden={!isOpen}
               inert={!isOpen}
               data-open={isOpen}
+              onTransitionEnd={handlePanelTransitionEnd}
               className="project-panel"
             >
-              <div className="min-h-0 overflow-hidden">
-                <div className="pb-6 pt-1 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
-                  {project.src && (
-                    <div
-                      className="project-preview md:col-span-4 relative overflow-hidden rounded-md bg-muted bg-cover bg-top"
-                      style={{ backgroundImage: `url("${project.src.blurDataURL}")` }}
-                    >
-                      <div className="relative aspect-video">
-                        <Image
-                          fill
-                          src={project.src}
-                          alt={project.alt ?? `${project.title} preview`}
-                          className="object-cover object-top"
-                          sizes="(min-width: 1152px) 360px, (min-width: 768px) calc((100vw - 112px) / 3), calc(100vw - 32px)"
-                          quality={90}
-                          placeholder="blur"
-                          loading={imagesNearby || isOpen ? "eager" : "lazy"}
-                          fetchPriority={isOpen ? "high" : "low"}
-                        />
-                      </div>
+              <div className="relative min-h-0 overflow-hidden">
+                <div className="project-details flex flex-col gap-3 pb-4">
+                  {project.preview && (
+                    <Image
+                      src={project.preview.src}
+                      alt={project.preview.alt}
+                      sizes="(max-width: 32rem) calc(100vw - 2rem), 30rem"
+                      placeholder="blur"
+                      className="h-auto w-full rounded-md border border-border bg-muted"
+                    />
+                  )}
+
+                  <div className="text-muted-foreground leading-relaxed">
+                    {project.content}
+                  </div>
+
+                  <ul className="project-tech flex flex-wrap gap-3 list-none m-0 p-0">
+                    {project.technologies.map((tech) => (
+                      <li key={tech.name} className="flex items-center" title={tech.name}>
+                        <span aria-hidden className="text-foreground/70">
+                          {tech.icon}
+                        </span>
+                        <span className="sr-only">{tech.name}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {(project.githubLink || project.liveLink) && (
+                    <div className="flex flex-wrap gap-x-6 gap-y-2">
+                      {project.githubLink && (
+                        <a
+                          href={project.githubLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`View the source code for ${project.title} on GitHub (opens in a new tab)`}
+                          className={linkClass}
+                        >
+                          <SiGithub aria-hidden className="size-4" />
+                          <span className="link-label">GitHub</span>
+                        </a>
+                      )}
+                      {project.liveLink && (
+                        <a
+                          href={project.liveLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Visit the live ${project.title} site (opens in a new tab)`}
+                          className={linkClass}
+                        >
+                          <ArrowUpRight aria-hidden className="size-4" />
+                          <span className="link-label">Live site</span>
+                        </a>
+                      )}
                     </div>
                   )}
-                  <div className={`project-details ${project.src ? "md:col-span-8" : "md:col-span-12"} flex flex-col gap-5`}>
-                    <div className="text-muted-foreground text-base leading-relaxed">
-                      {project.content}
-                    </div>
-
-                    <ul className="project-tech flex flex-wrap gap-3 list-none m-0 p-0 text-muted-foreground">
-                      {project.technologies.map((tech) => (
-                        <li
-                          key={tech.name}
-                          className="flex items-center"
-                          title={tech.name}
-                        >
-                          <span aria-hidden className="text-foreground/70">
-                            {tech.icon}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="flex flex-wrap gap-3">
-                      {project.githubLink && (
-                        <Button asChild variant="outline" size="sm" className="motion-button transition-[transform,opacity,background-color,border-color] duration-200 ease-[var(--motion-ease)]">
-                          <a
-                            href={project.githubLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`View the source code for ${project.title} on GitHub (opens in a new tab)`}
-                          >
-                            <SiGithub aria-hidden className="size-4" />
-                            Code
-                          </a>
-                        </Button>
-                      )}
-                      {project.sources?.map((source) => (
-                        <Button key={source.href} asChild variant="outline" size="sm">
-                          <a href={source.href} target="_blank" rel="noopener noreferrer">
-                            <SiGithub aria-hidden className="size-4" />
-                            {source.label}
-                          </a>
-                        </Button>
-                      ))}
-                      {project.liveLink && (
-                        <Button asChild size="sm" className="motion-button transition-[transform,opacity,background-color,border-color] duration-200 ease-[var(--motion-ease)]">
-                          <a
-                            href={project.liveLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`Visit the live ${project.title} site (opens in a new tab)`}
-                          >
-                            <ArrowUpRight aria-hidden className="size-4" />
-                            Live
-                          </a>
-                        </Button>
-                      )}
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -179,12 +179,9 @@ export default function ProjectList() {
 
 interface Project {
   title: string;
-  description: string;
-  src?: StaticImageData;
-  alt?: string;
+  preview?: { src: StaticImageData; alt: string };
   githubLink: string | null;
   liveLink: string | null;
-  sources?: { label: string; href: string }[];
   technologies: { name: string; icon: ReactNode }[];
   content: ReactNode;
 }
@@ -192,15 +189,16 @@ interface Project {
 const projects: Project[] = [
   {
     title: "Game Boy Emulator",
-    description: "Individual Project",
-    src: emulatorPreview,
-    alt: "Game Boy Emulator project preview",
+    preview: {
+      src: emulatorPreview,
+      alt: "Game Boy Emulator showing the Pokémon Red title screen and on-screen controls",
+    },
     githubLink: "https://github.com/davisernst04/typescript_gameboy_emulator",
     liveLink: "https://emulator-demo.vercel.app",
     technologies: [
-      { name: "TypeScript", icon: <SiTypescript size={22} /> },
-      { name: "JavaScript", icon: <SiJavascript size={22} /> },
-      { name: "npm", icon: <SiNpm size={22} /> },
+      { name: "TypeScript", icon: <SiTypescript size={18} /> },
+      { name: "JavaScript", icon: <SiJavascript size={18} /> },
+      { name: "npm", icon: <SiNpm size={18} /> },
     ],
     content: (
       <p>
@@ -214,15 +212,16 @@ const projects: Project[] = [
   },
   {
     title: "Real Time Game Analysis",
-    description: "SPEN Club at USASK",
-    src: rtgaPreview,
-    alt: "Real Time Game Analysis project preview",
+    preview: {
+      src: rtgaPreview,
+      alt: "Camera set up on the sideline of a soccer field for real-time game analysis",
+    },
     githubLink: "https://github.com/ElleOwO/realtimegamestatistics",
     liveLink: null,
     technologies: [
-      { name: "Python", icon: <SiPython size={22} /> },
-      { name: "React", icon: <SiReact size={22} /> },
-      { name: "TypeScript", icon: <SiTypescript size={22} /> },
+      { name: "Python", icon: <SiPython size={18} /> },
+      { name: "React", icon: <SiReact size={18} /> },
+      { name: "TypeScript", icon: <SiTypescript size={18} /> },
     ],
     content: (
       <p>
@@ -235,16 +234,17 @@ const projects: Project[] = [
   },
   {
     title: "Shadow Basketball Official Page",
-    description: "A Website for a Youth Basketball Team",
-    src: basketballPreview,
-    alt: "Shadow Basketball homepage hero with the club wordmark and basketball game photography",
+    preview: {
+      src: basketballPreview,
+      alt: "Shadow Basketball homepage with the club wordmark and game photography",
+    },
     githubLink: null,
     liveLink: "https://basketball-registration-platform.vercel.app/",
     technologies: [
-      { name: "TypeScript", icon: <SiTypescript size={22} /> },
-      { name: "Next.js", icon: <SiNextdotjs size={22} /> },
-      { name: "Tailwind CSS", icon: <SiTailwindcss size={22} /> },
-      { name: "PostgreSQL", icon: <SiPostgresql size={22} /> },
+      { name: "TypeScript", icon: <SiTypescript size={18} /> },
+      { name: "Next.js", icon: <SiNextdotjs size={18} /> },
+      { name: "Tailwind CSS", icon: <SiTailwindcss size={18} /> },
+      { name: "PostgreSQL", icon: <SiPostgresql size={18} /> },
     ],
     content: (
       <p>
@@ -257,18 +257,19 @@ const projects: Project[] = [
   },
   {
     title: "Managy",
-    description: "Group Project at USASK",
-    src: managyPreview,
-    alt: "Managy homepage with its house illustration and Login, Register, and Learn More buttons",
+    preview: {
+      src: managyPreview,
+      alt: "Managy homepage with a house illustration and buttons to log in, register, or learn more",
+    },
     githubLink: "https://github.com/davisernst04/managy",
     liveLink: "https://managy-snowy.vercel.app",
     technologies: [
-      { name: "Python", icon: <SiPython size={22} /> },
-      { name: "Django", icon: <SiDjango size={22} /> },
-      { name: "Next.js", icon: <SiNextdotjs size={22} /> },
-      { name: "PostgreSQL", icon: <SiPostgresql size={22} /> },
-      { name: "Tailwind CSS", icon: <SiTailwindcss size={22} /> },
-      { name: "Google Cloud", icon: <SiGooglecloud size={22} /> },
+      { name: "Python", icon: <SiPython size={18} /> },
+      { name: "Django", icon: <SiDjango size={18} /> },
+      { name: "Next.js", icon: <SiNextdotjs size={18} /> },
+      { name: "PostgreSQL", icon: <SiPostgresql size={18} /> },
+      { name: "Tailwind CSS", icon: <SiTailwindcss size={18} /> },
+      { name: "Google Cloud", icon: <SiGooglecloud size={18} /> },
     ],
     content: (
       <p>
@@ -282,16 +283,17 @@ const projects: Project[] = [
   },
   {
     title: "Ye Guesser",
-    description: "Music Guessing Game",
-    src: yeGuesserPreview,
-    alt: "Ye Guesser homepage with green lettering, a Play Now button, and a collage of Kanye West album covers",
+    preview: {
+      src: yeGuesserPreview,
+      alt: "Ye Guesser homepage with a Play Now button and a collage of Kanye West album covers",
+    },
     githubLink: "https://github.com/davisernst04/ye_guesser",
     liveLink: "https://ye-guesser.vercel.app",
     technologies: [
-      { name: "Next.js", icon: <SiNextdotjs size={22} /> },
-      { name: "TypeScript", icon: <SiTypescript size={22} /> },
-      { name: "React", icon: <SiReact size={22} /> },
-      { name: "Tailwind CSS", icon: <SiTailwindcss size={22} /> },
+      { name: "Next.js", icon: <SiNextdotjs size={18} /> },
+      { name: "TypeScript", icon: <SiTypescript size={18} /> },
+      { name: "React", icon: <SiReact size={18} /> },
+      { name: "Tailwind CSS", icon: <SiTailwindcss size={18} /> },
     ],
     content: (
       <p>
@@ -303,17 +305,15 @@ const projects: Project[] = [
   },
   {
     title: "Ascendume",
-    description: "AI-Powered Résumé Builder · In Development",
-    src: ascendumePreview,
-    alt: "Ascendume home screen with the headline Get hired yesterday and a résumé preview",
+    preview: { src: ascendumePreview, alt: "Ascendume homepage with a résumé preview" },
     githubLink: "https://github.com/davisernst04/ascendume",
     liveLink: "https://ascendume.vercel.app",
     technologies: [
-      { name: "TypeScript", icon: <SiTypescript size={22} /> },
-      { name: "Next.js", icon: <SiNextdotjs size={22} /> },
-      { name: "React", icon: <SiReact size={22} /> },
-      { name: "Tailwind CSS", icon: <SiTailwindcss size={22} /> },
-      { name: "PostgreSQL", icon: <SiPostgresql size={22} /> },
+      { name: "TypeScript", icon: <SiTypescript size={18} /> },
+      { name: "Next.js", icon: <SiNextdotjs size={18} /> },
+      { name: "React", icon: <SiReact size={18} /> },
+      { name: "Tailwind CSS", icon: <SiTailwindcss size={18} /> },
+      { name: "PostgreSQL", icon: <SiPostgresql size={18} /> },
     ],
     content: (
       <p>

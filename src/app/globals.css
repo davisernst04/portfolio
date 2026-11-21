@@ -41,36 +41,9 @@
   --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --motion-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --motion-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  /* Light mode — cream background, navy text */
-  --background: oklch(0.95 0.03 90);
-  /* Soft warm cream (#FAF3E0) */
-  --foreground: oklch(0.2 0.04 260);
-  /* Deep navy text (#0A192F) */
-  --card: oklch(0.97 0.02 95);
-  /* Slightly lighter cream card */
-  --card-foreground: var(--foreground);
-  --popover: oklch(0.98 0.015 95);
-  --popover-foreground: var(--foreground);
-  --primary: var(--foreground);
-  --primary-foreground: var(--background);
-  --secondary: oklch(0.92 0.025 95);
-  --secondary-foreground: var(--foreground);
-  --muted: oklch(0.93 0.02 95);
-  --muted-foreground: oklch(0.25 0.03 260);
-  --accent: oklch(0.9 0.03 95);
-  --accent-foreground: var(--foreground);
-  --destructive: oklch(0.63 0.24 25);
-  --border: oklch(0.88 0.02 95);
-  --input: var(--border);
-  --ring: var(--foreground);
-}
-
-.dark {
-  /* Dark mode — deep navy background, cream text */
+  /* Deep navy background, cream text */
   --background: oklch(0.2 0.04 260);
-  /* Deep navy blue */
   --foreground: oklch(0.95 0.03 90);
-  /* Cream text */
   --card: oklch(0.22 0.04 260);
   --card-foreground: var(--foreground);
   --popover: oklch(0.18 0.04 260);
@@ -94,44 +67,28 @@
     @apply border-border outline-ring/50;
   }
 
+  html {
+    color-scheme: dark;
+  }
+
+  /* The page is a fixed, single-screen layout: it never scrolls. */
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-times), "Times New Roman", Times, serif;
   }
 
-  html {
-    /* Reserve the sticky theme header's 65px height for incoming fragment
-       links so section targets stay visible below it. */
-    scroll-padding-top: 65px;
-  }
 }
-
-
 
 @keyframes aurora {
   from { background-position: 50% 50%, 50% 50%; }
   to { background-position: 350% 50%, 350% 50%; }
-}
-
-@keyframes page-fade {
-  from { opacity: 0.78; }
-  to { opacity: 1; }
-}
-
-@keyframes theme-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes theme-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
-/* The new theme grows from the toggle; ModeToggle sets the center/radius. */
-@keyframes theme-reveal {
-  from { clip-path: circle(0 at var(--theme-x, 100%) var(--theme-y, 0)); }
-  to { clip-path: circle(var(--theme-r, 150vmax) at var(--theme-x, 100%) var(--theme-y, 0)); }
 }
 
 /* Hero load sequence: CSS-only, so it also runs before hydration. */
@@ -153,35 +110,7 @@
   to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
-/* Keep the theme switch interactive while the theme reveal runs. */
-::view-transition {
-  pointer-events: none;
-}
-
-/* Colors switch instantly underneath the reveal instead of fading from the
-   old theme inside the new snapshot. */
-:root:active-view-transition * {
-  transition: none !important;
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  mix-blend-mode: normal;
-}
-
-::view-transition-old(root) {
-  animation: none;
-}
-
-::view-transition-new(root) {
-  animation: theme-reveal 620ms var(--motion-ease) both;
-}
-
 @layer components {
-  .site-header {
-    animation: page-fade var(--motion-normal) ease-out backwards;
-  }
-
   .hero-word {
     display: inline-block;
     transform-origin: 0 100%;
@@ -194,22 +123,8 @@
     animation: hero-fade-up 800ms var(--motion-ease) 380ms backwards;
   }
 
-  .hero-links > li {
-    animation: hero-fade-up 700ms var(--motion-ease) 520ms backwards;
-  }
-
-  .hero-links > li:nth-child(2) { animation-delay: 580ms; }
-  .hero-links > li:nth-child(3) { animation-delay: 640ms; }
-  .hero-links > li:nth-child(4) { animation-delay: 700ms; }
-
   .motion-link {
-    transition: transform var(--motion-fast) var(--motion-ease),
-      color var(--motion-fast) ease-out, opacity var(--motion-fast) ease-out;
-  }
-
-  .motion-link > svg,
-  .motion-button > svg:not(.theme-icon) {
-    transition: transform var(--motion-slow) var(--motion-spring);
+    transition: transform var(--motion-fast) var(--motion-ease);
   }
 
   .link-label {
@@ -232,32 +147,17 @@
     transform-origin: left;
   }
 
-  .motion-button:active {
-    transform: scale(0.98);
-  }
-
   .motion-link:active { opacity: 0.8; }
-
-  .theme-icon {
-    transition: opacity var(--motion-fast) ease-out,
-      transform var(--motion-normal) var(--motion-ease);
-  }
-
-  .theme-sun { opacity: 1; transform: rotate(0) scale(1); }
-  .theme-moon { opacity: 0; transform: rotate(70deg) scale(0.7); }
-  .dark .theme-sun { opacity: 0; transform: rotate(-70deg) scale(0.7); }
-  .dark .theme-moon { opacity: 1; transform: rotate(0) scale(1); }
 
   .project-list {
     overflow-anchor: none;
-  }
-
-  .project-label {
-    transition: transform var(--motion-normal) var(--motion-ease);
+    scrollbar-color: color-mix(in oklab, var(--muted-foreground) 55%, transparent) transparent;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
   }
 
   /* Each row is a soft rounded card: a band sweeps in behind it on hover and
-     stays on the open row, wrapping the title, preview, and links together. */
+     stays on the open row, wrapping the title, details, and links together. */
   .project-row {
     position: relative;
     isolation: isolate;
@@ -318,7 +218,6 @@
     transition-timing-function: var(--motion-ease);
   }
 
-  .project-preview,
   .project-details > * {
     opacity: 0;
     transform: translate3d(0, 16px, 0);
@@ -326,25 +225,10 @@
       transform var(--motion-normal) var(--motion-ease);
   }
 
-  .project-panel[data-open="true"] .project-preview,
   .project-panel[data-open="true"] .project-details > * {
     opacity: 1;
     transform: translate3d(0, 0, 0);
     transition-duration: 360ms, 560ms;
-  }
-
-  /* The preview wipes down into view while it fades and rises. */
-  .project-preview {
-    clip-path: inset(0 0 100% 0 round 6px);
-    transition: opacity var(--motion-fast) ease-out,
-      transform var(--motion-normal) var(--motion-ease),
-      clip-path var(--motion-normal) var(--motion-ease);
-  }
-
-  .project-panel[data-open="true"] .project-preview {
-    clip-path: inset(0 0 0 0 round 6px);
-    transition-duration: 360ms, 560ms, 760ms;
-    transition-delay: 45ms;
   }
 
   /* Technology icons pop in one after another once the panel opens. */
@@ -370,22 +254,11 @@
   .project-panel[data-open="true"] .project-details > :nth-child(1) { transition-delay: 90ms; }
   .project-panel[data-open="true"] .project-details > :nth-child(2) { transition-delay: 150ms; }
   .project-panel[data-open="true"] .project-details > :nth-child(3) { transition-delay: 210ms; }
-
-  .project-preview img {
-    transform: scale(1.065);
-    transition: transform var(--motion-entrance) var(--motion-ease);
-  }
-
-  .project-panel[data-open="true"] .project-preview img { transform: scale(1); }
+  .project-panel[data-open="true"] .project-details > :nth-child(4) { transition-delay: 270ms; }
 
   @media (hover: hover) and (pointer: fine) {
-    .motion-link:hover:not(:active),
-    .motion-button:hover:not(:active) { transform: translateY(-2px); }
-    .motion-link:is(:hover, :focus-visible) > svg { transform: translateY(-2px) rotate(-8deg); }
-    .motion-button:is(:hover, :focus-visible) > svg:not(.theme-icon) { transform: translateY(-1px) rotate(-8deg); }
-    .project-trigger:is(:hover, :focus-visible) .project-label { transform: translateX(8px); }
+    .motion-link:hover:not(:active) { transform: translateY(-2px); }
     .project-trigger[aria-expanded="false"]:is(:hover, :focus-visible) .project-toggle { transform: rotate(90deg); }
-    .project-panel[data-open="true"] .project-preview:hover img { transform: scale(1.035); }
     .project-row:has(> .project-trigger:is(:hover, :focus-visible))::before {
       clip-path: inset(0 0 0 0 round var(--radius-xl));
     }
@@ -396,12 +269,11 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    /* Portfolio entrances use fades; closing panels stay present until the
-       fade ends. The Aceternity component retains its source motion behavior. */
+    /* Closing panels stay present until the fade ends. The Aceternity
+       component retains its source motion behavior. */
 
     .hero-word,
-    .hero-subtitle,
-    .hero-links > li { animation: none; }
+    .hero-subtitle { animation: none; }
 
     .project-row::before {
       clip-path: none;
@@ -410,9 +282,6 @@
     }
     .project-row:has(> .project-trigger:is([aria-expanded="true"], :hover, :focus-visible))::before { opacity: 1; }
 
-    .project-preview,
-    .project-panel[data-open="true"] .project-preview { clip-path: none; }
-
     .project-tech > li,
     .project-panel[data-open="true"] .project-tech > li {
       transform: none;
@@ -420,17 +289,7 @@
       transition-delay: 0ms;
     }
 
-    .project-preview img,
-    .project-label,
-    .motion-link,
-    .motion-link > svg,
-    .motion-button,
-    .motion-button > svg:not(.theme-icon) { transform: none !important; }
-
-    .theme-icon {
-      transform: none;
-      transition: opacity var(--motion-fast) ease-out;
-    }
+    .motion-link { transform: none !important; }
 
     .link-label::after { transition: none; }
     .project-toggle { transition: color var(--motion-fast) ease-out; }
@@ -438,14 +297,12 @@
     .project-panel { transition: grid-template-rows 0s linear 180ms; }
     .project-panel[data-open="true"] { transition: grid-template-rows 0s; }
 
-    .project-panel[data-open] .project-preview,
     .project-panel[data-open] .project-details > * {
       transition: opacity var(--motion-fast) ease-out;
       transform: none;
       transition-delay: 0ms;
     }
 
-    .project-panel[data-open="true"] .project-preview,
     .project-panel[data-open="true"] .project-details > * { transition-duration: 240ms; }
 
     .project-panel[data-open="true"] .project-details > :nth-child(n) { transition-delay: 0ms; }
@@ -454,6 +311,4 @@
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto !important; }
-  ::view-transition-old(root) { animation: theme-out 180ms ease-out both; }
-  ::view-transition-new(root) { animation: theme-in 180ms ease-out both; }
 }

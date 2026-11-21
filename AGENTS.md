@@ -5,8 +5,8 @@
 This is Davis Ernst's single-page portfolio, built with Next.js 16.4 (App Router), React 19.3, TypeScript 7, and Tailwind CSS 4.3. Refer to `package.json` and `package-lock.json` for exact dependency versions.
 
 - `src/app/` contains routes, layouts, global styles, SEO metadata, sitemap, and robots configuration.
-- `src/components/home/` contains `HeroSection`, `ProjectsSection`, and `Footer`, composed in `src/app/page.tsx`. The hero flows directly into the projects section.
-- `src/components/` contains shared site components, including `NavigationBar`, `ThemeProvider`, `ModeToggle`, and `ProjectList`. Project content lives in the `projects` array in `ProjectList.tsx`.
+- `src/components/home/` contains `HeroSection`, `ProjectsSection`, and `Footer`, composed in `src/app/page.tsx` as one narrow, centered column with a circular portrait above the name and occupation. Below the projects, the footer has a divider above icon links for GitHub, LinkedIn, Dotfiles, email, and résumé. The page fits one screen (`h-dvh`). The project list handles overflow from closed rows and expanded panels. When opened, a row scrolls into view or aligns to the top if it is taller than the available space.
+- `src/components/` contains shared site components, including `ProjectList`. Project content lives in the `projects` array in `ProjectList.tsx`.
 - `src/components/ui/` contains reusable shadcn/ui and Radix-based primitives.
 - `src/hooks/` and `src/lib/` hold shared hooks, utilities, and structured-data helpers.
 - `public/` stores static photos, fonts, icons, and the downloadable résumé.
@@ -38,27 +38,25 @@ Prefer Tailwind utility classes and existing design tokens over new one-off CSS.
 
 ## Rendering, Styling, and Assets
 
-- Theme tokens and Tailwind configuration live in `src/app/globals.css`. Preserve the cream/navy light and dark palettes and local Times typography unless a design change is requested.
-- Keep the Aceternity aurora geometry and motion faithful to the supplied source, with colors mapped to the application’s cream/navy theme tokens. The standalone `/aurora-demo` route previews the themed component. The portfolio caller overrides height/alignment to fit its content and places foreground content above the effect. The sticky header matches the solid theme background; aurora must not show through it.
-- Shared motion timings and easing live in `src/app/globals.css`. The hero has a CSS-only load sequence: the name's words blur and rise in, then the subtitle and links follow. The portrait is static: it has no entrance or scroll animation. Project rows and the footer render without scroll reveals, so all content is visible without JavaScript, in print, and in full-page captures. Project rows sweep a highlight band on hover and keep it while open; opening a panel wipes the preview down into view and pops the technology icons in sequence. Hover and panel motion follow the existing classes (`motion-link`, `motion-button`, `project-*`, `project-tech`). Under reduced motion, the hero sequence, wipes, and icon pops are off; panels keep their fades.
-- Theme changes use the View Transition API: the new theme grows in a circle from the toggle, centered by `--theme-x`/`--theme-y`/`--theme-r`, which `ModeToggle` sets. Transitions are paused during an active view transition so colors don't fade inside the new snapshot. Reduced motion uses a short crossfade, and unsupported browsers switch immediately. Preserve focus and the final theme when toggles interrupt a transition.
-- The sticky header contains only the theme switch on all screen sizes. The hero flows directly into the project list, which has a screen-reader-only Projects heading and no visible one. Keep section anchor targets outside transformed wrappers; `/#home` and `/#projects` remain available for incoming fragment links, with `scroll-padding-top` matching the header's 65px height.
-- Use static image imports with `next/image`, blur placeholders, meaningful alt text, and accurate responsive `sizes`. Preserve the hero portrait preload. Keep project panel contents mounted for smooth first-open and closing transitions; previews load at low priority as the list approaches the viewport, with the active preview promoted to high priority.
+- Theme tokens and Tailwind configuration live in `src/app/globals.css`. The site has one fixed palette: navy background with cream text, set on `:root`. There is no light theme or theme switch. `<html>` carries the `dark` class so the Aceternity aurora uses its dark variant. Preserve this and the local Times typography unless a design change is requested.
+- Keep the Aceternity aurora geometry and motion faithful to the supplied source, with colors mapped to the application’s cream/navy theme tokens. The standalone `/aurora-demo` route previews the themed component. The portfolio caller overrides height/alignment to fit its content and places foreground content above the effect.
+- Shared motion timings and easing live in `src/app/globals.css`. The hero portrait is static. The name's words blur and rise in using CSS, then the occupation line follows. Project rows and the footer render without scroll reveals. Project rows sweep a highlight band on hover and keep it while open. Opening a panel fades in its preview image, description, technology icons, and GitHub or live-site links. Hover and panel motion follow the existing classes (`motion-link`, `project-*`, `project-tech`). Under reduced motion, the hero sequence and icon pops are off and panels keep their fades.
 - Project panels use a fade-only transition under reduced motion, including a fade before collapsing on close. Do not remove all panel transitions in this mode; keep spatial transforms disabled.
 - Keep original photos and `public/fonts/times.ttf`. After changing source assets, run `python -m pip install Pillow 'fonttools[woff]'` and `python scripts/optimize-assets.py`; update the script's source list for new images. Include regenerated web assets in the change. Normal builds do not need Python.
 - `scripts/generate-aurora.py` and the generated ambient WebP textures are retained as an unused alternative. The current aurora uses application theme colors with the Aceternity utilities, with `--animate-aurora` registered in the Tailwind theme.
 - Security headers and allowed remote image hosts are configured in `next.config.ts`.
+- Use static image imports with `next/image` and meaningful alt text for any future images.
 - Keep identity, profile links, and site URLs consistent across page content, layout metadata, and `src/lib/structured-data.ts`. `NEXT_PUBLIC_BASE_URL` overrides the default `https://davisernst.com` for sitemap and robots output only.
 
 ## Testing Guidelines
 
 No automated test framework or coverage threshold is currently configured. Treat linting and a successful production build as required checks for code changes; documentation-only edits can be checked with `git diff --check` and a review against the source.
 
-Manually verify affected sections in both light and dark themes, at mobile and desktop widths. When relevant, check:
+Manually verify affected sections at mobile and desktop widths. When relevant, check:
 
-- Theme switching and keyboard focus on mobile and desktop, plus direct hash loads below the sticky header.
-- Project panel expansion/collapse, keyboard focus, and inaccessible focus targets in closed panels.
-- Image loading, résumé download, social links, and email links in the hero and footer.
+- Keyboard focus on mobile and desktop, plus direct `/#projects` hash loads.
+- Project list scrolling, preview image loading, project panel expansion/collapse, keyboard focus, and inaccessible focus targets in closed panels.
+- Résumé download, dotfiles, social, and email links in the footer.
 - Reduced-motion behavior and content visibility before hydration or with JavaScript disabled. The supplied Aceternity source has no reduced-motion handling: its demo entrance and aurora loop continue under reduced motion. Preserve source behavior unless asked to change it.
 
 ## Commit & Pull Request Guidelines

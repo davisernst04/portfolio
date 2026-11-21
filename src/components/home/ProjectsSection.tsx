@@ -4,10 +4,13 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="px-4 max-w-6xl mx-auto pb-10 md:pb-12"
       aria-labelledby="projects-heading"
+      className="flex min-h-0 flex-col"
     >
-      <h2 id="projects-heading" className="sr-only">
+      <h2
+        id="projects-heading"
+        className="mb-2 shrink-0 text-sm uppercase tracking-[0.2em]"
+      >
         Projects
       </h2>
       <ProjectList />

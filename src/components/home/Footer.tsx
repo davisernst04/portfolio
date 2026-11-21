@@ -1,40 +1,38 @@
-import { Mail } from "lucide-react";
-import { SiGithub } from "react-icons/si";
+import { FileDown, Mail, Terminal } from "lucide-react";
 import { FaLinkedin } from "react-icons/fa6";
+import { SiGithub } from "react-icons/si";
 
-const socialLinks = [
-  { href: "https://github.com/davisernst04", label: "GitHub profile", Icon: SiGithub, external: true },
-  { href: "https://www.linkedin.com/in/davisernst", label: "LinkedIn profile", Icon: FaLinkedin, external: true },
-  { href: "mailto:davis.ernst@outlook.com", label: "Send email", Icon: Mail, external: false },
+const linkClass =
+  "motion-link inline-flex items-center gap-1.5 rounded-sm text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring";
+
+const links = [
+  { href: "https://github.com/davisernst04", label: "GitHub", Icon: SiGithub, external: true },
+  { href: "https://www.linkedin.com/in/davisernst", label: "LinkedIn", Icon: FaLinkedin, external: true },
+  { href: "https://github.com/davisernst04/dotfiles", label: "Dotfiles", Icon: Terminal, external: true },
+  { href: "mailto:davis.ernst@outlook.com", label: "Email", Icon: Mail },
+  { href: "/DavisErnstResume.pdf", label: "Résumé", Icon: FileDown, download: true },
 ];
 
 export default function Footer() {
   return (
-    <footer className="px-4 sm:px-6 max-w-6xl mx-auto" role="contentinfo">
-      <div className="flex flex-col sm:flex-row justify-between items-center py-8 gap-4">
-        <div className="flex flex-col items-center sm:items-start">
-          <p className="text-lg font-semibold">Davis Ernst</p>
-        </div>
-        <nav aria-label="Social media links">
-          <ul className="flex gap-5 items-center list-none m-0 p-0">
-            {socialLinks.map(({ href, label, Icon, external }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  aria-label={label}
-                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="motion-link inline-flex rounded-sm text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-                >
-                  <Icon aria-hidden className="w-5 h-5" />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-      <div className="text-center py-4 text-sm text-muted-foreground">
-        <p>© {new Date().getFullYear()} Davis Ernst. All rights reserved.</p>
-      </div>
+    <footer className="mt-[clamp(0.5rem,2dvh,1.25rem)] shrink-0 border-t border-border pt-2 text-sm">
+      <nav aria-label="Profile links">
+        <ul className="m-0 flex list-none flex-wrap gap-x-2 gap-y-2 p-0 sm:gap-x-6">
+          {links.map(({ href, label, Icon, external, download }) => (
+            <li key={label}>
+              <a
+                href={href}
+                {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                {...(download ? { download: "DavisErnstResume.pdf" } : {})}
+                className={linkClass}
+              >
+                <Icon aria-hidden className="size-4" />
+                <span className="link-label">{label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </footer>
   );
 }

@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
 
 const times = localFont({
   src: "../../public/fonts/times-latin.woff2",
@@ -57,10 +56,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#faf3e0" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a192f" },
-  ],
+  themeColor: "#0a192f",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -69,20 +66,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={times.variable}
-    >
-      <body className="m-0 antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-        >
-          {children}
-        </ThemeProvider>
-      </body>
+    <html lang="en" className={`dark ${times.variable}`}>
+      <body className="m-0 antialiased">{children}</body>
     </html>
   );
 }
